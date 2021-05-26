@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" media="screen and (min-width: 601px)" href="index.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>E-Field Simulator</title>
+   </head>
+   <body>
+     <ul id="contextMenu" class="contextMenu" style="top:0;left:0;display: none;"></ul>
+
+     <div class="bottomButtons">
+       <i onclick="togglePopUp()" class="fas fa-info"></i>
+       <!-- <i onclick="loop();looping = true;" class="fas fa-play"></i>
+       <i onclick="noLoop();looping = false;" class="fas fa-pause"></i> -->
+       <i onclick="toggleFullscreen();" class="fas fa-expand" id="fullscreen"></i>
+       <i onclick="saveAsPNG();" class="fas fa-download"></i>
+       <i onclick="location.reload();" class="fas fa-redo-alt"></i>
+     </div>
+
+   </body>
+   <script src="main.js"></script>
+   <script src="variables.js"></script>
+   <script src="presetConfigs.js"></script>
+   <script src="sidePanel.js"></script>
+   <script src="mouseKeyboardEvents.js"></script>
+   <script src="button.js"></script>
+   <script src="checkBox.js"></script>
+   <script src="charge.js"></script>
+   <script src="pointCharge.js"></script>
+   <script src="testCharge.js"></script>
+   <script src="contextMenu.js"></script>
+   <script src="equipotentialLines.js"></script>
+   <script src="voltage.js"></script>
+   <script src="fieldLines.js"></script>
+   <script src="fieldVectors.js"></script>
+   <script src="conductor.js"></script>
+   <script src="p5.min.js"></script>
+   
+   <!-- <script src="https://kit.fontawesome.com/5ab7058819.js" crossorigin="anonymous"></script> -->
+</html>
