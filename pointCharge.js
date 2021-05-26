@@ -11,20 +11,20 @@ function createCharge(position, charge)
     }
 }
 
+
 function displayCharges() // this displays all the charges on screen
 {
     charges.forEach(charge => {
 
-        charge.display()
+        charge.display();
 
-        if (charges.dragging) // if a charge is dragged, recalculate everything that's displayed on screen
+        if (charges.dragging) // if a charge is being dragged, recalculate everything that's displayed on screen
         {
             createDataFromSidePanel();
         }
     })
-
-    
 }
+
 
 function removeCharge(i) // deletes a charge from the charges array and removes its slider
 {
@@ -63,6 +63,8 @@ class PointCharge extends Charge
     {
         super(position, charge)
 
+        this.radius = chargeRadius;
+
         this.selected = false;
         this.dragging = false;
 
@@ -81,7 +83,7 @@ class PointCharge extends Charge
 
         if (pointCharge.selected)
         {
-            pointCharge.slider.position(pointCharge.position.x - 75, pointCharge.position.y + (chargeSize/2) + 10, "fixed");
+            pointCharge.slider.position(pointCharge.position.x - 75, pointCharge.position.y + chargeRadius + 10, "fixed");
             pointCharge.charge = pointCharge.slider.value();
         }
 
@@ -98,24 +100,25 @@ class PointCharge extends Charge
             }
 
             // set the fill color of the charge
-            let fillColor = pointCharge.charge > 0 ? positiveChargeColor : negativeChargeColor
-            if (pointCharge.charge < 0)
+            let fillColor = (pointCharge.charge > 0) ? positiveChargeColor : negativeChargeColor
+            if (pointCharge.charge == 0)
             {
-                fillColor = negativeChargeColor;
+                fillColor = neutralChargeColor;
             }
+            fill(fillColor);
 
-            ellipse(pointCharge.x, pointCharge.y, chargeSize, chargeSize);
-            
+            ellipse(pointCharge.position.x, pointCharge.position.y, chargeDiameter, chargeDiameter);
 
             textSize(16);
+            textFont(buttonFont);
             fill("white");
             noStroke();
             if (pointCharge.charge > 0)
             {
                 let chargeStringLength = pointCharge.charge.toString().length + 1.5;
-                let chargeToShow = "+" + pointCharge.charge; 
-                let textPositionX = pointCharge.x - (chargeStringLength * 4);
-                let textPositionY = pointCharge.y + 7;
+                let chargeToShow = "+" + pointCharge.charge.toString(); 
+                let textPositionX = pointCharge.position.x - (chargeStringLength * 4);
+                let textPositionY = pointCharge.position.y + 7;
 
                 text(chargeToShow, textPositionX, textPositionY);
             }

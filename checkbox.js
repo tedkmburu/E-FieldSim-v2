@@ -1,3 +1,13 @@
+function displayCheckBoxes() // displays all the checkboxes
+{
+    checkBoxes.forEach(checkBox => {
+        if (checkBox.visible) 
+        {
+            checkBox.display();
+        }
+    })
+}
+
 class CheckBox
 {
     constructor(props)
@@ -6,7 +16,7 @@ class CheckBox
         this.width = props.width;
         this.height = props.height;
 
-        this.visibility = props.visibility || "visible";
+        this.visible = props.visible || true;
 
         this.text = props.text; // text shown beside the checkBox
         this.value = props.value; // boolean value for the checkBox
@@ -20,16 +30,25 @@ class CheckBox
         let checkBox = this;
         
         push();
-            stroke(0)
+            
+            strokeWeight(1)
             if (this.value)
             {
                 fill("#0075FF");
+                stroke("#0075FF")
             }
             else 
             {
                 fill(255);
+                stroke("#767676")
             }
+
             rect(checkBox.position.x, checkBox.position.y, checkBox.height, checkBox.height, 2);
+
+            stroke(255)
+            noFill()
+            rect(checkBox.position.x - 1, checkBox.position.y - 1, checkBox.height + 2, checkBox.height + 2, 2);
+            
             if (this.value)
             {
                 stroke(255)
@@ -51,9 +70,9 @@ class CheckBox
 
             fill(0);
             textAlign(LEFT, CENTER);
-            textSize(13);
+            textSize(16);
             noStroke();
-            text(checkBox.text, checkBox.position.x + (1.25 * checkBox.height),  checkBox.position.y + (checkBox.height / 2) );
+            text(checkBox.text, checkBox.position.x + (1.4 * checkBox.height),  checkBox.position.y + (checkBox.height / 2) );
         pop();  
         
     }
@@ -61,7 +80,7 @@ class CheckBox
     clicked()
     {
         let checkBox = this;
-        if (checkBox.visibility != "hidden") 
+        if (checkBox.visible) 
         {
             checkBox.value = !checkBox.value;
             checkBox.onClick()

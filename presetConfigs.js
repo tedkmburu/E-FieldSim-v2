@@ -2,8 +2,8 @@ function createPreset(preset)
 {
     removeAllCharges();
 
-    let centerXRounded = floorToNearestGrid((width/2) - (chargeSize/2)) - 100;
-    let centerYRounded = floorToNearestGrid((height/2) - (chargeSize/2));
+    let centerXRounded = floorToNearestGrid((width/2) - chargeRadius) - 100;
+    let centerYRounded = floorToNearestGrid((height/2) - chargeRadius);
     let center = createVector(centerXRounded,centerYRounded);
 
     if (preset == "single")
@@ -41,15 +41,15 @@ function createPreset(preset)
     {
         for (let i = 0; i < 4; i++)
         {
-            createCharge(createVector(center.x + (i * (chargeSize + 35)) - 150, center.y + i), 4);
+            createCharge(createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + i), 4);
         }
     }
     else if (preset == "dipole row")
     {
         for (let i = 0; i < 4; i++)
         {
-            createCharge(createVector(center.x + (i * (chargeSize + 35)) - 150, center.y - 100 + i), 4);
-            createCharge(createVector(center.x + (i * (chargeSize + 35)) - 150, center.y + 100 + i), -4);
+            createCharge(createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y - 100 + i), 4);
+            createCharge(createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + 100 + i), -4);
         }
     }
     createDataFromSidePanel();

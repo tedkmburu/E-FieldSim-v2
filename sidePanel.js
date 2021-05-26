@@ -4,38 +4,45 @@ function createSidePanel()
     buttons = []
     checkBoxes = []
 
-    let butonHalfWidth = 125
-    let buttonFullWidth = 260
-    let buttonHeight = 40
+    let butonHalfWidth = 100;
+    let buttonFullWidth = 205;
+    let buttonHeight = 35;
+
+    let checkBoxWidth = 100;
+
+    let col1 = width - 260;
+    let col2 = width - 155;
 
     buttons.push(
-        new Button({position: createVector(width - 280, 10), width: buttonHeight / 2, height: buttonHeight / 2, text: "Menu", onClick: function(){ menuOpen = !menuOpen; console.log(menuOpen); } }))
+        new Button({position: createVector(width - 280, 10), width: buttonHeight / 2, height: buttonHeight / 2, text: "Menu", onClick: function(){ menuOpen = !menuOpen; } }))
 
     checkBoxes.push(
-        new CheckBox({position: createVector(width - 280, 50), height: 25, text: "Field Lines", value: false, onClick: function(){ showFieldLinesCheckBox = this.value; if(this.value) { createFieldLines() } } }),
-        new CheckBox({position: createVector(width - 280, 80), height: 25, text: "Field Vectors", value: false, onClick: function(){ showFieldVectorsCheckBox = this.value; if(this.value) { createFieldVectors() } } }),
-        new CheckBox({position: createVector(width - 280, 110), height: 25, text: "Equipotential Lines", value: false, onClick: function(){ showEquipotentialLinesCheckBox = this.value; if(this.value) { createEquipotentialLines() } } }),
-        new CheckBox({position: createVector(width - 280, 140), height: 25, text: "Voltage", value: false, onClick: function(){ showVoltageCheckBox = this.value; if(this.value) { createVoltageMap() } } }),
-        new CheckBox({position: createVector(width - 280, 170), height: 25, text: "Show Grid", value: true, onClick: function(){ createGridCheckBox = this.value; } }),
-        new CheckBox({position: createVector(width - 250, 200), height: 25, text: "Snap to Grid", value: false, onClick: function(){ snapChargeToGrid = this.value; if(this.value) { checkBoxes[4].value = true; createGridCheckBox = true;} } }))
+        new CheckBox({position: createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines", value: false, onClick: function(){ showFieldLinesCheckBox = this.value; if(this.value) { createFieldLines() } } }),
+        new CheckBox({position: createVector(col1, 75), height: 20, width: checkBoxWidth, text: "Field Vectors", value: false, onClick: function(){ showFieldVectors = this.value; if(this.value) { createFieldVectors() } } }),
+        new CheckBox({position: createVector(col1, 100), height: 20, width: checkBoxWidth, text: "Equipotential Lines", value: false, onClick: function(){ showEquipotentialLinesCheckBox = this.value; if(this.value) { createEquipotentialLines() } } }),
+        new CheckBox({position: createVector(col1, 125), height: 20, width: checkBoxWidth, text: "Voltage", value: false, onClick: function(){ showVoltageCheckBox = this.value; if(this.value) { createVoltageMap() } } }),
+        new CheckBox({position: createVector(col1, 150), height: 20, width: checkBoxWidth, text: "Show Grid", value: true, onClick: function(){ createGridCheckBox = this.value; } }),
+        new CheckBox({position: createVector(col1 + 20, 175), height: 20, width: checkBoxWidth, text: "Snap to Grid", value: false, onClick: function(){ snapToGrid = this.value; if(this.value) { checkBoxes[4].value = true; createGridCheckBox = true;} } }))
 
     buttons.push(
-        new Button({position: createVector(width - 280, 250), width: butonHalfWidth, height: buttonHeight, text: "Single", onClick: function(){ createPreset('single') } }),
-        new Button({position: createVector(width - 145, 250), width: butonHalfWidth, height: buttonHeight, text: "Dipole", onClick: function(){ createPreset('dipole') } }),
-        new Button({position: createVector(width - 280, 300), width: butonHalfWidth, height: buttonHeight, text: "Row", onClick: function(){ createPreset('row') } }),
-        new Button({position: createVector(width - 145, 300), width: butonHalfWidth, height: buttonHeight, text: "Dipole Row", onClick: function(){ createPreset('dipole row') } }),
-        new Button({position: createVector(width - 280, 350), width: buttonFullWidth, height: buttonHeight, text: "Remove All Charges", onClick: function(){ createPreset(); testCharges=[]; equiPoints = []; } }))
+        new Button({position: createVector(col1, 255), width: butonHalfWidth, height: buttonHeight, text: "Single", onClick: function(){ createPreset('single') } }),
+        new Button({position: createVector(col2, 255), width: butonHalfWidth, height: buttonHeight, text: "Dipole", onClick: function(){ createPreset('dipole') } }),
+        new Button({position: createVector(col1, 295), width: butonHalfWidth, height: buttonHeight, text: "Row", onClick: function(){ createPreset('row') } }),
+        new Button({position: createVector(col2, 295), width: butonHalfWidth, height: buttonHeight, text: "Dipole Row", onClick: function(){ createPreset('dipole row') } }),
+        new Button({position: createVector(col1, 335), width: buttonFullWidth, height: buttonHeight, text: "Remove All Charges", onClick: function(){ createPreset(); testCharges=[]; equiPoints = []; } }))
 
     checkBoxes.push(
-        new CheckBox({position: createVector(width - 280, 415), height: 25, text: "Test Charge Mode", value: false, onClick: function(){ createTestChargeCheckBox = this.value; } }))
+        new CheckBox({position: createVector(col1, 415), height: 20, width: checkBoxWidth, text: "Test Charge Mode", value: false, onClick: function(){ testChargeMode = this.value; } }))
 
-    buttons.push(new Button({position: createVector(width - 280, 450), width: buttonFullWidth, height: buttonHeight, text: "Create Test Charge Map", onClick: function(){ createTestChargeCheckBox = true; createTestChargeMap(); checkBoxes[6].value = true; createTestChargeCheckBox = true;}  }),
-        new Button({position: createVector(width - 280, 500), width: buttonFullWidth, height: buttonHeight, text: "Clear Test Charges", onClick: function(){ testCharges = []; } }),
-    
-        new Button({position: createVector(width - 280, 600), width: buttonFullWidth, height: buttonHeight, text: "Add Conductor", onClick: function(){ createMetal('='); createDataFromSidePanel(); } }),
-        new Button({position: createVector(width - 280, 650), width: buttonFullWidth, height: buttonHeight, text: "Add + Conductor", onClick: function(){ createMetal('+'); createDataFromSidePanel(); } }),
-        new Button({position: createVector(width - 280, 700), width: buttonFullWidth, height: buttonHeight, text: "Add - Conductor", onClick: function(){ createMetal('-'); createDataFromSidePanel(); } }),
-        new Button({position: createVector(width - 280, 750), width: buttonFullWidth, height: buttonHeight, text: "Remove All Conductors", onClick: function(){ metals=[]; createDataFromSidePanel(); } }))
+    buttons.push(
+        new Button({position: createVector(col1, 440), width: buttonFullWidth, height: buttonHeight, text: "Create Test Charge Map", onClick: function(){ testChargeMode = true; createTestChargeMap(); checkBoxes[6].value = true; testChargeMode = true;}  }),
+        new Button({position: createVector(col1, 480), width: buttonFullWidth, height: buttonHeight, text: "Clear Test Charges", onClick: function(){ testCharges = []; } }),
+
+        new Button({position: createVector(col1, 550), width: buttonFullWidth, height: buttonHeight, text: "Add Conductor", onClick: function(){ createMetal('='); createDataFromSidePanel(); } }),
+        new Button({position: createVector(col1, 590), width: buttonFullWidth, height: buttonHeight, text: "Add + Conductor", onClick: function(){ createMetal('+'); createDataFromSidePanel(); } }),
+        new Button({position: createVector(col1, 630), width: buttonFullWidth, height: buttonHeight, text: "Add - Conductor", onClick: function(){ createMetal('-'); createDataFromSidePanel(); } }),
+        new Button({position: createVector(col1, 670), width: buttonFullWidth, height: buttonHeight, text: "Remove All Conductors", onClick: function(){ metals=[]; createDataFromSidePanel(); } }))
+
 }
 
 
@@ -51,33 +58,33 @@ function displaySidePanel()
     {
         if (sidePanelWidth < 300) 
         {
-        sidePanelWidth += moveAmmount;
+            sidePanelWidth += moveAmmount;
 
-        buttons.forEach(button => 
-        {
-            button.x -= moveAmmount * moveScale;
-        });
-        buttons[0].x += burgerMove;
-        
-        checkBoxes.forEach(checkBox => {
-            checkBox.x -= moveAmmount * moveScale;
-        })
+            buttons.forEach(button => 
+            {
+                button.position.x -= moveAmmount * moveScale;
+            });
+            buttons[0].position.x += burgerMove;
+            
+            checkBoxes.forEach(checkBox => {
+                checkBox.position.x -= moveAmmount * moveScale;
+            })
         }  
     }
     else
     {
         if (sidePanelWidth > 50) 
         {
-        buttons.forEach(button => 
-        {
-            button.x += moveAmmount * moveScale;
-        });
-        buttons[0].x -= burgerMove;
-        
-        checkBoxes.forEach(checkBox => {
-            checkBox.x += moveAmmount * moveScale;
-        })
-        sidePanelWidth -= moveAmmount;
+            buttons.forEach(button => 
+            {
+                button.position.x += moveAmmount * moveScale;
+            });
+            buttons[0].position.x -= burgerMove;
+            
+            checkBoxes.forEach(checkBox => {
+                checkBox.position.x += moveAmmount * moveScale;
+            })
+            sidePanelWidth -= moveAmmount;
         }  
     }
 
@@ -85,17 +92,13 @@ function displaySidePanel()
     push()
       fill(255)
       rect(width - sidePanelWidth, 0, sidePanelWidth, height)
+
+      fill(0);
+      noStroke();
+      textSize(16);
+      
+      text("Premade Configurations: " , buttons[1].position.x, 250);
     pop()
-
-    // displays all the buttons
-    buttons.forEach(button => {
-        button.display()
-    })
-
-    // displays all the checkboxes
-    checkBoxes.forEach(checkBox => {
-        checkBox.display()
-    })
 }
 
 
@@ -105,18 +108,12 @@ function createDataFromSidePanel() // after reading the checkboxes in the side p
 {
     noPositiveCharges = !charges.some(charge => charge.charge >= 0); // if a positive charge exists, this will be false
 
-    if (showVoltageCheckBox)
-    {
-        createVoltageMap();
-    }
-    if (showFieldLinesCheckBox)
-    {
-        createFieldLines();
-    }
-    if (showFieldVectorsCheckBox)
-    {
-        createFieldVectors();
-    }
+    if (showVoltageCheckBox) createVoltageMap();
+    
+    if (showFieldLinesCheckBox) createFieldLines();
+    
+    if (showFieldVectors) createFieldVectors();
+    
     if (showEquipotentialLinesCheckBox)
     {
         showEquipotentialLinesAt = [];
@@ -128,10 +125,6 @@ function createDataFromSidePanel() // after reading the checkboxes in the side p
 
 function displayDataFromSidePanel() // After creating data based off of the side panel, this function will display it. It's called every frame
 {
-//   if (snapChargeToGridCheckBox)
-//   {
-//     select("#createGrid").checked(true);
-//   }
 
   if (createGridCheckBox) { displayGrid(); }
 
@@ -141,9 +134,9 @@ function displayDataFromSidePanel() // After creating data based off of the side
 
   if (showFieldLinesCheckBox) { displayFieldLines(); }
 
-  if (showFieldVectorsCheckBox) { displayFieldVectors(); }
+  if (showFieldVectors) { displayFieldVectors(); }
 
-  if (createTestChargeCheckBox) { displayTestCharges(); }
+  if (testChargeMode) { displayTestCharges(); }
 
   if (createWallsCheckBox) { displayWalls(); }
 }

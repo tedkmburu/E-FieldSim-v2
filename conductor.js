@@ -71,7 +71,7 @@ class Conductor
             rect(this.position.x - 10, this.position.y - 10, this.size.x + 20, this.size.y + 20)
             // if (this.selected) 
             // {
-            //     createDataFromMenu();
+            //     createDataFromSidePanel();
             //     noStroke()
             //     fill(255)
             //     ellipse(this.position.x + this.size.x + 10, this.position.y + this.size.y + 10, 10, 10)
@@ -79,7 +79,7 @@ class Conductor
 
             if (this.dragging) 
             {
-                createDataFromMenu()   
+                createDataFromSidePanel()   
             }
 
             let bumpWhenHitEdge = 1
