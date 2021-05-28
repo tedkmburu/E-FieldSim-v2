@@ -315,11 +315,12 @@ function doubleClicked()
 
     if (notTouching && !onConductor && mouseX < windowWidth - sidePanelWidth)
     {
-      createCharge(mousePosition);
+      createPointCharge(mousePosition);
 
     }
   }
 }
+
 
 
 function keyPressed()
@@ -350,11 +351,11 @@ function keyPressed()
   {
     if (keyCode == 109)
     {
-      createCharge(createVector(mouseX,mouseY),-5);
+      createPointCharge(createVector(mouseX,mouseY),-5);
     }
     if (keyCode == 107)
     {
-      createCharge(createVector(mouseX,mouseY),5);
+      createPointCharge(createVector(mouseX,mouseY),5);
     }
   }
   

@@ -20,7 +20,7 @@ function createContextMenu()
     else   // a charge has not been right clicked so create a 'add charge' button
     {
         contextMenuButtons.push(
-            new Button({position: createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: LEFT, text: "Add Charge", onClick: function(){ createCharge(contextMenuPosition) } }))
+            new Button({position: createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: LEFT, text: "Add Charge", onClick: function(){ createPointCharge(contextMenuPosition) } }))
     }
     
     contextMenuButtons.push(

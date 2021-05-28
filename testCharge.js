@@ -1,4 +1,4 @@
-function displayCursor()
+function displayCursor()  // if testcharge mode is on, this wil show a tresx
 {
     if (testChargeMode && mouseX < width - sidePanelWidth)
     {
@@ -25,7 +25,7 @@ function displayTestCharges()
         let isTouchingPointCharge = charges.some(charge => {
             let distance = p5.Vector.dist(testCharge.position, charge.position);
             
-            return (distance - (testChargeDiameter/2) < chargeRadius && charge.charge != 0)
+            return (distance - (testChargeDiameter/2) < chargeRadius && charge.charge < 0)
         })
 
         if (!isTouchingPointCharge)

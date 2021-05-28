@@ -1,4 +1,4 @@
-function createCharge(position, charge)
+function createPointCharge(position, charge)
 {
     if (charge != null) // this will run when charges are created from the side panel
     {
