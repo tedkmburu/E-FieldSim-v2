@@ -1,12 +1,14 @@
 const k = 89900; // k = 8.99 * Math.pow(10, -9) adjusted because all charges are in micro coulombs;
 
+const gridSize = 25;
 const chargeDiameter = 40; // diameter of a point charge
 const chargeRadius = chargeDiameter / 2;
-const gridSize = 25;
 const conductorParticleCharge = 1;
 const testChargeDiameter = 10;
 const testChargeCharge = 0.000005; //q = 5 micro coulombs;
 const fieldLinesPerCoulomb = 4;
+const equiLinesAccuracy = 0.5; 
+const equiLinesLimit = 4000;
 
 const positiveChargeColor = "rgb(210, 41, 45)";
 const negativeChargeColor = "rgb(23, 97, 176)";
@@ -41,12 +43,11 @@ let contextMenuPosition;
 
 
 
-let showFieldLinesCheckBox, 
+let showFieldLines, 
 showFieldVectors, 
-showEquipotentialLinesCheckBox, 
-showVoltageCheckBox, 
+showEquipotentialLines, 
+showVoltage, 
 testChargeMode, 
-createGridCheckBox, 
-createWallsCheckBox, 
+createGrid, 
 showPopUp, 
 fullscreen;
