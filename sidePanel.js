@@ -19,7 +19,7 @@ function createSidePanel()
     checkBoxes.push(
         new CheckBox({position: createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines", value: false, onClick: function(){ showFieldLinesCheckBox = this.value; if(this.value) { createFieldLines() } } }),
         new CheckBox({position: createVector(col1, 75), height: 20, width: checkBoxWidth, text: "Field Vectors", value: false, onClick: function(){ showFieldVectors = this.value; if(this.value) { createFieldVectors() } } }),
-        new CheckBox({position: createVector(col1, 100), height: 20, width: checkBoxWidth, text: "Equipotential Lines", value: false, onClick: function(){ showEquipotentialLinesCheckBox = this.value; if(this.value) { createEquipotentialLines() } } }),
+        new CheckBox({position: createVector(col1, 100), height: 20, width: checkBoxWidth, text: "Equipotential Lines", value: true, onClick: function(){ showEquipotentialLinesCheckBox = this.value; if(this.value) { createEquipotentialLines() } } }),
         new CheckBox({position: createVector(col1, 125), height: 20, width: checkBoxWidth, text: "Voltage", value: false, onClick: function(){ showVoltageCheckBox = this.value; if(this.value) { createVoltageMap() } } }),
         new CheckBox({position: createVector(col1, 150), height: 20, width: checkBoxWidth, text: "Show Grid", value: true, onClick: function(){ createGridCheckBox = this.value; } }),
         new CheckBox({position: createVector(col1 + 20, 175), height: 20, width: checkBoxWidth, text: "Snap to Grid", value: false, onClick: function(){ snapToGrid = this.value; if(this.value) { checkBoxes[4].value = true; createGridCheckBox = true;} } }))

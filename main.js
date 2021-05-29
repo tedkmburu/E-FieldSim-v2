@@ -13,7 +13,7 @@ function setup()  // This function only runs once when the page first loads.
 
     document.getElementById("defaultCanvas0").setAttribute("oncontextmenu", "rightClick(); return false"); // disables the right click menu before I create my own
     
-    createPreset("single"); // creates one charge at the center of the screen when the simulation first starts up
+    createPreset("dipole"); // creates one charge at the center of the screen when the simulation first starts up
 
     frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
 }
