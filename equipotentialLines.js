@@ -26,24 +26,17 @@ function getEquiLinePoints(originPoint, direction, currentPoint, numberOfLoops, 
     forceVector.rotate(90);
     forceVector.setMag(equiLinesAccuracy);
 
+
     let nextPoint = p5.Vector.add(currentPoint, forceVector);
     arrayOfPoints.push(nextPoint);
 
-    let distanceToOriginPoint = p5.Vector.dist(currentPoint, originPoint)
 
-    if (distanceToOriginPoint < 10 && numberOfLoops > 100) 
-    {
-        numberOfLoops = equiLinesLimit;
-    }
+    let distanceToOriginPoint = p5.Vector.dist(currentPoint, originPoint)
+    if (distanceToOriginPoint < 10 && numberOfLoops > 100) numberOfLoops = equiLinesLimit;
+        
     
-    if (numberOfLoops < equiLinesLimit) 
-    {
-        getEquiLinePoints(originPoint, direction, nextPoint, numberOfLoops + 1, arrayOfPoints)
-    }
-    else
-    {
-        equiLines.push(new EquiLine(arrayOfPoints));
-    }
+    if (numberOfLoops < equiLinesLimit) getEquiLinePoints(originPoint, direction, nextPoint, numberOfLoops + 1, arrayOfPoints)
+    else equiLines.push(new EquiLine(arrayOfPoints));
 }
 
 
@@ -57,17 +50,15 @@ class EquiLine
 
     display()
     {
+        let points = this.equiLinePoints
         push()
-
             beginShape();
                 noFill()
-                let strokeColor = voltageAtPoint(this.equiLinePoints[0]) > 0 ? positiveChargeColor : negativeChargeColor ;
+                let strokeColor = voltageAtPoint(points[0]) > 0 ? positiveChargeColor : negativeChargeColor ;
                 stroke(strokeColor);
-                strokeWeight(2)
+                strokeWeight(3)
 
-                this.equiLinePoints.forEach((point, i) => {
-                    curveVertex(point.x, point.y);
-                });
+                points.forEach(point => curveVertex(point.x, point.y));
             endShape();
         
         pop()
