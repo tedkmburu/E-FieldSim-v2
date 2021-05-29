@@ -21,22 +21,23 @@ function setup()  // This function only runs once when the page first loads.
 
 
 function draw() // this function runs every frame. Everything on screen starts here.
-{    
-    background(0); // sets the background color to black
-    moveKeys(); // if the arrow keys are pressed, the selected charge moves
-    
-    displayDataFromSidePanel(); // displays whatever settings are selected in the side panel
-    displayConductors();
-    displayCharges();
-    displayFrameRate();
-    displaySidePanel();
-    displayCheckBoxes();
-    displayButtons();
+{  
+  clear();  
+  //background(0); // sets the background color to black
+  moveKeys(); // if the arrow keys are pressed, the selected charge moves
+  
+  displayDataFromSidePanel(); // displays whatever settings are selected in the side panel
+  displayConductors();
+  displayCharges();
+  displayFrameRate();
+  displaySidePanel();
+  displayCheckBoxes();
+  displayButtons();
 
-    if (showContextMenu) displayContextMenu();
-    if (!focused) hideContextMenu();
+  if (showContextMenu) displayContextMenu();
+  if (!focused) hideContextMenu();
 
-    displayCursor(); // if in test charge mode, replace cursor with test charge. Otherwise, keep it normal
+  displayCursor(); // if in test charge mode, replace cursor with test charge. Otherwise, keep it normal
 }
 
 

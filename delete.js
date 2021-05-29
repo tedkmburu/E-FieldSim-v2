@@ -138,3 +138,87 @@ class EquiLine
     }
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////// new voltage
+
+
+function voltageAtPoint(point)
+{
+    let voltage = 0;
+
+    charges.forEach(charge => {
+        let kq = (charge.charge / 10) * k;
+        let r = p5.Vector.dist(point, charge.position) / gridSize;
+        let v = kq / r;
+
+        voltage += v;
+    })
+
+
+    return voltage;
+}
+
+
+function displayVoltage()
+{
+    charges.forEach(charge => {
+        let radius = chargeRadius / 2;
+        let times = Math.abs(charge.charge) * fieldLinesPerCoulomb * 2;
+        let origin = charge.position;
+
+        let point = createVector(radius,radius);
+        for (let a = 0; a < times; a++)
+        {
+            let newPosition = p5.Vector.add(point, origin)
+            let voltage = voltageAtPoint(newPosition);
+            let gradientRadius = Math.abs(voltage) / 500
+            let gradientColor =  voltage > 0 ? "rgba(210, 41, 45, 0.5)" : "rgba(23, 97, 176, 0.5)";
+            
+            createGradient(newPosition, gradientRadius, gradientColor)
+            ellipse(newPosition.x, newPosition.y, 10, 10)
+
+            point = p5.Vector.add(point, createVector(0,0));
+            point.rotate(360/times);
+        }
+    })
+}
+
+function createVoltage()
+{
+
+}
+
+
+function createGradient(position, radius, color)
+{
+    let ctx = document.getElementById('defaultCanvas0').getContext("2d");
+    ctx.globalCompositeOperation = 'source-over';
+    let grd = ctx.createRadialGradient(position.x, position.y, 0, position.x, position.y, radius);
+    grd.addColorStop(0, color);
+    grd.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = grd;
+    ctx.fillRect(position.x - (width / 2), position.y - (height / 2), width, height);
+    ctx.globalCompositeOperation = 'source-over';
+}
+
