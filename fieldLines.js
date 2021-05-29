@@ -42,7 +42,7 @@ function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
     if (listOfPoints == undefined) 
     {
         listOfPoints = [startingPosition]   
-        numberOfLoops = 1; 
+        numberOfLoops = 0; 
     }
 
     if (numberOfLoops % 7 == 0) 

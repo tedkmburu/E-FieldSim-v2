@@ -29,6 +29,7 @@ let checkBoxes = [];
 let fieldVectors = [];
 let fieldLines = [];
 let fieldLineArrows = [];
+let equiLines = []; // equipotentialLines but shortened
 
 let sidePanelWidth = 300;
 let snapToGrid = false;

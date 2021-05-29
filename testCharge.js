@@ -1,34 +1,34 @@
-function displayCursor()  // if testcharge mode is on, this wil show a tresx
+function displayCursor()  
 {
-    if (testChargeMode && mouseX < width - sidePanelWidth)
+    if (testChargeMode && mouseX < width - sidePanelWidth)  // if testcharge mode is on, this wil show a test charge instead of the cursor
     {
         push();
             fill(255);
             stroke(0)
-            ellipse(mouseX, mouseY, testChargeDiameter, testChargeDiameter);
+            ellipse(mouseX, mouseY, testChargeDiameter, testChargeDiameter); // creates ellipse the size of a test Charge
             fill(0);
         pop();
     
-        noCursor();
+        noCursor(); // hides the cursor
     }
     else
     {
-        cursor();
+        cursor(); // displays the cursor
     }
 }
 
 
 
-function displayTestCharges()
+function displayTestCharges() // this displays all testcharges in the testCharges array
 {
     testCharges.forEach(testCharge => {
-        let isTouchingPointCharge = charges.some(charge => {
-            let distance = p5.Vector.dist(testCharge.position, charge.position);
+        let isTouchingPointCharge = charges.some(charge => { // this loops through all the point charges on the screen
+            let distance = p5.Vector.dist(testCharge.position, charge.position); // the distance from the point charge to the test charge
             
-            return (distance - (testChargeDiameter/2) < chargeRadius && charge.charge < 0)
+            return (distance - (testChargeDiameter/2) < chargeRadius && charge.charge < 0) // if the two intersect, this is true
         })
 
-        if (!isTouchingPointCharge)
+        if (!isTouchingPointCharge) // if the testcharge is not touching a negative charge
         {
             testCharge.move();
         }
@@ -38,7 +38,7 @@ function displayTestCharges()
 
 
 
-function createTestChargeMap()
+function createTestChargeMap() // removes all test charges then fills the screen with testcharges
 {
     testCharges = [];
     for (let y = 0; y < height; y += gridSize * 2)
@@ -55,7 +55,7 @@ class TestCharge extends Charge
 {
     constructor(position, charge)
     {
-        super(position, charge)
+        super(position, charge) // inherited from the Charge class
 
         this.velocity = createVector(0, 0);
         this.acceleration = createVector(0, 0);
@@ -70,9 +70,11 @@ class TestCharge extends Charge
         let testCharge = this;
 
         push();
-        stroke("rgba(0,0,0,0.5)");
-        fill(testCharge.color);
-        ellipse(testCharge.position.x, testCharge.position.y, testChargeDiameter, testChargeDiameter);
+            stroke(0);
+            fill(testCharge.color);
+            let x = testCharge.position.x;
+            let y = testCharge.position.y;
+            ellipse(x, y, testChargeDiameter, testChargeDiameter);
         pop();
     }
 
