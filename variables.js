@@ -1,3 +1,5 @@
+let backgroundCanvas;
+
 const k = 89900; // k = 8.99 * Math.pow(10, -9) adjusted because all charges are in micro coulombs;
 
 const gridSize = 25;

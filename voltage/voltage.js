@@ -1,3 +1,21 @@
+function setup()
+{
+  let backgroundCanvas = createCanvas(windowWidth, windowHeight); // creates the <canvas> that everything runs on.
+  backgroundCanvas.id('background');
+  backgroundCanvas.style('z-index', 10);
+}
+
+
+function draw() // this function runs every frame. Everything on screen starts here.
+{  
+  background(0); // sets the background color to black
+
+  fill("red")
+  ellipse(mouseX, mouseY, 10,10)
+}
+
+
+
 function voltageAtPoint(point)
 {
     let voltage = 0;
@@ -84,20 +102,5 @@ function createGradient(position, radius, color)
     ctx.globalCompositeOperation = 'source-over';
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-var voltageMap = [];
-var voltageBlockSize = 10;
 
 
