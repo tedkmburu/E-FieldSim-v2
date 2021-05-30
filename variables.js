@@ -1,5 +1,3 @@
-let backgroundCanvas;
-
 const k = 89900; // k = 8.99 * Math.pow(10, -9) adjusted because all charges are in micro coulombs;
 
 const gridSize = 25;
@@ -38,6 +36,10 @@ let equiLines = []; // equipotentialLines but shortened
 let sidePanelWidth = 300;
 let snapToGrid = false;
 let menuOpen = true;
+
+let foreGroundCanvas;
+let backgroundCanvas;
+let mousePosition;
 
 let showContextMenu = false;
 

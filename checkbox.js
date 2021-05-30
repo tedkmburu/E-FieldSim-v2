@@ -1,9 +1,9 @@
-function displayCheckBoxes() // displays all the checkboxes
+function displayCheckBoxes(canvas) // displays all the checkboxes
 {
     checkBoxes.forEach(checkBox => {
         if (checkBox.visible) 
         {
-            checkBox.display();
+            checkBox.display(canvas);
         }
     })
 }
@@ -25,55 +25,55 @@ class CheckBox
         this.onClick() // calls the onClick function once when the checkbox is created
     }
 
-    display()
+    display(canvas)
     {
         let checkBox = this;
         
-        push();
+        canvas.push();
             
-            strokeWeight(1)
+            canvas.strokeWeight(1)
             if (this.value)
             {
-                fill("#0075FF");
-                stroke("#0075FF")
+                canvas.fill("#0075FF");
+                canvas.stroke("#0075FF")
             }
             else 
             {
-                fill(255);
-                stroke("#767676")
+                canvas.fill(255);
+                canvas.stroke("#767676")
             }
 
-            rect(checkBox.position.x, checkBox.position.y, checkBox.height, checkBox.height, 2);
+            canvas.rect(checkBox.position.x, checkBox.position.y, checkBox.height, checkBox.height, 2);
 
-            stroke(255)
-            noFill()
-            rect(checkBox.position.x - 1, checkBox.position.y - 1, checkBox.height + 2, checkBox.height + 2, 2);
+            canvas.stroke(255)
+            canvas.noFill()
+            canvas.rect(checkBox.position.x - 1, checkBox.position.y - 1, checkBox.height + 2, checkBox.height + 2, 2);
             
             if (this.value)
             {
-                stroke(255)
-                strokeWeight(4)
+                canvas.stroke(255)
+                canvas.strokeWeight(4)
                 let startX = checkBox.position.x + (checkBox.height / 2.5);
                 let startY = checkBox.position.y + checkBox.height - (checkBox.height / 2.85);
                 let endX = checkBox.position.x + checkBox.height - (checkBox.height / 4)
                 let endY = checkBox.position.y + (checkBox.height / 4)
-                line(startX, startY, endX, endY)
+                canvas.line(startX, startY, endX, endY)
 
                 startX = checkBox.position.x + (checkBox.height / 2.5);
                 startY = checkBox.position.y + checkBox.height - (checkBox.height / 2.85);
                 endX = checkBox.position.x + (checkBox.height / 4);
                 endY = checkBox.position.y + (checkBox.height / 2);
-                line(startX, startY, endX, endY)
+                canvas.line(startX, startY, endX, endY)
 
-                strokeWeight(1)
+                canvas.strokeWeight(1)
             }
 
-            fill(0);
-            textAlign(LEFT, CENTER);
-            textSize(16);
-            noStroke();
-            text(checkBox.text, checkBox.position.x + (1.4 * checkBox.height),  checkBox.position.y + (checkBox.height / 2) );
-        pop();  
+            canvas.fill(0);
+            canvas.textAlign(canvas.LEFT, canvas.CENTER);
+            canvas.textSize(16);
+            canvas.noStroke();
+            canvas.text(checkBox.text, checkBox.position.x + (1.4 * checkBox.height),  checkBox.position.y + (checkBox.height / 2) );
+        canvas.pop();  
         
     }
 

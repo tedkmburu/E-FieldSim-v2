@@ -3,11 +3,11 @@ function createConductor(type)
     conductors.push(new Conductor(createVector(100,100), createVector(100, 100), type))
 }
 
-function displayConductors()
+function displayConductors(canvas)
 {
     conductors.forEach(conductor =>
     {
-        conductor.display()
+        conductor.display(canvas);
     })
 }
 
@@ -63,36 +63,36 @@ class Conductor
 
     display = function()
     {
-        push();
-            fill("rgba(255,255,255,0.5)")
+        canvas.push();
+        canvas.fill("rgba(255,255,255,0.5)")
             let particleStroke = (this.selected) ? "rgba(255,255,255,1)" : "rgba(255,255,255,0)"
-            stroke(particleStroke)
-            strokeWeight(4)
-            rect(this.position.x - 10, this.position.y - 10, this.size.x + 20, this.size.y + 20)
+            canvas.stroke(particleStroke)
+            canvas.strokeWeight(4)
+            canvas.rect(this.position.x - 10, this.position.y - 10, this.size.x + 20, this.size.y + 20)
             // if (this.selected) 
             // {
-            //     createDataFromSidePanel();
-            //     noStroke()
-            //     fill(255)
-            //     ellipse(this.position.x + this.size.x + 10, this.position.y + this.size.y + 10, 10, 10)
+            //     createDataFromSidePanel(canvas);
+            //     canvas.noStroke()
+            //     canvas.fill(255)
+            //     canvas.ellipse(this.position.x + this.size.x + 10, this.position.y + this.size.y + 10, 10, 10)
             // }
 
             if (this.dragging) 
             {
-                createDataFromSidePanel()   
+                createDataFromSidePanel(canvas)   
             }
 
             let bumpWhenHitEdge = 1
 
 
-            noStroke();
+            canvas.noStroke();
             this.particles.forEach(particle => {
                 let fillColor = (particle.charge > 0) ? "rgb(255,0,0)" : "rgb(0,0,255)";
-                fill(fillColor)
+                canvas.fill(fillColor)
                 
                 if (particle.charge < 0 ) 
                 {
-                    ellipse(particle.position.x, particle.position.y, testChargeDiameter, testChargeDiameter);
+                    canvas.ellipse(particle.position.x, particle.position.y, testChargeDiameter, testChargeDiameter);
                 
                 if (particle.position.x + testChargeDiameter > this.position.x && 
                     particle.position.x - testChargeDiameter < this.position.x + this.size.x && 
@@ -132,12 +132,12 @@ class Conductor
                 }
                 else
                 {
-                    // ellipse(particle.position.x + 5, particle.position.y + 5, testChargeDiameter, testChargeDiameter);
-                    ellipse(particle.position.x, particle.position.y, testChargeDiameter, testChargeDiameter);
+                    // canvas.ellipse(particle.position.x + 5, particle.position.y + 5, testChargeDiameter, testChargeDiameter);
+                    canvas.ellipse(particle.position.x, particle.position.y, testChargeDiameter, testChargeDiameter);
                 }
                 
             })
-        pop();
+        canvas.pop();
     }
 
 

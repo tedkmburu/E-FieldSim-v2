@@ -1,25 +1,25 @@
-function displayCursor()  
+function displayCursor(canvas)  
 {
-    if (testChargeMode && mouseX < width - sidePanelWidth)  // if testcharge mode is on, this wil show a test charge instead of the cursor
+    if (testChargeMode && mouseX < innerWidth - sidePanelWidth)  // if testcharge mode is on, this wil show a test charge instead of the cursor
     {
-        push();
-            fill(255);
-            stroke(0)
-            ellipse(mouseX, mouseY, testChargeDiameter, testChargeDiameter); // creates ellipse the size of a test Charge
-            fill(0);
-        pop();
+        canvas.push();
+            canvas.fill(255);
+            canvas.stroke(0)
+            canvas.ellipse(mouseX, mouseY, testChargeDiameter, testChargeDiameter); // creates ellipse the size of a test Charge
+            canvas.fill(0);
+        canvas.pop();
     
-        noCursor(); // hides the cursor
+        canvas.noCursor(); // hides the cursor
     }
     else
     {
-        cursor(); // displays the cursor
+        canvas.cursor(); // displays the cursor
     }
 }
 
 
 
-function displayTestCharges() // this displays all testcharges in the testCharges array
+function displayTestCharges(canvas) // this displays all testcharges in the testCharges array
 {
     testCharges.forEach(testCharge => {
         let isTouchingPointCharge = charges.some(charge => { // this loops through all the point charges on the screen
@@ -32,7 +32,7 @@ function displayTestCharges() // this displays all testcharges in the testCharge
         {
             testCharge.move();
         }
-        testCharge.display();
+        testCharge.display(canvas);
     });
 }
 
@@ -41,9 +41,9 @@ function displayTestCharges() // this displays all testcharges in the testCharge
 function createTestChargeMap() // removes all test charges then fills the screen with testcharges
 {
     testCharges = [];
-    for (let y = 0; y < height; y += gridSize * 2)
+    for (let y = 0; y < innerHeight; y += gridSize * 2)
     {
-        for (let x = 0; x < width - sidePanelWidth; x += gridSize * 2)
+        for (let x = 0; x < innerWidth - sidePanelWidth; x += gridSize * 2)
         {
             testCharges.push(new TestCharge(createVector(x, y), testChargeCharge));
         }
@@ -65,17 +65,17 @@ class TestCharge extends Charge
         if (this.charge == 0) this.color = neutralChargeColor;
     }   
 
-    display()
+    display(canvas)
     {
         let testCharge = this;
 
-        push();
-            stroke(0);
-            fill(testCharge.color);
+        canvas.push();
+        canvas.stroke(0);
+            canvas.fill(testCharge.color);
             let x = testCharge.position.x;
             let y = testCharge.position.y;
-            ellipse(x, y, testChargeDiameter, testChargeDiameter);
-        pop();
+            canvas.ellipse(x, y, testChargeDiameter, testChargeDiameter);
+        canvas.pop();
     }
 
     move()

@@ -1,4 +1,4 @@
-function createContextMenu()
+function createContextMenu(canvas)
 {
     contextMenuButtons = [];
     
@@ -15,29 +15,29 @@ function createContextMenu()
     if (rightClickedOnCharge)   // a charge has been right clicked so create a 'delete charge' button
     {
         contextMenuButtons.push(
-            new Button({position: createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: LEFT, text: "Delete Charge", onClick: function(){ removeCharge(chargeToDelete) } }))
+            new Button({position: canvas.createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Delete Charge", onClick: function(){ removeCharge(chargeToDelete) } }))
     }
     else   // a charge has not been right clicked so create a 'add charge' button
     {
         contextMenuButtons.push(
-            new Button({position: createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: LEFT, text: "Add Charge", onClick: function(){ createPointCharge(contextMenuPosition) } }))
+            new Button({position: canvas.createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Add Charge", onClick: function(){ createPointCharge(contextMenuPosition, canvas) } }))
     }
     
     contextMenuButtons.push(
-        new Button({position: createVector(0, 35).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: LEFT, text: "Clear Charges", onClick: function(){ createPreset(); testCharges=[]; equiPoints = []; } }),
-        new Button({position: createVector(0, 70).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: LEFT, text: "Refresh", onClick: function(){ location.reload(); } }),
-        new Button({position: createVector(0, 105).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: LEFT, text: "Save As PNG", onClick: function(){ setTimeout(function(){ saveAsPNG(); }, 250); } }))
+        new Button({position: canvas.createVector(0, 35).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Clear Charges", onClick: function(){ createPreset(null, canvas); testCharges=[]; equiPoints = []; } }),
+        new Button({position: canvas.createVector(0, 70).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Refresh", onClick: function(){ location.reload(); } }),
+        new Button({position: canvas.createVector(0, 105).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Save As PNG", onClick: function(){ setTimeout(function(){ saveAsPNG(); }, 250); } }))
 
 }
 
 
 
-function displayContextMenu() // shows the right click menu. runs every frame after the user right clicks
+function displayContextMenu(canvas) // shows the right click menu. runs every frame after the user right clicks
 {
     contextMenuButtons.forEach(button => {
         if (button.visible) 
         {
-            button.display();
+            button.display(canvas);
         }
     })
 }
@@ -59,11 +59,11 @@ function rightClick() // called when the user right clicks the page
 {
     charges.forEach(charge => {charge.selected = false;} ) // deselect all charges to get rid of sliders
 
-    if (mouseX < width - sidePanelWidth)    // if they didn't rightclick the side panel, show the right click menu
+    if (canvas.mouseX < innerWidth - sidePanelWidth)    // if they didn't rightclick the side panel, show the right click menu
     {
         showContextMenu = true;
 
-        contextMenuPosition = createVector(mouseX, mouseY) // sets the new position for the right click menu
+        contextMenuPosition = createVector(canvas.mouseX, canvas.mouseY) // sets the new position for the right click menu
         createContextMenu();
     }
     else

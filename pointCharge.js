@@ -1,26 +1,26 @@
-function createPointCharge(position, charge)
+function createPointCharge(position, charge, canvas)
 {
     if (charge != null) // this will run when charges are created from the side panel
     {
-        charges.push(new PointCharge(position, charge))
+        charges.push(new PointCharge(position, charge, canvas))
     }
     else // this will run when the use creates their own charges
     {
-        charges.push(new PointCharge(position, 0))
+        charges.push(new PointCharge(position, 0, canvas))
         charges[charges.length - 1].selected = true;
     }
 }
 
 
-function displayCharges() // this displays all the charges on screen
+function displayCharges(canvas) // this displays all the charges on screen
 {
     charges.forEach(charge => {
 
-        charge.display();
+        charge.display(canvas);
 
         if (charges.dragging) // if a charge is being dragged, recalculate everything that's displayed on screen
         {
-            createDataFromSidePanel();
+            createDataFromSidePanel(canvas);
         }
     })
 }
@@ -34,7 +34,7 @@ function removeCharge(i) // deletes a charge from the charges array and removes 
 
     charges.splice(i,1);
 
-    createDataFromSidePanel();
+    createDataFromSidePanel(canvas);
 }
 
 function removeAllCharges() // clears the charges array
@@ -49,7 +49,7 @@ function removeAllCharges() // clears the charges array
 
 function sliderChanged() // runs when the slider on any charge is moved
 {
-    createDataFromSidePanel(); // recalculate everything that's displayed on screen
+    createDataFromSidePanel(canvas); // recalculate everything that's displayed on screen
 }
 
 
@@ -59,16 +59,16 @@ function sliderChanged() // runs when the slider on any charge is moved
 
 class PointCharge extends Charge
 {
-    constructor(position, charge)
+    constructor(position, charge, canvas)
     {
-        super(position, charge)
+        super(position, charge, canvas)
 
         this.radius = chargeRadius;
 
         this.selected = false;
         this.dragging = false;
 
-        this.slider = createSlider(-5, 5, charge, 1);
+        this.slider = this.canvas.createSlider(-5, 5, charge, 1);
 
         this.slider.style("zIndex", "999");
         this.slider.style("visibility", "hidden");
@@ -77,7 +77,7 @@ class PointCharge extends Charge
         this.slider.changed(sliderChanged);
     }
 
-    display()
+    display(canvas)
     {
         let pointCharge = this;
 
@@ -87,15 +87,15 @@ class PointCharge extends Charge
             pointCharge.charge = pointCharge.slider.value();
         }
 
-        push();
+        canvas.push();
             if (pointCharge.selected) // if the charge has been selected, create a white stroke around it and display its slider
             {
-                stroke(255);
+                canvas.stroke(255);
                 pointCharge.slider.style("visibility", "visible");
             }
             else
             {
-                stroke(0);
+                canvas.stroke(0);
                 pointCharge.slider.style("visibility", "hidden");
             }
 
@@ -105,14 +105,14 @@ class PointCharge extends Charge
             {
                 fillColor = neutralChargeColor;
             }
-            fill(fillColor);
+            canvas.fill(fillColor);
 
-            ellipse(pointCharge.position.x, pointCharge.position.y, chargeDiameter, chargeDiameter);
+            canvas.ellipse(pointCharge.position.x, pointCharge.position.y, chargeDiameter, chargeDiameter);
 
-            textSize(16);
-            textFont(buttonFont);
-            fill("white");
-            noStroke();
+            canvas.textSize(16);
+            canvas.textFont(buttonFont);
+            canvas.fill("white");
+            canvas.noStroke();
             if (pointCharge.charge > 0)
             {
                 let chargeStringLength = pointCharge.charge.toString().length + 1.5;
@@ -120,7 +120,7 @@ class PointCharge extends Charge
                 let textPositionX = pointCharge.position.x - (chargeStringLength * 4);
                 let textPositionY = pointCharge.position.y + 7;
 
-                text(chargeToShow, textPositionX, textPositionY);
+                canvas.text(chargeToShow, textPositionX, textPositionY);
             }
             else
             {
@@ -128,8 +128,8 @@ class PointCharge extends Charge
                 let textPositionX = pointCharge.position.x - (chargeStringLength * 4);
                 let textPositionY = pointCharge.position.y + 7;
                 
-                text(pointCharge.charge, textPositionX, textPositionY);
+                canvas.text(pointCharge.charge, textPositionX, textPositionY);
             }
-        pop();
+        canvas.pop();
     }
 }

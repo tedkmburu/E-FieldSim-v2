@@ -50,10 +50,10 @@ function createEquipotentialLines()
 
 
 
-function displayEquipotentialLines()
+function displayEquipotentialLines(canvas)
 {
     equiLines.forEach(equiLine => {
-        equiLine.display()
+        equiLine.display(canvas);
     });
 }
 
@@ -109,18 +109,18 @@ class EquiLine
         this.equiLinePoints = equiLinePoints;
     }
 
-    display()
+    display(canvas)
     {
-        push()
+        canvas.push()
 
             beginShape();
             //beginShape(POINTS);
             
-                // fill("red")
+                // canvas.fill("red")
                 // circle(this.equiLinePoints[0].x, this.equiLinePoints[0].y, 10, 10)
-                noFill();
-                stroke("rgba(255,255,255,0.5)");
-                strokeWeight(1)
+                canvas.noFill();
+                canvas.stroke("rgba(255,255,255,0.5)");
+                canvas.strokeWeight(1)
 
                 this.equiLinePoints.forEach((point, i) => {
                     curveVertex(point.x, point.y);
@@ -133,7 +133,7 @@ class EquiLine
                 });
             endShape();
         
-        pop()
+        canvas.pop()
 
     }
   
@@ -180,7 +180,7 @@ function voltageAtPoint(point)
 }
 
 
-function displayVoltage()
+function displayVoltage(canvas)
 {
     charges.forEach(charge => {
         let radius = chargeRadius / 2;
@@ -196,7 +196,7 @@ function displayVoltage()
             let gradientColor =  voltage > 0 ? "rgba(210, 41, 45, 0.5)" : "rgba(23, 97, 176, 0.5)";
             
             createGradient(newPosition, gradientRadius, gradientColor)
-            ellipse(newPosition.x, newPosition.y, 10, 10)
+            canvas.ellipse(newPosition.x, newPosition.y, 10, 10)
 
             point = p5.Vector.add(point, createVector(0,0));
             point.rotate(360/times);
@@ -218,7 +218,7 @@ function createGradient(position, radius, color)
     grd.addColorStop(0, color);
     grd.addColorStop(1, "rgba(0,0,0,0)");
     ctx.fillStyle = grd;
-    ctx.fillRect(position.x - (width / 2), position.y - (height / 2), width, height);
+    ctx.fillRect(position.x - (width / 2), position.y - (height / 2), innerWidth, innerHeight);
     ctx.globalCompositeOperation = 'source-over';
 }
 

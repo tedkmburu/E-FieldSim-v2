@@ -57,19 +57,17 @@ function createFieldVectors()
 
 
 
-function displayFieldVectors()
+function displayFieldVectors(canvas)
 {
     showForceVectorsOnMouse(); // a field vector will be displayed starting at the cursor's position
 
-    fieldVectors.forEach(forceVector => forceVector.display()) // every field vector object in the array will be displayed
+    fieldVectors.forEach(forceVector => forceVector.display(canvas)) // every field vector object in the array will be displayed
 }
 
 
 
-function showForceVectorsOnMouse()
+function showForceVectorsOnMouse(canvas)
 {
-    let mousePosition = createVector(mouseX, mouseY);
-
     let force = netForceAtPoint(mousePosition).div(fieldVectorScale);
     let end = p5.Vector.add(mousePosition, force);
     let color = "rgba(250,250,250,1)";
@@ -82,27 +80,27 @@ function showForceVectorsOnMouse()
 
     if (noChargesNearby)
     {
-        createArrow(mousePosition, end, angle, color, scale); // this vector is not a saved object and will be recalciulated every frame
+        createArrow(mousePosition, end, angle, color, scale, canvas); // this vector is not a saved object and will be recalciulated every frame
     }
 
 }
 
 
 
-function createArrow(start, end, angle, color, scale)
+function createArrow(start, end, angle, color, scale, canvas)
 {
-    push();
-        stroke(color);
-        strokeWeight(scale * 4);
-        noFill();
-        line(start.x, start.y, end.x, end.y);
+    canvas.push();
+        canvas.stroke(color);
+        canvas.strokeWeight(scale * 4);
+        canvas.noFill();
+        canvas.line(start.x, start.y, end.x, end.y);
 
-        translate(end.x, end.y)
-        rotate(angle);
-        fill(color);
+        canvas.translate(end.x, end.y)
+        canvas.rotate(angle);
+            canvas.fill(color);
 
-        triangle(0, 0, -10 * scale, -5 * scale, -10 * scale, 5 * scale);
-    pop();
+        canvas.triangle(0, 0, -10 * scale, -5 * scale, -10 * scale, 5 * scale);
+    canvas.pop();
 }
 
 
@@ -123,12 +121,11 @@ class FieldVector
         this.color = "rgba(250, 250, 250, 1)";
     }
 
-    display()
+    display(canvas)
     {
-        
         if (this.forceMag > 3)
         {
-            createArrow(this.position, this.end, this.forceVector.heading(), this.color, this.scale);
+            createArrow(this.position, this.end, this.forceVector.heading(), this.color, this.scale, canvas);
         }
     }
   

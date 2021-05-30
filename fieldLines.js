@@ -1,11 +1,11 @@
-function displayFieldLines()
+function displayFieldLines(canvas)
 {
     fieldLines.forEach(fieldLine => {
-        fieldLine.display()
+        fieldLine.display(canvas);
     });
 
     fieldLineArrows.forEach(fieldLineArrow => {
-        fieldLineArrow.display()
+        fieldLineArrow.display(canvas);
     });
 }
 
@@ -93,12 +93,12 @@ class FieldLine
         this.fieldLinePoints = fieldLinePoints;
     }
     
-    display()
+    display(canvas)
     {
         beginShape();
         //beginShape(POINTS);
-            noFill();
-            stroke(255);
+        canvas.noFill();
+            canvas.stroke(255);
             vertex(this.fieldLinePoints[0].x, this.fieldLinePoints[0].y)
             this.fieldLinePoints.forEach(point => {
                 curveVertex(point.x, point.y);
@@ -118,14 +118,14 @@ class FieldLineArrow
         this.direction = direction;
     }
 
-    display()
+    display(canvas)
     {
-      push();
-        stroke(255);
-        translate(this.position.x, this.position.y)
-        rotate(this.direction);
-        fill(255);
-        triangle(0, 0, -10, -5, -10, 5);
-      pop();
+        canvas.push();
+            canvas.stroke(255);
+            translate(this.position.x, this.position.y)
+            rotate(this.direction);
+            canvas.fill(255);
+            triangle(0, 0, -10, -5, -10, 5);
+        canvas.pop();
     }
 }

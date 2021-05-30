@@ -1,4 +1,4 @@
-function displayEquipotentialLines()
+function displayEquipotentialLines(canvas)
 {
     equiLines = []
     let mousePostition = createVector(mouseX, mouseY);
@@ -6,7 +6,7 @@ function displayEquipotentialLines()
     getEquiLinePoints(mousePostition, 1);
 
     equiLines.forEach(equiLine => {
-        equiLine.display()
+        equiLine.display(canvas);
     });
 }
 
@@ -48,20 +48,20 @@ class EquiLine
         this.equiLinePoints = equiLinePoints;
     }
 
-    display()
+    display(canvas)
     {
         let points = this.equiLinePoints
-        push()
+        canvas.push()
             beginShape();
                 noFill()
                 let strokeColor = voltageAtPoint(points[0]) > 0 ? positiveChargeColor : negativeChargeColor ;
-                stroke(strokeColor);
-                strokeWeight(3)
+                canvas.stroke(strokeColor);
+                canvas.strokeWeight(3)
 
                 points.forEach(point => curveVertex(point.x, point.y));
             endShape();
         
-        pop()
+        canvas.pop()
 
     }
   

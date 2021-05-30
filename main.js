@@ -1,75 +1,81 @@
-function setup()  // This function only runs once when the page first loads. 
-{
-  createCanvas(windowWidth, windowHeight); // creates the <canvas> that everything runs on.
-  angleMode(DEGREES);
+const foreGround = canvas => {
 
-  textFont(defaultFont); // the default font
+  canvas.setup = function()  // This function only runs once when the page first loads. 
+  {
+    canvas.createCanvas(innerWidth, innerHeight); // creates the <canvas> that everything runs on.
+    foreGroundCanvas = canvas;
 
-  createSidePanel(); // creates buttons and checkboxes for the side panel
-  createContextMenu(); // creates the buttons for the right click menu
-  fullscreen = false;
-  showPopUp = false;
+    canvas.angleMode(canvas.DEGREES);
 
-  document.getElementById("defaultCanvas0").setAttribute("oncontextmenu", "rightClick(); return false"); // disables the right click menu before I create my own
-  
-  createPreset("dipole"); // creates one charge at the center of the screen when the simulation first starts up
+    canvas.textFont(defaultFont); // the default font
 
-  frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
+    createSidePanel(canvas); // creates buttons and checkboxes for the side panel
+    createContextMenu(canvas); // creates the buttons for the right click menu
+    fullscreen = false;
+    showPopUp = false;
+
+    document.getElementById("defaultCanvas0").setAttribute("oncontextmenu", "rightClick(); return false"); // disables the right click menu before I create my own
+    
+    createPreset("dipole", canvas); // creates one charge at the center of the screen when the simulation first starts up
+
+    canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
+  }
+
+
+
+  canvas.draw = function() // this function runs every frame. Everything on screen starts here.
+  {  
+    canvas.clear();  
+    mousePosition = canvas.createVector(canvas.mouseX, canvas.mouseY)
+    //background(0); // sets the background color to black
+    moveKeys(); // if the arrow keys are pressed, the selected charge moves
+    
+    displayDataFromSidePanel(canvas); // displays whatever settings are selected in the side panel
+    displayConductors(canvas);
+    displayCharges(canvas);
+    displayFrameRate(canvas);
+    displaySidePanel(canvas);
+    displayCheckBoxes(canvas);
+    displayButtons(canvas);
+
+    if (showContextMenu) displayContextMenu(canvas);
+    if (!canvas.focused) hideContextMenu(canvas);
+
+    displayCursor(canvas); // if in test charge mode, replace cursor with test charge. Otherwise, keep it normal
+
+
+    canvas.fill("red")
+    canvas.rect(canvas.mouseX, canvas.mouseY, 10,10)
+  }
 }
 
+new p5(foreGround); // invoke p5
 
-
-function draw() // this function runs every frame. Everything on screen starts here.
-{  
-  clear();  
-  //background(0); // sets the background color to black
-  moveKeys(); // if the arrow keys are pressed, the selected charge moves
-  
-  displayDataFromSidePanel(); // displays whatever settings are selected in the side panel
-  displayConductors();
-  displayCharges();
-  displayFrameRate();
-  displaySidePanel();
-  displayCheckBoxes();
-  displayButtons();
-
-  if (showContextMenu) displayContextMenu();
-  if (!focused) hideContextMenu();
-
-  displayCursor(); // if in test charge mode, replace cursor with test charge. Otherwise, keep it normal
-
-
-  fill("red")
-  rect(mouseX, mouseY, 10,10)
-}
-
-
-
-function displayGrid() // displays background grid
+function displayGrid(canvas) // displays background grid
 {
-  push();
-    stroke(40); // gray color for the grid
-    for (let x = 0; x <= windowWidth - sidePanelWidth; x+= gridSize)
+  canvas.push();
+  canvas.stroke(40); // gray color for the grid
+    for (let x = 0; x <= innerWidth - sidePanelWidth; x+= gridSize)
     {
-      line(x, 0, x, windowHeight);
+      canvas.line(x, 0, x, innerHeight);
     }
-    for (let y = 0; y < windowHeight; y+= gridSize)
+    for (let y = 0; y < innerHeight; y+= gridSize)
     {
-      line(0, y, windowWidth, y);
+      canvas.line(0, y, innerWidth, y);
     }
-  pop();
+  canvas.pop();
 }
 
 
 
-function displayFrameRate()
+function displayFrameRate(canvas)
 {
-  push();
-    noStroke();
-    fill(100);
-    textSize(20);
-    text(round(frameRate()),10,25);
-  pop();
+  canvas.push();
+    canvas.noStroke();
+    canvas.fill(100);
+    canvas.textSize(20);
+    canvas.text(Math.round(canvas.frameRate()), 10, 25);
+  canvas.pop();
 }
 
 
@@ -170,38 +176,6 @@ function floorToNearestGrid(number) // rounds down x or y position ot the neares
 
 
 
-
-
-
-
-
-
-function voltageAtPoint(point)
-{
-    let voltage = 0;
-
-    charges.forEach(charge => {
-        let kq = (charge.charge / 10) * k;
-        let r = p5.Vector.dist(point, charge.position) / gridSize;
-        let v = kq / r;
-
-        voltage += v;
-    })
-
-
-    return voltage;
-}
-
-
-function displayVoltage()
-{
-
-}
-
-function createVoltage()
-{
-
-}
 
 
 function createGradient(position, radius, color)

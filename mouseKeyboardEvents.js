@@ -26,8 +26,7 @@ function moveKeys() // inbuilt p5 function. if the arrow keys are pressed, the s
 
 
 function mouseClicked() // this is an inbuilt p5 function that runs everytime any mouse button is clicked
-{
-  let mousePosition = createVector(mouseX, mouseY);
+{  
   
   buttons.forEach(button => { // this will loop through all the buttons
     if (button.visible) 
@@ -87,8 +86,6 @@ function mouseClicked() // this is an inbuilt p5 function that runs everytime an
 
 function mouseMoved() 
 {
-  let mousePosition = createVector(mouseX, mouseY);
-
   buttons.forEach(button => { // this will loop through all the buttons
     if (button.visible) 
     {
@@ -139,8 +136,6 @@ function mouseMoved()
 
 function mouseDragged()
 {
-  let mousePosition = createVector(mouseX, mouseY);
-
   // let chargeDragged = null;
 
   // charges.forEach(charge => {
@@ -215,7 +210,7 @@ function mouseDragged()
   //     })
   //   }
   // }
-  // else if (mousePosition.x <= width - sidePanelWidth)
+  // else if (mousePosition.x <= innerWidth - sidePanelWidth)
   // {
   //   charges.forEach(charge => {
   //     charge.selected = false;
@@ -266,7 +261,7 @@ function mouseDragged()
   
   let chargeToMove = charges.find(charge => charge.dragging) // this searches the charges array and finds the first charge with a true dragging property and sets it equal to the variable
   
-  if (mouseX < width - sidePanelWidth && chargeToMove != undefined) // if the mouse isn't over the side panel
+  if (mouseX < innerWidth - sidePanelWidth && chargeToMove != undefined) // if the mouse isn't over the side panel
   {
     if (!snapToGrid) 
     {
@@ -277,7 +272,7 @@ function mouseDragged()
       chargeToMove.position = roundVectorToNearestGrid(mousePosition)// the charge position will round to the nearest grid
     }
 
-    createDataFromSidePanel();
+    createDataFromSidePanel(canvas);
     
   }
   
@@ -291,7 +286,6 @@ function doubleClicked()
   if (!testChargeMode)
   {
     let notTouching = true;
-    let mousePosition = createVector(mouseX, mouseY);
     for (let charge of charges)
     {
       let distance = mousePosition.dist(charge.position);
@@ -315,7 +309,7 @@ function doubleClicked()
 
     if (notTouching && !onConductor && mouseX < windowWidth - sidePanelWidth)
     {
-      createPointCharge(mousePosition);
+      createPointCharge(mousePosition, canvas);
 
     }
   }
@@ -351,13 +345,13 @@ function keyPressed()
   {
     if (keyCode == 109)
     {
-      createPointCharge(createVector(mouseX,mouseY),-5);
+      createPointCharge(createVector(mouseX,mouseY), -5, canvas);
     }
     if (keyCode == 107)
     {
-      createPointCharge(createVector(mouseX,mouseY),5);
+      createPointCharge(createVector(mouseX,mouseY), 5, canvas);
     }
   }
   
-  createDataFromSidePanel();
+  createDataFromSidePanel(canvas);
 }
