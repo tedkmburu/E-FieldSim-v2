@@ -35,7 +35,7 @@ function createSidePanel(canvas)
         new CheckBox({position: canvas.createVector(col1, 415), height: 20, width: checkBoxWidth, text: "Test Charge Mode", value: false, onClick: function(){ testChargeMode = this.value; }, canvas: canvas }))
 
     buttons.push(
-        new Button({position: canvas.createVector(col1, 440), width: buttonFullWidth, height: buttonHeight, text: "Create Test Charge Map", onClick: function(){ testChargeMode = true; createTestChargeMap(); checkBoxes[6].value = true; testChargeMode = true;}, canvas: canvas  }),
+        new Button({position: canvas.createVector(col1, 440), width: buttonFullWidth, height: buttonHeight, text: "Create Test Charge Map", onClick: function(){ testChargeMode = true; createTestChargeMap(canvas); checkBoxes[6].value = true; testChargeMode = true;}, canvas: canvas  }),
         new Button({position: canvas.createVector(col1, 480), width: buttonFullWidth, height: buttonHeight, text: "Clear Test Charges", onClick: function(){ testCharges = []; }, canvas: canvas }),
 
         new Button({position: canvas.createVector(col1, 550), width: buttonFullWidth, height: buttonHeight, text: "Add Conductor", onClick: function(){ createMetal('='); createDataFromSidePanel(canvas); }, canvas: canvas }),

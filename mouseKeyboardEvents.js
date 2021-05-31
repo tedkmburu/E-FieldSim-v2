@@ -325,15 +325,15 @@ function whenKeyPressed(canvas)
     charges.forEach((charge, i) => {
       if (charge.selected)
       {
-        if (keyCode === DELETE)
+        if (canvas.keyCode === canvas.DELETE)
         {
           removeCharge(i, canvas);
         }
-        if (keyCode === 107) // plus key pressed
+        if (canvas.keyCode === 107) // plus key pressed
         {
           charge.slider.value(charges[i].slider.value() + 1);
         }
-        if (keyCode === 109) // minus key pressed
+        if (canvas.keyCode === 109) // minus key pressed
         {
           charge.slider.value(charges[i].slider.value() - 1);
         }
