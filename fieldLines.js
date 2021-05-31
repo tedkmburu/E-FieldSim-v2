@@ -1,18 +1,19 @@
-function displayFieldLines(canvas)
+function displayFieldLines()
 {
     fieldLines.forEach(fieldLine => {
-        fieldLine.display(canvas);
+        fieldLine.display();
     });
 
     fieldLineArrows.forEach(fieldLineArrow => {
-        fieldLineArrow.display(canvas);
+        fieldLineArrow.display();
     });
 }
 
 
 
-function createFieldLines(canvas)
+function createFieldLines()
 {
+    let canvas = foreGroundCanvas;
     fieldLines = [];
     fieldLineArrows = []
 
@@ -26,7 +27,7 @@ function createFieldLines(canvas)
         for (let a = 0; a < times; a++)
         {
             let startingPosition = canvas.createVector(point.x + origin.x, point.y + origin.y)
-            getFieldLinePoints(startingPosition, canvas);
+            getFieldLinePoints(startingPosition);
 
             //point = p5.Vector.add(point, canvas.createVector(0,0));
             point.rotate((2 * Math.PI) / times);
@@ -37,7 +38,7 @@ function createFieldLines(canvas)
 
 
 
-function getFieldLinePoints(startingPosition, canvas, numberOfLoops, listOfPoints)
+function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
 {
     if (listOfPoints == undefined) 
     {
@@ -48,12 +49,12 @@ function getFieldLinePoints(startingPosition, canvas, numberOfLoops, listOfPoint
     if (numberOfLoops % 7 == 0) 
     {
         let arrowPosition = startingPosition;
-        let arrowAngle = noPositiveCharges ? netForceAtPoint(startingPosition, canvas).mult(-1).heading() : netForceAtPoint(startingPosition, canvas).heading();
+        let arrowAngle = noPositiveCharges ? netForceAtPoint(startingPosition).mult(-1).heading() : netForceAtPoint(startingPosition).heading();
 
         fieldLineArrows.push(new FieldLineArrow(arrowPosition, arrowAngle));
     }
 
-    let forceVector = noPositiveCharges ? netForceAtPoint(startingPosition, canvas).setMag(chargeRadius).mult(-1) : netForceAtPoint(startingPosition, canvas).setMag(chargeRadius);
+    let forceVector = noPositiveCharges ? netForceAtPoint(startingPosition).setMag(chargeRadius).mult(-1) : netForceAtPoint(startingPosition).setMag(chargeRadius);
     let forceVectorFinalPosition = p5.Vector.add(forceVector, startingPosition);
 
     let finalPositionToChargesDistance = [];
@@ -66,7 +67,7 @@ function getFieldLinePoints(startingPosition, canvas, numberOfLoops, listOfPoint
     if (closestChargeDistance > chargeRadius / 2 && numberOfLoops < 100) 
     {
         listOfPoints.push(forceVectorFinalPosition);
-        getFieldLinePoints(forceVectorFinalPosition, canvas, numberOfLoops + 1, listOfPoints);
+        getFieldLinePoints(forceVectorFinalPosition, numberOfLoops + 1, listOfPoints);
     }
     else if (closestChargeDistance < chargeRadius / 2)
     {
@@ -93,8 +94,9 @@ class FieldLine
         this.fieldLinePoints = fieldLinePoints;
     }
     
-    display(canvas)
+    display()
     {
+        let canvas = foreGroundCanvas;
         canvas.beginShape();
         //beginShape(POINTS);
         canvas.noFill();
@@ -118,8 +120,9 @@ class FieldLineArrow
         this.direction = direction;
     }
 
-    display(canvas)
+    display()
     {
+        let canvas = foreGroundCanvas;
         canvas.push();
             canvas.stroke(255);
             canvas.translate(this.position.x, this.position.y)

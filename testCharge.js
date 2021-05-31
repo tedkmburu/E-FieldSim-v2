@@ -1,5 +1,6 @@
-function displayCursor(canvas)  
+function displayCursor()  
 {
+    let canvas = foreGroundCanvas;
     if (testChargeMode && mousePosition.x < innerWidth - sidePanelWidth)  // if testcharge mode is on, this wil show a test charge instead of the cursor
     {
         canvas.push();
@@ -19,8 +20,9 @@ function displayCursor(canvas)
 
 
 
-function displayTestCharges(canvas) // this displays all testcharges in the testCharges array
+function displayTestCharges() // this displays all testcharges in the testCharges array
 {
+    let canvas = foreGroundCanvas;
     testCharges.forEach(testCharge => {
         let isTouchingPointCharge = charges.some(charge => { // this loops through all the point charges on the screen and is true if any one of the conditions are true
             
@@ -38,15 +40,16 @@ function displayTestCharges(canvas) // this displays all testcharges in the test
 
 
 
-function createTestChargeMap(canvas) // removes all test charges then fills the screen with testcharges
+function createTestChargeMap() // removes all test charges then fills the screen with testcharges
 {
+    let canvas = foreGroundCanvas;
     testCharges = [];
     let incriment = gridSize * 2;
     for (let y = 0; y < innerHeight; y += incriment)
     {
         for (let x = 0; x < innerWidth - sidePanelWidth; x += incriment)
         {
-            testCharges.push(new TestCharge(canvas.createVector(x, y), testChargeCharge, canvas));
+            testCharges.push(new TestCharge(canvas.createVector(x, y), testChargeCharge));
         }
     }
 }
@@ -54,20 +57,22 @@ function createTestChargeMap(canvas) // removes all test charges then fills the 
 
 class TestCharge extends Charge
 {
-    constructor(position, charge, canvas)
+    constructor(position, charge)
     {
-        super(position, charge, canvas) // inherited from the Charge class
+        let canvas = foreGroundCanvas;
+        super(position, charge) // inherited from the Charge class
 
-        this.velocity = this.canvas.createVector(0, 0);
-        this.acceleration = this.canvas.createVector(0, 0);
+        this.velocity = canvas.createVector(0, 0);
+        this.acceleration = canvas.createVector(0, 0);
 
         if (this.charge > 0) this.color = positiveChargeColor;
         if (this.charge < 0) this.color = negativeChargeColor;
         if (this.charge == 0) this.color = neutralChargeColor;
     }   
 
-    display(canvas)
+    display()
     {
+        let canvas = foreGroundCanvas;
         let testCharge = this;
 
         canvas.push();
@@ -79,33 +84,35 @@ class TestCharge extends Charge
         canvas.pop();
     }
 
-    move(canvas)
+    move()
     {
         let testCharge = this;
-        let force = netForceAtPoint(testCharge.position, canvas);
+        let force = netForceAtPoint(testCharge.position);
 
         if (force.mag() != Infinity)
         {
             // F  = qE
             // ma = qE
             // a  = (qE)/m
-            // m would be 1
+            // m = 1
+            // a  = q*E
             testCharge.acceleration = force.mult(testCharge.charge);
             testCharge.velocity.add(testCharge.acceleration);
             testCharge.position.add(testCharge.velocity);
         }
     }
 
-    moveMetal(canvas)
+    moveMetal()
     {
-        let force = netForceAtPoint(this.position, canvas).div(100000);
+        let force = netForceAtPoint(this.position).div(100000);
 
         if (force.mag() != Infinity)
         {
             // F  = qE
             // ma = qE
             // a  = (qE)/m
-            // m would be 1
+            // m = 1
+            // a  = q*E
             this.acceleration = force.mult(this.charge);
             this.velocity.add(this.acceleration);
             this.position.add(this.velocity);

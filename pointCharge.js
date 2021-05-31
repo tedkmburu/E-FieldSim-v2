@@ -1,42 +1,42 @@
-function createPointCharge(position, charge, canvas)
+function createPointCharge(position, charge)
 {
     if (charge != null) // this will run when charges are created from the side panel
     {
-        charges.push(new PointCharge(position, charge, canvas))
+        charges.push(new PointCharge(position, charge))
     }
     else // this will run when the user creates their own charges
     {
-        charges.push(new PointCharge(position, 0, canvas))
+        charges.push(new PointCharge(position, 0))
         charges[charges.length - 1].selected = true;
     }
 }
 
 
-function displayCharges(canvas) // this displays all the charges on screen
+function displayCharges() // this displays all the charges on screen
 {
     charges.forEach(charge => {
 
-        charge.display(canvas);
+        charge.display();
 
         if (charges.dragging) // if a charge is being dragged, recalculate everything that's displayed on screen
         {
-            createDataFromSidePanel(canvas);
+            createDataFromSidePanel();
         }
     })
 }
 
 
-function removeCharge(i, canvas) // deletes a charge from the charges array and removes its slider
+function removeCharge(i) // deletes a charge from the charges array and removes its slider
 {
     charges[i].slider.remove();
     charges.splice(i,1);
-    
-    createDataFromSidePanel(canvas);
+
+    createDataFromSidePanel();
 }
 
-function removeAllCharges(canvas) // clears the charges array
+function removeAllCharges() // clears the charges array
 {
-    for (let i = charges.length - 1; i >= 0; i--) removeCharge(i, canvas); // from end of array to beginning 
+    for (let i = charges.length - 1; i >= 0; i--) removeCharge(i); // from end of array to beginning 
     charges = [];
 }
 
@@ -44,9 +44,10 @@ function removeAllCharges(canvas) // clears the charges array
 
 class PointCharge extends Charge
 {
-    constructor(position, charge, canvas)
+    constructor(position, charge)
     {
-        super(position, charge, canvas)
+        let canvas = foreGroundCanvas;
+        super(position, charge)
 
         this.radius = chargeRadius;
 
@@ -55,12 +56,13 @@ class PointCharge extends Charge
 
         this.slider = canvas.createSlider(-5, 5, charge, 1);
         this.slider.style("zIndex", "999");
-        this.slider.input( function(){  createDataFromSidePanel(canvas); } ); // recalculate everything that's displayed on screen
-        this.slider.changed( function(){  createDataFromSidePanel(canvas); } ); // recalculate everything that's displayed on screen
+        this.slider.input( function(){  createDataFromSidePanel(); } ); // recalculate everything that's displayed on screen
+        this.slider.changed( function(){  createDataFromSidePanel(); } ); // recalculate everything that's displayed on screen
     }
 
-    display(canvas)
+    display()
     {
+        let canvas = foreGroundCanvas;
         let pointCharge = this;
 
         if (pointCharge.selected)

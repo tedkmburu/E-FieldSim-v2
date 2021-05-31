@@ -1,9 +1,8 @@
 class Charge
 {
-    constructor(position, charge, canvas)
+    constructor(position, charge)
     {
         this.position = position;
         this.charge = charge;
-        this.canvas = canvas;
     }
 }

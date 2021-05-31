@@ -1,17 +1,17 @@
-function displayEquipotentialLines(canvas)
+function displayEquipotentialLines()
 {
     equiLines = []
-    getEquiLinePoints(mousePosition, canvas, -1);
-    getEquiLinePoints(mousePosition, canvas, 1);
+    getEquiLinePoints(mousePosition, -1);
+    getEquiLinePoints(mousePosition, 1);
 
     equiLines.forEach(equiLine => {
-        equiLine.display(canvas);
+        equiLine.display();
     });
 }
 
 
 
-function getEquiLinePoints(originPoint, canvas, direction, currentPoint, numberOfLoops, arrayOfPoints)
+function getEquiLinePoints(originPoint, direction, currentPoint, numberOfLoops, arrayOfPoints)
 {
     if (arrayOfPoints == undefined) 
     {
@@ -20,7 +20,7 @@ function getEquiLinePoints(originPoint, canvas, direction, currentPoint, numberO
         numberOfLoops = 0;
     }
 
-    let forceVector = netForceAtPoint(currentPoint, canvas);
+    let forceVector = netForceAtPoint(currentPoint);
     forceVector.mult(direction);
     forceVector.rotate(Math.PI / 2);
     forceVector.setMag(equiLinesAccuracy);
@@ -34,7 +34,7 @@ function getEquiLinePoints(originPoint, canvas, direction, currentPoint, numberO
     if (distanceToOriginPoint < 10 && numberOfLoops > 100) numberOfLoops = equiLinesLimit;
         
     
-    if (numberOfLoops < equiLinesLimit) getEquiLinePoints(originPoint, canvas, direction, nextPoint, numberOfLoops + 1, arrayOfPoints)
+    if (numberOfLoops < equiLinesLimit) getEquiLinePoints(originPoint, direction, nextPoint, numberOfLoops + 1, arrayOfPoints)
     else equiLines.push(new EquiLine(arrayOfPoints));
 }
 
@@ -47,13 +47,14 @@ class EquiLine
         this.equiLinePoints = equiLinePoints;
     }
 
-    display(canvas)
+    display()
     {
+        let canvas = foreGroundCanvas;
         let points = this.equiLinePoints
         canvas.push()
             canvas.beginShape();
             canvas.noFill()
-                let strokeColor = voltageAtPoint(points[0], canvas) > 0 ? positiveChargeColor : negativeChargeColor ;
+                let strokeColor = voltageAtPoint(points[0]) > 0 ? positiveChargeColor : negativeChargeColor ;
                 canvas.stroke(strokeColor);
                 canvas.strokeWeight(3)
 

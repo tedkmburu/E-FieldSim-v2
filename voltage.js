@@ -3,21 +3,21 @@ function voltageAtPoint(point)
   let voltage = 0;
 
   charges.forEach(charge => {
-      let kq = (charge.charge /2 ) * k;
+      let kq = (charge.charge / 2) * k;
       let r = p5.Vector.dist(point, charge.position) / gridSize;
       let v = kq / r;
 
       voltage += v;
   })
 
-
   return voltage;
 }
 
 
 
-function displayVoltage(canvas)
+function displayVoltage()
 {
+  let canvas = backgroundCanvas;
   for (let y = 0; y < innerHeight / voltageAccuracy; y++)
   {
     for (let x = 0; x < innerWidth / voltageAccuracy; x++)
@@ -38,8 +38,9 @@ function displayVoltage(canvas)
 
 
 
-function createVoltage(canvas)
+function createVoltage()
 {
+  let canvas = backgroundCanvas;
   for (let y = 0; y < innerHeight / voltageAccuracy; y++)
   {
     voltageMap[y] = [];

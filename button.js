@@ -1,10 +1,10 @@
 
-function displayButtons(canvas) // displays all the buttons
+function displayButtons() // displays all the buttons
 {
     buttons.forEach(button => {
         if (button.visible) 
         {
-            button.display(canvas);
+            button.display();
         }
     })
 }
@@ -13,30 +13,30 @@ class Button
 {
     constructor(props)
     {
+        let canvas = foreGroundCanvas;
         this.position = props.position;
         this.width = props.width;
         this.height = props.height;
 
         this.visible = props.visible || true;
         this.hovering = false;
-        this.alignText = props.alignText || props.canvas.CENTER;
+        this.alignText = props.alignText || canvas.CENTER;
 
         this.text = props.text;
-
-        this.canvas = props.canvas;
 
         this.onClick = props.onClick;
     }
 
-    display(canvas)
+    display()
     {
         let button = this;
+        let canvas = foreGroundCanvas;
         
         if (button.text != "Menu") // this will be all the normal buttons
         {
             canvas.push();
                 
-                if (button.alignText == button.canvas.CENTER) // this will be all the buttons in the side panel
+                if (button.alignText == canvas.CENTER) // this will be all the buttons in the side panel
                 {
                     canvas.stroke("#4F4F4F")
                     canvas.fill("#EFEFEF");

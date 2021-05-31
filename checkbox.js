@@ -1,9 +1,9 @@
-function displayCheckBoxes(canvas) // displays all the checkboxes
+function displayCheckBoxes() // displays all the checkboxes
 {
     checkBoxes.forEach(checkBox => {
         if (checkBox.visible) 
         {
-            checkBox.display(canvas);
+            checkBox.display();
         }
     })
 }
@@ -25,8 +25,9 @@ class CheckBox
         this.onClick() // calls the onClick function once when the checkbox is created
     }
 
-    display(canvas)
+    display()
     {
+        let canvas = foreGroundCanvas;
         let checkBox = this;
         
         canvas.push();

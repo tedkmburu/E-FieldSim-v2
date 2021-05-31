@@ -1,5 +1,6 @@
-function moveKeys(canvas) // if the arrow keys are pressed, the selected charge moves
+function moveKeys() // if the arrow keys are pressed, the selected charge moves
 {
+  let canvas = foreGroundCanvas;
   charges.forEach(charge => {
     if (charge.selected) 
     {
@@ -26,7 +27,7 @@ function moveKeys(canvas) // if the arrow keys are pressed, the selected charge 
 
 
 
-function whenMouseClicked(canvas) // this is an inbuilt p5 function that runs everytime any mouse button is clicked
+function whenMouseClicked() // this is an inbuilt p5 function that runs everytime any mouse button is clicked
 {  
   buttons.forEach(button => { // this will loop through all the buttons
     if (button.visible) 
@@ -63,7 +64,7 @@ function whenMouseClicked(canvas) // this is an inbuilt p5 function that runs ev
 
   if (testChargeMode) // if test charge mode is on, this will create a test charge wherever the user clicks 
   {
-    testCharges.push(new TestCharge(mousePosition, testChargeCharge, canvas));
+    testCharges.push(new TestCharge(mousePosition, testChargeCharge));
   }
 
 
@@ -269,10 +270,10 @@ function whenMouseDragged(canvas)
     }
     else
     {
-      chargeToMove.position = roundVectorToNearestGrid(mousePosition, canvas)// the charge position will round to the nearest grid
+      chargeToMove.position = roundVectorToNearestGrid(mousePosition)// the charge position will round to the nearest grid
     }
 
-    createDataFromSidePanel(canvas);
+    createDataFromSidePanel();
     
   }
   
@@ -281,7 +282,7 @@ function whenMouseDragged(canvas)
 
 
 
-function whenDoubleClicked(canvas)
+function whenDoubleClicked()
 {
   if (!testChargeMode)
   {
@@ -307,17 +308,18 @@ function whenDoubleClicked(canvas)
     })
 
 
-    if (notTouching && !onConductor && mousePosition.x < windowWidth - sidePanelWidth)
+    if (notTouching && !onConductor && mousePosition.x < innerWidth - sidePanelWidth)
     {
-      createPointCharge(mousePosition, canvas);
+      createPointCharge(mousePosition);
     }
   }
 }
 
 
 
-function whenKeyPressed(canvas)
+function whenKeyPressed()
 {
+  let canvas = foreGroundCanvas;
   let chargeSelected = charges.some(charge => charge.selected); // if a charge is currently selected, this will be true
 
   if (chargeSelected)
@@ -327,7 +329,7 @@ function whenKeyPressed(canvas)
       {
         if (canvas.keyCode === canvas.DELETE)
         {
-          removeCharge(i, canvas);
+          removeCharge(i);
         }
         if (canvas.keyCode === 107) // plus key pressed
         {
@@ -344,13 +346,13 @@ function whenKeyPressed(canvas)
   {
     if (keyCode == 109)
     {
-      createPointCharge(mousePosition, -5, canvas);
+      createPointCharge(mousePosition, -5);
     }
     if (keyCode == 107)
     {
-      createPointCharge(mousePosition, 5, canvas);
+      createPointCharge(mousePosition, 5);
     }
   }
   
-  createDataFromSidePanel(canvas);
+  createDataFromSidePanel();
 }

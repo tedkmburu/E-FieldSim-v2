@@ -11,17 +11,16 @@ const background = canvas => {
 
   canvas.draw = function() // this function runs every frame. Everything on screen starts here.
   {  
-    mousePosition = canvas.createVector(canvas.mouseX, canvas.mouseY)
     canvas.background(0); // sets the background color to black
 
-    if (showVoltage){ displayVoltage(canvas); }
+    if (showVoltage){ displayVoltage(); }
   }
 
   canvas.windowResized = function() 
   {
     canvas.resizeCanvas(innerWidth, innerHeight);
-    createSidePanel(canvas);
-    createDataFromSidePanel(canvas);
+    createSidePanel();
+    createDataFromSidePanel();
   }
 }
 
@@ -41,14 +40,14 @@ const foreGround = canvas => {
 
     canvas.textFont(defaultFont); // the default font
 
-    createSidePanel(canvas); // creates buttons and checkboxes for the side panel
-    createContextMenu(canvas); // creates the buttons for the right click menu
+    createSidePanel(); // creates buttons and checkboxes for the side panel
+    createContextMenu(); // creates the buttons for the right click menu
     fullscreen = false;
     showPopUp = false;
 
     document.getElementById("defaultCanvas0").setAttribute("oncontextmenu", "rightClick(); return false"); // disables the right click menu before I create my own
     
-    createPreset("dipole", canvas); // creates one charge at the center of the screen when the simulation first starts up
+    createPreset("dipole"); // creates one charge at the center of the screen when the simulation first starts up
 
     canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
   }
@@ -62,32 +61,32 @@ const foreGround = canvas => {
     // canvas.background(0); // sets the background color to black
     moveKeys(canvas); // if the arrow keys are pressed, the selected charge moves
     
-    displayDataFromSidePanel(canvas); // displays whatever settings are selected in the side panel
-    displayConductors(canvas);
-    displayCharges(canvas);
-    displayFrameRate(canvas);
-    displaySidePanel(canvas);
-    displayCheckBoxes(canvas);
-    displayButtons(canvas);
+    displayDataFromSidePanel(); // displays whatever settings are selected in the side panel
+    displayConductors();
+    displayCharges();
+    displayFrameRate();
+    displaySidePanel();
+    displayCheckBoxes();
+    displayButtons();
 
-    if (showContextMenu) displayContextMenu(canvas);
-    if (!canvas.focused) hideContextMenu(canvas);
+    if (showContextMenu) displayContextMenu();
+    if (!canvas.focused) hideContextMenu();
 
-    displayCursor(canvas); // if in test charge mode, replace cursor with test charge. Otherwise, keep it normal
+    displayCursor(); // if in test charge mode, replace cursor with test charge. Otherwise, keep it normal
   }
 
-  canvas.mouseClicked = function() { whenMouseClicked(canvas); } // this is an inbuilt p5 function that runs everytime any mouse button is clicked
-  canvas.mouseDragged = function() { whenMouseDragged(canvas); }
-  canvas.doubleClicked = function() { whenDoubleClicked(canvas); }
-  canvas.keyPressed = function() { whenKeyPressed(canvas); }
-  canvas.mouseMoved = function() { whenMouseMoved(canvas); }
+  canvas.mouseClicked = function() { whenMouseClicked(); } // this is an inbuilt p5 function that runs everytime any mouse button is clicked
+  canvas.mouseDragged = function() { whenMouseDragged(); }
+  canvas.doubleClicked = function() { whenDoubleClicked(); }
+  canvas.keyPressed = function() { whenKeyPressed(); }
+  canvas.mouseMoved = function() { whenMouseMoved(); }
 
   canvas.windowResized = function() 
   {
     canvas.resizeCanvas(innerWidth, innerHeight);
     
-    createSidePanel(canvas);
-    createDataFromSidePanel(canvas);
+    createSidePanel();
+    createDataFromSidePanel();
   }
 
 
@@ -101,10 +100,11 @@ const foreGround = canvas => {
 new p5(background); // invoke p5
 new p5(foreGround); // invoke p5
 
-function displayGrid(canvas) // displays background grid
+function displayGrid() // displays background grid
 {
+  let canvas = foreGroundCanvas;
   canvas.push();
-  canvas.stroke(40); // gray color for the grid
+  canvas.stroke("rgba(255,255,255,0.25)"); // gray color for the grid
     for (let x = 0; x <= innerWidth - sidePanelWidth; x+= gridSize)
     {
       canvas.line(x, 0, x, innerHeight);
@@ -118,8 +118,9 @@ function displayGrid(canvas) // displays background grid
 
 
 
-function displayFrameRate(canvas)
+function displayFrameRate()
 {
+  let canvas = foreGroundCanvas;
   canvas.push();
     canvas.noStroke();
     canvas.fill(100);
@@ -131,8 +132,9 @@ function displayFrameRate(canvas)
 
 
 
-function netForceAtPoint(position, canvas)
+function netForceAtPoint(position)
 {
+  let canvas = foreGroundCanvas;
   let finalVector = canvas.createVector(0, 0);
 
   charges.forEach(charge => {
@@ -184,7 +186,7 @@ function pointIsInsideRect(point, rect) // returns true or false based on if the
   return (point.x > rect.position.x &&
           point.y > rect.position.y &&
           point.x < rect.position.x + rect.width &&
-          point.y < rect.position.y + rect.height)
+          point.y < rect.position.y + rect.height);
 }
 
 
@@ -192,7 +194,7 @@ function pointIsInsidCircle(point, cirlce)    // returns true or false based on 
 {
   let distance = point.dist(cirlce.position);
 
-  return (distance < cirlce.radius)
+  return (distance < cirlce.radius);
 }
 
 
@@ -205,8 +207,9 @@ function roundToNearestGrid(number) // rounds x or y position ot the nearest gri
   return Math.round(number / gridSize) * gridSize;
 }
 
-function roundVectorToNearestGrid(vector, canvas) // rounds vector ot the nearest grid intersection
+function roundVectorToNearestGrid(vector) // rounds vector ot the nearest grid intersection
 {
+  let canvas = foreGroundCanvas;
   let newX = roundToNearestGrid(vector.x);
   let newY = roundToNearestGrid(vector.y);
   return canvas.createVector(newX, newY);
@@ -215,23 +218,4 @@ function roundVectorToNearestGrid(vector, canvas) // rounds vector ot the neares
 function floorToNearestGrid(number) // rounds down x or y position ot the nearest grid line
 {
   return Math.floor(number / gridSize) * gridSize;
-}
-
-
-
-
-
-
-
-
-function createGradient(position, radius, color)
-{
-    let ctx = document.getElementById('defaultCanvas0').getContext("2d");
-    ctx.globalCompositeOperation = 'source-over';
-    let grd = ctx.createRadialGradient(position.x, position.y, 0, position.x, position.y, radius);
-    grd.addColorStop(0, color);
-    grd.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = grd;
-    ctx.fillRect(position.x - (width / 2), position.y - (height / 2), width, height);
-    ctx.globalCompositeOperation = 'source-over';
 }

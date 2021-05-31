@@ -26,31 +26,7 @@ canvas
   background-color: rgba(0,0,0,0);
 }
 
-div.three
-{
-  display: none;
-}
-div.menu
-{
-  background-color: white;
-  width: 200px;
-  height: 95%;
 
-  padding: 40px;
-  padding-top: 3%;
-  margin: 0;
-  z-index: 5;
-  position: absolute;
-  top: 0;
-
-  -webkit-touch-callout: none; /* iOS Safari */
-   -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-      -moz-user-select: none; /* Old versions of Firefox */
-       -ms-user-select: none; /* Internet Explorer/Edge */
-           user-select: none; /* Non-prefixed version, currently
-                                 supported by Chrome, Opera and Firefox */
-}
 div.popup
 {
     position: fixed;
@@ -97,6 +73,7 @@ input
   transition: background .2s;
   -webkit-appearance: none;
   appearance: none;
+  visibility: hidden;
 }
 input:hover
 {

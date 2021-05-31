@@ -1,5 +1,6 @@
-function createFieldVectors(canvas)
+function createFieldVectors()
 {
+    let canvas = foreGroundCanvas;
     fieldVectors = [];
 
     charges.forEach(charge => {
@@ -15,7 +16,7 @@ function createFieldVectors(canvas)
         {
             for (let x = startX; x < endX; x += gridSize)
             {
-                let arrowLocation = roundVectorToNearestGrid(canvas.createVector(x, y), canvas); // this is the starting location of all the field vectors 
+                let arrowLocation = roundVectorToNearestGrid(canvas.createVector(x, y)); // this is the starting location of all the field vectors 
 
                 let noChargesNearby = !charges.some(charge => { // if no charges are very clode to the vector, it will be drawn
                     return p5.Vector.dist(arrowLocation, charge.position) < chargeDiameter
@@ -25,7 +26,7 @@ function createFieldVectors(canvas)
                 {
                     // this field vector object is added to an array and everything in the array
                     // will be stored in a variable so they don't need to be recalculated every frame
-                    let forceVector = netForceAtPoint(arrowLocation, canvas).div(fieldVectorScale);
+                    let forceVector = netForceAtPoint(arrowLocation).div(fieldVectorScale);
 
                     fieldVectors.push(new FieldVector(arrowLocation, forceVector)); 
                 }
@@ -57,18 +58,18 @@ function createFieldVectors(canvas)
 
 
 
-function displayFieldVectors(canvas)
+function displayFieldVectors()
 {
-    showForceVectorsOnMouse(canvas); // a field vector will be displayed starting at the cursor's position
+    showForceVectorsOnMouse(); // a field vector will be displayed starting at the cursor's position
 
-    fieldVectors.forEach(forceVector => forceVector.display(canvas)) // every field vector object in the array will be displayed
+    fieldVectors.forEach(forceVector => forceVector.display()) // every field vector object in the array will be displayed
 }
 
 
 
-function showForceVectorsOnMouse(canvas)
+function showForceVectorsOnMouse()
 {
-    let force = netForceAtPoint(mousePosition, canvas).div(fieldVectorScale);
+    let force = netForceAtPoint(mousePosition).div(fieldVectorScale);
     let end = p5.Vector.add(mousePosition, force);
     let color = "rgba(250,250,250,1)";
     let angle = force.heading();
@@ -80,15 +81,16 @@ function showForceVectorsOnMouse(canvas)
 
     if (noChargesNearby)
     {
-        createArrow(mousePosition, end, angle, color, scale, canvas); // this vector is not a saved object and will be recalciulated every frame
+        createArrow(mousePosition, end, angle, color, scale); // this vector is not a saved object and will be recalciulated every frame
     }
 
 }
 
 
 
-function createArrow(start, end, angle, color, scale, canvas)
+function createArrow(start, end, angle, color, scale)
 {
+    let canvas = foreGroundCanvas;
     canvas.push();
         canvas.stroke(color);
         canvas.strokeWeight(scale * 4);
@@ -121,11 +123,11 @@ class FieldVector
         this.color = "rgba(250, 250, 250, 1)";
     }
 
-    display(canvas)
+    display()
     {
         if (this.forceMag > 3)
         {
-            createArrow(this.position, this.end, this.forceVector.heading(), this.color, this.scale, canvas);
+            createArrow(this.position, this.end, this.forceVector.heading(), this.color, this.scale);
         }
     }
   

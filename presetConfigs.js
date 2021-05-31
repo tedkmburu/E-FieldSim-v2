@@ -1,6 +1,8 @@
-function createPreset(preset, canvas)
+function createPreset(preset)
 {
-    removeAllCharges(canvas);
+    let canvas = foreGroundCanvas;
+
+    removeAllCharges();
 
     let centerXRounded = floorToNearestGrid((innerWidth / 2) - chargeRadius) - 100;
     let centerYRounded = floorToNearestGrid((innerHeight / 2) - chargeRadius);
@@ -8,19 +10,19 @@ function createPreset(preset, canvas)
 
     if (preset == "single")
     {
-        createPointCharge(center, 5, canvas);
+        createPointCharge(center, 5, );
     }
     else if (preset == "dipole")
     {
-        createPointCharge(canvas.createVector(center.x - 75, center.y), -4, canvas);
-        createPointCharge(canvas.createVector(center.x + 75, center.y), 4, canvas);
+        createPointCharge(canvas.createVector(center.x - 75, center.y), -4,);
+        createPointCharge(canvas.createVector(center.x + 75, center.y), 4,);
     }
     else if (preset == "square")
     {
-        createPointCharge(canvas.createVector(center.x - 100, center.y - 99), 5, canvas);
-        createPointCharge(canvas.createVector(center.x + 100, center.y - 100), 5, canvas);
-        createPointCharge(canvas.createVector(center.x - 101, center.y + 100), 5, canvas);
-        createPointCharge(canvas.createVector(center.x + 100, center.y + 105), 5, canvas);
+        createPointCharge(canvas.createVector(center.x - 100, center.y - 99), 5,);
+        createPointCharge(canvas.createVector(center.x + 100, center.y - 100), 5,);
+        createPointCharge(canvas.createVector(center.x - 101, center.y + 100), 5,);
+        createPointCharge(canvas.createVector(center.x + 100, center.y + 105), 5,);
     }
     else if (preset == "shield")
     {
@@ -31,26 +33,26 @@ function createPreset(preset, canvas)
         let point = canvas.createVector(radius,radius);
         for (let a = 0; a < times; a++)
         {
-            createPointCharge(canvas.createVector(point.x + origin.x, point.y + origin.y), 2, canvas);
+            createPointCharge(canvas.createVector(point.x + origin.x, point.y + origin.y), 2,);
             point = p5.Vector.add(point, canvas.createVector(0,0));
             point.rotate(360/times);
         }
-        createPointCharge(canvas.createVector(center.x, center.y), -2, canvas);
+        createPointCharge(canvas.createVector(center.x, center.y), -2,);
     }
     else if (preset == "row")
     {
         for (let i = 0; i < 4; i++)
         {
-            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + i), 4, canvas);
+            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + i), 4,);
         }
     }
     else if (preset == "dipole row")
     {
         for (let i = 0; i < 4; i++)
         {
-            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y - 100 + i), 4, canvas);
-            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + 100 + i), -4, canvas);
+            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y - 100 + i), 4,);
+            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + 100 + i), -4,);
         }
     }
-    createDataFromSidePanel(canvas);
+    createDataFromSidePanel();
 }

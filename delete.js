@@ -50,10 +50,10 @@ function createEquipotentialLines()
 
 
 
-function displayEquipotentialLines(canvas)
+function displayEquipotentialLines()
 {
     equiLines.forEach(equiLine => {
-        equiLine.display(canvas);
+        equiLine.display();
     });
 }
 
@@ -68,7 +68,7 @@ function getEquiLinePoints(originPoint, allOriginPoints, currentPoint, numberOfL
         numberOfLoops = 0;
     }
 
-    let forceVector = netForceAtPoint(currentPoint, canvas).setMag(0.5).rotate(90);
+    let forceVector = netForceAtPoint(currentPoint).setMag(0.5).rotate(90);
     let nextPoint = p5.Vector.add(forceVector, currentPoint);
     arrayOfPoints.push(nextPoint);
     
