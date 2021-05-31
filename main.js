@@ -5,7 +5,7 @@ const foreGround = canvas => {
     canvas.createCanvas(innerWidth, innerHeight); // creates the <canvas> that everything runs on.
     foreGroundCanvas = canvas;
 
-    canvas.angleMode(canvas.DEGREES);
+    canvas.angleMode(canvas.RADIANS);
 
     canvas.textFont(defaultFont); // the default font
 
@@ -25,10 +25,10 @@ const foreGround = canvas => {
 
   canvas.draw = function() // this function runs every frame. Everything on screen starts here.
   {  
-    canvas.clear();  
+    //canvas.clear();  
     mousePosition = canvas.createVector(canvas.mouseX, canvas.mouseY)
-    //background(0); // sets the background color to black
-    moveKeys(); // if the arrow keys are pressed, the selected charge moves
+    canvas.background(0); // sets the background color to black
+    moveKeys(canvas); // if the arrow keys are pressed, the selected charge moves
     
     displayDataFromSidePanel(canvas); // displays whatever settings are selected in the side panel
     displayConductors(canvas);
@@ -45,8 +45,22 @@ const foreGround = canvas => {
 
 
     canvas.fill("red")
-    canvas.rect(canvas.mouseX, canvas.mouseY, 10,10)
+    canvas.rect(mousePosition.x, mousePosition.y, 10,10)
   }
+
+  canvas.mouseClicked = function() { whenMouseClicked(canvas); } // this is an inbuilt p5 function that runs everytime any mouse button is clicked
+  canvas.mouseDragged = function() { whenMouseDragged(canvas); }
+  canvas.doubleClicked = function() { whenDoubleClicked(canvas); }
+  canvas.keyPressed = function() { whenKeyPressed(canvas); }
+  canvas.mouseMoved = function() { whenMouseMoved(canvas); }
+
+  canvas.windowResized = function() 
+  {
+    canvas.resizeCanvas(innerWidth, innerHeight);
+    createSidePanel(canvas);
+  }
+
+
 }
 
 new p5(foreGround); // invoke p5
@@ -81,9 +95,9 @@ function displayFrameRate(canvas)
 
 
 
-function netForceAtPoint(position)
+function netForceAtPoint(position, canvas)
 {
-  let finalVector = createVector(0, 0);
+  let finalVector = canvas.createVector(0, 0);
 
   charges.forEach(charge => {
       
@@ -97,10 +111,10 @@ function netForceAtPoint(position)
     let force = kq / rSquared;
 
     let theta = p5.Vector.sub(charge.position, position).heading();
-    let forceX = force * cos(theta);
-    let forceY = force * sin(theta);
+    let forceX = force * Math.cos(theta);
+    let forceY = force * Math.sin(theta);
 
-    let forceVectors = createVector(forceX, forceY).mult(-1);
+    let forceVectors = canvas.createVector(forceX, forceY).mult(-1);
 
     finalVector.add(forceVectors);
   });
@@ -148,22 +162,18 @@ function pointIsInsidCircle(point, cirlce)    // returns true or false based on 
 
 
 
-function windowResized()
-{
-  resizeCanvas(windowWidth, windowHeight);
-  createSidePanel();
-}
+
 
 function roundToNearestGrid(number) // rounds x or y position ot the nearest grid line
 {
   return Math.round(number / gridSize) * gridSize;
 }
 
-function roundVectorToNearestGrid(vector) // rounds vector ot the nearest grid intersection
+function roundVectorToNearestGrid(vector, canvas) // rounds vector ot the nearest grid intersection
 {
   let newX = roundToNearestGrid(vector.x);
   let newY = roundToNearestGrid(vector.y);
-  return createVector(newX, newY);
+  return canvas.createVector(newX, newY);
 }
 
 function floorToNearestGrid(number) // rounds down x or y position ot the nearest grid line

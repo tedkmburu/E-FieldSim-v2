@@ -15,7 +15,7 @@ function createContextMenu(canvas)
     if (rightClickedOnCharge)   // a charge has been right clicked so create a 'delete charge' button
     {
         contextMenuButtons.push(
-            new Button({position: canvas.createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Delete Charge", onClick: function(){ removeCharge(chargeToDelete) } }))
+            new Button({position: canvas.createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Delete Charge", onClick: function(){ removeCharge(chargeToDelete, canvas) } }))
     }
     else   // a charge has not been right clicked so create a 'add charge' button
     {
@@ -59,16 +59,16 @@ function rightClick() // called when the user right clicks the page
 {
     charges.forEach(charge => {charge.selected = false;} ) // deselect all charges to get rid of sliders
 
-    if (canvas.mouseX < innerWidth - sidePanelWidth)    // if they didn't rightclick the side panel, show the right click menu
+    if (mousePosition.x < innerWidth - sidePanelWidth)    // if they didn't rightclick the side panel, show the right click menu
     {
         showContextMenu = true;
 
-        contextMenuPosition = createVector(canvas.mouseX, canvas.mouseY) // sets the new position for the right click menu
-        createContextMenu();
+        contextMenuPosition = mousePosition // sets the new position for the right click menu
+        createContextMenu(canvas);
     }
     else
     {
-        hideContextMenu(); // if they did rightclick the side panel, hide the right click menu
+        hideContextMenu(canvas); // if they did rightclick the side panel, hide the right click menu
     }
 }
 

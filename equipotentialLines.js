@@ -1,9 +1,8 @@
 function displayEquipotentialLines(canvas)
 {
     equiLines = []
-    let mousePostition = createVector(mouseX, mouseY);
-    getEquiLinePoints(mousePostition, -1);
-    getEquiLinePoints(mousePostition, 1);
+    getEquiLinePoints(mousePosition, canvas, -1);
+    getEquiLinePoints(mousePosition, canvas, 1);
 
     equiLines.forEach(equiLine => {
         equiLine.display(canvas);
@@ -12,7 +11,7 @@ function displayEquipotentialLines(canvas)
 
 
 
-function getEquiLinePoints(originPoint, direction, currentPoint, numberOfLoops, arrayOfPoints)
+function getEquiLinePoints(originPoint, canvas, direction, currentPoint, numberOfLoops, arrayOfPoints)
 {
     if (arrayOfPoints == undefined) 
     {
@@ -21,9 +20,9 @@ function getEquiLinePoints(originPoint, direction, currentPoint, numberOfLoops, 
         numberOfLoops = 0;
     }
 
-    let forceVector = netForceAtPoint(currentPoint);
+    let forceVector = netForceAtPoint(currentPoint, canvas);
     forceVector.mult(direction);
-    forceVector.rotate(90);
+    forceVector.rotate(Math.PI / 2);
     forceVector.setMag(equiLinesAccuracy);
 
 
@@ -35,7 +34,7 @@ function getEquiLinePoints(originPoint, direction, currentPoint, numberOfLoops, 
     if (distanceToOriginPoint < 10 && numberOfLoops > 100) numberOfLoops = equiLinesLimit;
         
     
-    if (numberOfLoops < equiLinesLimit) getEquiLinePoints(originPoint, direction, nextPoint, numberOfLoops + 1, arrayOfPoints)
+    if (numberOfLoops < equiLinesLimit) getEquiLinePoints(originPoint, canvas, direction, nextPoint, numberOfLoops + 1, arrayOfPoints)
     else equiLines.push(new EquiLine(arrayOfPoints));
 }
 
@@ -52,14 +51,14 @@ class EquiLine
     {
         let points = this.equiLinePoints
         canvas.push()
-            beginShape();
-                noFill()
-                let strokeColor = voltageAtPoint(points[0]) > 0 ? positiveChargeColor : negativeChargeColor ;
+            canvas.beginShape();
+            canvas.noFill()
+                let strokeColor = voltageAtPoint(points[0], canvas) > 0 ? positiveChargeColor : negativeChargeColor ;
                 canvas.stroke(strokeColor);
                 canvas.strokeWeight(3)
 
-                points.forEach(point => curveVertex(point.x, point.y));
-            endShape();
+                points.forEach(point => canvas.curveVertex(point.x, point.y));
+            canvas.endShape();
         
         canvas.pop()
 

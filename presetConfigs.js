@@ -1,8 +1,8 @@
 function createPreset(preset, canvas)
 {
-    removeAllCharges();
+    removeAllCharges(canvas);
 
-    let centerXRounded = floorToNearestGrid((innerWidth / 2) - chargeRadius) - sidePanelWidth;
+    let centerXRounded = floorToNearestGrid((innerWidth / 2) - chargeRadius) - 100;
     let centerYRounded = floorToNearestGrid((innerHeight / 2) - chargeRadius);
     let center = canvas.createVector(centerXRounded,centerYRounded);
 
@@ -49,7 +49,7 @@ function createPreset(preset, canvas)
         for (let i = 0; i < 4; i++)
         {
             createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y - 100 + i), 4, canvas);
-            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + 100 + i), -4), canvas;
+            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + 100 + i), -4, canvas);
         }
     }
     createDataFromSidePanel(canvas);

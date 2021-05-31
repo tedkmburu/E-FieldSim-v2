@@ -17,8 +17,8 @@ function createSidePanel(canvas)
         new Button({position: canvas.createVector(innerWidth - 280, 10), width: buttonHeight / 2, height: buttonHeight / 2, text: "Menu", onClick: function(){ menuOpen = !menuOpen; }, canvas: canvas }))
 
     checkBoxes.push(
-        new CheckBox({position: canvas.createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines", value: false, onClick: function(){ showFieldLines = this.value; if(this.value) { createFieldLines() } }, canvas: canvas }),
-        new CheckBox({position: canvas.createVector(col1, 75), height: 20, width: checkBoxWidth, text: "Field Vectors", value: false, onClick: function(){ showFieldVectors = this.value; if(this.value) { createFieldVectors() } }, canvas: canvas }),
+        new CheckBox({position: canvas.createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines", value: false, onClick: function(){ showFieldLines = this.value; if(this.value) { createFieldLines(canvas) } }, canvas: canvas }),
+        new CheckBox({position: canvas.createVector(col1, 75), height: 20, width: checkBoxWidth, text: "Field Vectors", value: false, onClick: function(){ showFieldVectors = this.value; if(this.value) { createFieldVectors(canvas) } }, canvas: canvas }),
         new CheckBox({position: canvas.createVector(col1, 100), height: 20, width: checkBoxWidth, text: "Equipotential Lines", value: false, onClick: function(){ showEquipotentialLines = this.value; }, canvas: canvas }),
         new CheckBox({position: canvas.createVector(col1, 125), height: 20, width: checkBoxWidth, text: "Voltage", value: true, onClick: function(){ showVoltage = this.value; if(this.value) { createVoltage(canvas) } }, canvas: canvas }),
         new CheckBox({position: canvas.createVector(col1, 150), height: 20, width: checkBoxWidth, text: "Show Grid", value: true, onClick: function(){ createGrid = this.value; }, canvas: canvas }),

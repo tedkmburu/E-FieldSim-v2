@@ -31,7 +31,7 @@ class Conductor
             {
                 for (let y = 0; y < (this.size.y / gridSize) + 1; y++) 
                 {
-                    this.particles.push(new TestCharge(createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , conductorParticleCharge ))
+                    this.particles.push(new TestCharge(createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , conductorParticleCharge, canvas))
                 } 
             }
         }
@@ -41,7 +41,7 @@ class Conductor
             {
                 for (let y = 0; y < (this.size.y / gridSize) + 1; y++) 
                 {
-                    this.particles.push(new TestCharge(createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , -conductorParticleCharge ))
+                    this.particles.push(new TestCharge(createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , -conductorParticleCharge, canvas))
                 } 
             }
         }
@@ -51,8 +51,8 @@ class Conductor
             {
                 for (let y = 0; y < (this.size.y / gridSize) + 1; y++) 
                 {
-                    this.particles.push(new TestCharge(createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , conductorParticleCharge ))
-                    this.particles.push(new TestCharge(createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , -conductorParticleCharge ))
+                    this.particles.push(new TestCharge(createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , conductorParticleCharge, canvas))
+                    this.particles.push(new TestCharge(createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , -conductorParticleCharge, canvas))
                 } 
             }
         }

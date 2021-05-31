@@ -26,7 +26,7 @@ function displayCharges(canvas) // this displays all the charges on screen
 }
 
 
-function removeCharge(i) // deletes a charge from the charges array and removes its slider
+function removeCharge(i, canvas) // deletes a charge from the charges array and removes its slider
 {
     charges[i].selected = false;
     charges[i].slider.style("visibility", "hidden");
@@ -37,11 +37,11 @@ function removeCharge(i) // deletes a charge from the charges array and removes 
     createDataFromSidePanel(canvas);
 }
 
-function removeAllCharges() // clears the charges array
+function removeAllCharges(canvas) // clears the charges array
 {
     for (let i = charges.length - 1; i >= 0; i--) // from end of array to beginning 
     {
-        removeCharge(i);
+        removeCharge(i, canvas);
     }
 
     charges = [];
@@ -68,7 +68,7 @@ class PointCharge extends Charge
         this.selected = false;
         this.dragging = false;
 
-        this.slider = this.canvas.createSlider(-5, 5, charge, 1);
+        this.slider = canvas.createSlider(-5, 5, charge, 1);
 
         this.slider.style("zIndex", "999");
         this.slider.style("visibility", "hidden");

@@ -1,11 +1,11 @@
 function displayCursor(canvas)  
 {
-    if (testChargeMode && mouseX < innerWidth - sidePanelWidth)  // if testcharge mode is on, this wil show a test charge instead of the cursor
+    if (testChargeMode && mousePosition.x < innerWidth - sidePanelWidth)  // if testcharge mode is on, this wil show a test charge instead of the cursor
     {
         canvas.push();
             canvas.fill(255);
             canvas.stroke(0)
-            canvas.ellipse(mouseX, mouseY, testChargeDiameter, testChargeDiameter); // creates ellipse the size of a test Charge
+            canvas.ellipse(mousePosition.x, mousePosition.y, testChargeDiameter, testChargeDiameter); // creates ellipse the size of a test Charge
             canvas.fill(0);
         canvas.pop();
     
@@ -30,7 +30,7 @@ function displayTestCharges(canvas) // this displays all testcharges in the test
 
         if (!isTouchingPointCharge) // if the testcharge is not touching a negative charge
         {
-            testCharge.move();
+            testCharge.move(canvas);
         }
         testCharge.display(canvas);
     });
@@ -38,14 +38,14 @@ function displayTestCharges(canvas) // this displays all testcharges in the test
 
 
 
-function createTestChargeMap() // removes all test charges then fills the screen with testcharges
+function createTestChargeMap(canvas) // removes all test charges then fills the screen with testcharges
 {
     testCharges = [];
     for (let y = 0; y < innerHeight; y += gridSize * 2)
     {
         for (let x = 0; x < innerWidth - sidePanelWidth; x += gridSize * 2)
         {
-            testCharges.push(new TestCharge(createVector(x, y), testChargeCharge));
+            testCharges.push(new TestCharge(canvas.createVector(x, y), testChargeCharge, canvas));
         }
     }
 }
@@ -53,12 +53,12 @@ function createTestChargeMap() // removes all test charges then fills the screen
 
 class TestCharge extends Charge
 {
-    constructor(position, charge)
+    constructor(position, charge, canvas)
     {
-        super(position, charge) // inherited from the Charge class
+        super(position, charge, canvas) // inherited from the Charge class
 
-        this.velocity = createVector(0, 0);
-        this.acceleration = createVector(0, 0);
+        this.velocity = this.canvas.createVector(0, 0);
+        this.acceleration = this.canvas.createVector(0, 0);
 
         if (this.charge > 0) this.color = positiveChargeColor;
         if (this.charge < 0) this.color = negativeChargeColor;
@@ -78,10 +78,10 @@ class TestCharge extends Charge
         canvas.pop();
     }
 
-    move()
+    move(canvas)
     {
         let testCharge = this;
-        let force = netForceAtPoint(testCharge.position);
+        let force = netForceAtPoint(testCharge.position, canvas);
 
         if (force.mag() != Infinity)
         {
@@ -95,9 +95,9 @@ class TestCharge extends Charge
         }
     }
 
-    moveMetal()
+    moveMetal(canvas)
     {
-        let force = netForceAtPoint(this.position).div(100000);
+        let force = netForceAtPoint(this.position, canvas).div(100000);
 
         if (force.mag() != Infinity)
         {

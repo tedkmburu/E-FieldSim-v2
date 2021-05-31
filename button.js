@@ -104,7 +104,6 @@ class Button
         if (button.visible) 
         {
             button.onClick();
-            console.log("clicked button");
         }
     }
   
