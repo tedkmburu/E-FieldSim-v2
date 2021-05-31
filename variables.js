@@ -9,6 +9,7 @@ const testChargeCharge = 0.000005; //q = 5 micro coulombs;
 const fieldLinesPerCoulomb = 4;
 const equiLinesAccuracy = 0.5; 
 const equiLinesLimit = 4000;
+const voltageAccuracy = 20;
 
 const positiveChargeColor = "rgb(210, 41, 45)";
 const negativeChargeColor = "rgb(23, 97, 176)";
@@ -32,6 +33,8 @@ let fieldVectors = [];
 let fieldLines = [];
 let fieldLineArrows = [];
 let equiLines = []; // equipotentialLines but shortened
+let voltageMap = [];
+
 
 let sidePanelWidth = 300;
 let snapToGrid = false;

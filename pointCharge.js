@@ -4,7 +4,7 @@ function createPointCharge(position, charge, canvas)
     {
         charges.push(new PointCharge(position, charge, canvas))
     }
-    else // this will run when the use creates their own charges
+    else // this will run when the user creates their own charges
     {
         charges.push(new PointCharge(position, 0, canvas))
         charges[charges.length - 1].selected = true;
@@ -28,32 +28,17 @@ function displayCharges(canvas) // this displays all the charges on screen
 
 function removeCharge(i, canvas) // deletes a charge from the charges array and removes its slider
 {
-    charges[i].selected = false;
-    charges[i].slider.style("visibility", "hidden");
     charges[i].slider.remove();
-
     charges.splice(i,1);
-
+    
     createDataFromSidePanel(canvas);
 }
 
 function removeAllCharges(canvas) // clears the charges array
 {
-    for (let i = charges.length - 1; i >= 0; i--) // from end of array to beginning 
-    {
-        removeCharge(i, canvas);
-    }
-
+    for (let i = charges.length - 1; i >= 0; i--) removeCharge(i, canvas); // from end of array to beginning 
     charges = [];
 }
-
-function sliderChanged() // runs when the slider on any charge is moved
-{
-    createDataFromSidePanel(canvas); // recalculate everything that's displayed on screen
-}
-
-
-
 
 
 
@@ -69,12 +54,9 @@ class PointCharge extends Charge
         this.dragging = false;
 
         this.slider = canvas.createSlider(-5, 5, charge, 1);
-
         this.slider.style("zIndex", "999");
-        this.slider.style("visibility", "hidden");
-        this.slider.addClass("slider");
-        this.slider.input(sliderChanged);
-        this.slider.changed(sliderChanged);
+        this.slider.input( function(){  createDataFromSidePanel(canvas); } ); // recalculate everything that's displayed on screen
+        this.slider.changed( function(){  createDataFromSidePanel(canvas); } ); // recalculate everything that's displayed on screen
     }
 
     display(canvas)
@@ -100,13 +82,12 @@ class PointCharge extends Charge
             }
 
             // set the fill color of the charge
-            let fillColor = (pointCharge.charge > 0) ? positiveChargeColor : negativeChargeColor
-            if (pointCharge.charge == 0)
-            {
-                fillColor = neutralChargeColor;
-            }
-            canvas.fill(fillColor);
+            let fillColor;
+            if (pointCharge.charge == 0) fillColor = neutralChargeColor;
+            if (pointCharge.charge > 0) fillColor = positiveChargeColor;
+            if (pointCharge.charge < 0) fillColor = negativeChargeColor;
 
+            canvas.fill(fillColor);
             canvas.ellipse(pointCharge.position.x, pointCharge.position.y, chargeDiameter, chargeDiameter);
 
             canvas.textSize(16);

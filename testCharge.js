@@ -4,7 +4,7 @@ function displayCursor(canvas)
     {
         canvas.push();
             canvas.fill(255);
-            canvas.stroke(0)
+            canvas.stroke(0);
             canvas.ellipse(mousePosition.x, mousePosition.y, testChargeDiameter, testChargeDiameter); // creates ellipse the size of a test Charge
             canvas.fill(0);
         canvas.pop();
@@ -22,9 +22,9 @@ function displayCursor(canvas)
 function displayTestCharges(canvas) // this displays all testcharges in the testCharges array
 {
     testCharges.forEach(testCharge => {
-        let isTouchingPointCharge = charges.some(charge => { // this loops through all the point charges on the screen
-            let distance = p5.Vector.dist(testCharge.position, charge.position); // the distance from the point charge to the test charge
+        let isTouchingPointCharge = charges.some(charge => { // this loops through all the point charges on the screen and is true if any one of the conditions are true
             
+            let distance = p5.Vector.dist(testCharge.position, charge.position); // the distance from the point charge to the test charge
             return (distance - (testChargeDiameter/2) < chargeRadius && charge.charge < 0) // if the two intersect, this is true
         })
 
@@ -41,9 +41,10 @@ function displayTestCharges(canvas) // this displays all testcharges in the test
 function createTestChargeMap(canvas) // removes all test charges then fills the screen with testcharges
 {
     testCharges = [];
-    for (let y = 0; y < innerHeight; y += gridSize * 2)
+    let incriment = gridSize * 2;
+    for (let y = 0; y < innerHeight; y += incriment)
     {
-        for (let x = 0; x < innerWidth - sidePanelWidth; x += gridSize * 2)
+        for (let x = 0; x < innerWidth - sidePanelWidth; x += incriment)
         {
             testCharges.push(new TestCharge(canvas.createVector(x, y), testChargeCharge, canvas));
         }

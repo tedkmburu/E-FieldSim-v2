@@ -6,6 +6,7 @@ body, html
   width: 100%;
   overflow: hidden;
   overscroll-behavior: none;
+  background-color: black;
 }
 
 canvas
@@ -17,8 +18,7 @@ canvas
 #defaultCanvas0 
 {
   z-index: 0;
-  background-color: rgba(0,0,0,0.5);
-  filter:  blur( 5px );
+  filter:  blur( 10px );
 }
 #defaultCanvas1
 {
@@ -85,7 +85,7 @@ i.closePopUp
 
 
 
-input.slider
+input
 {
   height: 5px;
   width: 150px;
@@ -98,11 +98,11 @@ input.slider
   -webkit-appearance: none;
   appearance: none;
 }
-input.slider:hover
+input:hover
 {
   background: "rgb(255,255,255)";
 }
-input.slider::-webkit-slider-thumb
+input::-webkit-slider-thumb
 {
   -webkit-appearance: none;
   appearance: none;
@@ -112,7 +112,7 @@ input.slider::-webkit-slider-thumb
   background: #616161;
   cursor: pointer;
 }
-input.slider::-moz-range-thumb
+input::-moz-range-thumb
 {
   width: 15px;
   height: 15px;
@@ -228,15 +228,7 @@ table.menu td.doubleButton
   padding: 0;
   margin: 0;
 }
-input.checkBox
-{
-  padding: 10px;
-  margin: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 0;
-  background-color: gray;
-}
+
 label
 {
   position: relative;
