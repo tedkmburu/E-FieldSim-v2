@@ -1,5 +1,5 @@
 let voltageMap = [];
-let voltageBlockSize = 10;
+let voltageBlockSize = 20;
 
 
 function voltageAtPoint(point)
@@ -45,7 +45,6 @@ function displayVoltage(canvas)
 
 function createVoltage(canvas)
 {
-  var voltageBlockSize = 10;
 
   for (var y = 0; y < innerHeight; y+=voltageBlockSize)
   {

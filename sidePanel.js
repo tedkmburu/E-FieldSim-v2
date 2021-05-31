@@ -127,7 +127,7 @@ function displayDataFromSidePanel(canvas) // After creating data based off of th
 
   if (createGrid) { displayGrid(canvas); }
 
-  if (showVoltage){ displayVoltage(canvas); }
+  
 
   if (showEquipotentialLines) { displayEquipotentialLines(canvas); }
 

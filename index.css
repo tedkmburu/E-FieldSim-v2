@@ -6,26 +6,25 @@ body, html
   width: 100%;
   overflow: hidden;
   overscroll-behavior: none;
-
-
 }
 
-iframe.voltage, #background
+canvas
 {
-  width: 10%;
-  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 0;
-  overflow: hidden;
-  overscroll-behavior: none;
 }
-#defaultCanvas0
+#defaultCanvas0 
+{
+  z-index: 0;
+  background-color: rgba(0,0,0,0.5);
+  filter:  blur( 5px );
+}
+#defaultCanvas1
 {
   z-index: 10;
+  background-color: rgba(0,0,0,0);
 }
-
 
 div.three
 {

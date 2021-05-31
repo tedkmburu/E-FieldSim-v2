@@ -1,3 +1,35 @@
+const background = canvas => {
+
+  canvas.setup = function()  // This function only runs once when the page first loads. 
+  {
+    canvas.createCanvas(innerWidth, innerHeight); // creates the <canvas> that everything runs on.
+    backgroundCanvas = canvas;
+    canvas.angleMode(canvas.RADIANS);
+    //document.getElementById("defaultCanvas1").setAttribute("oncontextmenu", "rightClick(); return false"); // disables the right click menu before I create my own
+    canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
+  }
+
+  canvas.draw = function() // this function runs every frame. Everything on screen starts here.
+  {  
+    mousePosition = canvas.createVector(canvas.mouseX, canvas.mouseY)
+    canvas.background(0); // sets the background color to black
+
+    if (showVoltage){ displayVoltage(canvas); }
+  }
+
+  canvas.windowResized = function() 
+  {
+    canvas.resizeCanvas(innerWidth, innerHeight);
+    createSidePanel(canvas);
+    createDataFromSidePanel(canvas);
+  }
+}
+
+
+
+
+
+
 const foreGround = canvas => {
 
   canvas.setup = function()  // This function only runs once when the page first loads. 
@@ -25,9 +57,9 @@ const foreGround = canvas => {
 
   canvas.draw = function() // this function runs every frame. Everything on screen starts here.
   {  
-    //canvas.clear();  
+    canvas.clear();
     mousePosition = canvas.createVector(canvas.mouseX, canvas.mouseY)
-    canvas.background(0); // sets the background color to black
+    // canvas.background(0); // sets the background color to black
     moveKeys(canvas); // if the arrow keys are pressed, the selected charge moves
     
     displayDataFromSidePanel(canvas); // displays whatever settings are selected in the side panel
@@ -42,10 +74,6 @@ const foreGround = canvas => {
     if (!canvas.focused) hideContextMenu(canvas);
 
     displayCursor(canvas); // if in test charge mode, replace cursor with test charge. Otherwise, keep it normal
-
-
-    canvas.fill("red")
-    canvas.rect(mousePosition.x, mousePosition.y, 10,10)
   }
 
   canvas.mouseClicked = function() { whenMouseClicked(canvas); } // this is an inbuilt p5 function that runs everytime any mouse button is clicked
@@ -57,12 +85,20 @@ const foreGround = canvas => {
   canvas.windowResized = function() 
   {
     canvas.resizeCanvas(innerWidth, innerHeight);
+    
     createSidePanel(canvas);
+    createDataFromSidePanel(canvas);
   }
 
 
 }
 
+
+
+
+
+
+new p5(background); // invoke p5
 new p5(foreGround); // invoke p5
 
 function displayGrid(canvas) // displays background grid
