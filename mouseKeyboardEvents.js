@@ -70,11 +70,19 @@ function whenMouseClicked() // this is an inbuilt p5 function that runs everytim
 
 
   charges.forEach(charge => {charge.dragging = false; charge.selected = false;} )
+  conductors.forEach(conductor => {conductor.dragging = false; conductor.selected = false;} )
 
-  let selectedCharge = charges.find(charge => pointIsInsidCircle(mousePosition, charge))
+  let selectedCharge = charges.find(charge => pointIsInsideCircle(mousePosition, charge))
   if (selectedCharge != undefined) 
   {
     selectedCharge.selected = true;
+  }
+
+  let selectedConductor = conductors.find(conductor => pointIsInsideCircle(mousePosition, conductor))
+  if (selectedConductor != undefined) 
+  {
+    selectedConductor.selected = true;
+    console.log("selected");
   }
   
 
@@ -85,7 +93,7 @@ function whenMouseClicked() // this is an inbuilt p5 function that runs everytim
 
 
 
-function whenMouseMoved(canvas) 
+function whenMouseMoved() 
 {
   buttons.forEach(button => { // this will loop through all the buttons
     if (button.visible) 
@@ -135,7 +143,7 @@ function whenMouseMoved(canvas)
 
 
 
-function whenMouseDragged(canvas)
+function whenMouseDragged()
 {
   // let chargeDragged = null;
 
@@ -243,19 +251,19 @@ function whenMouseDragged(canvas)
 
 
 
-
+  let createData = false; 
 
 
 
 
   let noChargeIsBeingDragged = !charges.some(charge => charge.dragging) // this will be true if no charge is currently being dragged.
+  let noConductorIsBeingDragged = !conductors.some(conductor => conductor.dragging) // this will be true if no conductor is currently being dragged.
 
-  if (noChargeIsBeingDragged) // if no charge is being dragged, check if the mouse is over a charge and is dragging
+
+  if (noChargeIsBeingDragged && noConductorIsBeingDragged) // if no charge is being dragged, check if the mouse is over a charge and is dragging
   {
-
     charges.forEach(charge => {
-
-      if (pointIsInsidCircle(mousePosition, charge)) charge.dragging = true  // if the mouse is hovering over a charge , set it's dragging property to true
+      if (pointIsInsideCircle(mousePosition, charge)) charge.dragging = true  // if the mouse is hovering over a charge , set it's dragging property to true
       else charge.dragging = false;
     })
   }
@@ -273,9 +281,48 @@ function whenMouseDragged(canvas)
       chargeToMove.position = roundVectorToNearestGrid(mousePosition)// the charge position will round to the nearest grid
     }
 
-    createDataFromSidePanel();
-    
+    createData = true; 
   }
+
+
+
+
+
+
+
+  
+
+  if (noChargeIsBeingDragged && noConductorIsBeingDragged) // if no conductor is being dragged, check if the mouse is over a conductor and is dragging
+  {
+    conductors.forEach(conductor => {
+      if (pointIsInsideRect(mousePosition, conductor)) conductor.dragging = true;  // if the mouse is hovering over a conductor , set it's dragging property to true
+      else conductor.dragging = false;
+    })
+  }
+  
+  let conductorToMove = conductors.find(conductor => conductor.dragging) // this searches the conductors array and finds the first conductor with a true dragging property and sets it equal to the variable
+  
+  if (mousePosition.x < innerWidth - sidePanelWidth && conductorToMove != undefined) // if the mouse isn't over the side panel
+  {
+    if (!snapToGrid) 
+    {
+      let canvas = foreGroundCanvas;
+      conductorToMove.position = p5.Vector.sub(mousePosition, canvas.createVector(conductorToMove.width / 2, conductorToMove.height / 2)); // make the conductors position equal to the mouse position
+    }
+    else
+    {
+      conductorToMove.position = roundVectorToNearestGrid(mousePosition)// the conductor position will round to the nearest grid
+    }
+
+    createData = true; 
+  }
+
+  if (createData) {
+    createDataFromSidePanel();
+  }
+
+
+
   
 
 }
@@ -287,23 +334,19 @@ function whenDoubleClicked()
   if (!testChargeMode)
   {
     let notTouching = true;
-    for (let charge of charges)
-    {
+    charges.forEach(charge => {
       let distance = mousePosition.dist(charge.position);
       if (distance < chargeDiameter)
       {
         notTouching = false;
       }
-    }
+    })
 
     let onConductor = false
     conductors.forEach(conductor => {
-      if (mousePosition.x > conductor.position.x &&
-        mousePosition.x < conductor.position.x + conductor.size.x && 
-        mousePosition.y > conductor.position.y &&
-        mousePosition.y < conductor.position.y + conductor.size.y) 
+      if (pointIsInsideRect(mousePosition, conductor)) 
       {
-        onConductor = true
+        onConductor = true;
       }
     })
 
@@ -344,11 +387,11 @@ function whenKeyPressed()
   }
   else
   {
-    if (keyCode == 109)
+    if (canvas.keyCode == 109)
     {
       createPointCharge(mousePosition, -5);
     }
-    if (keyCode == 107)
+    if (canvas.keyCode == 107)
     {
       createPointCharge(mousePosition, 5);
     }

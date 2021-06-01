@@ -47,7 +47,10 @@ const foreGround = canvas => {
 
     document.getElementById("defaultCanvas0").setAttribute("oncontextmenu", "rightClick(); return false"); // disables the right click menu before I create my own
     
-    createPreset("dipole"); // creates one charge at the center of the screen when the simulation first starts up
+    // createPreset("dipole"); // creates what is displayed when the simulation first starts up
+
+    createConductor('+', "rect");
+    createDataFromSidePanel();
 
     canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
   }
@@ -157,26 +160,34 @@ function netForceAtPoint(position)
     finalVector.add(forceVectors);
   });
 
+
+  conductors.forEach(conductor => {
+    conductor.particles.forEach(particle => {
+
+      //F = KQ / (r^2)
+      let kq = particle.charge  * k;
+      let r = p5.Vector.dist(position, particle.position);
+  
+      if (r > 2.5)
+      {
+        let rSquared = Math.pow(r,2);
+        let force = kq / rSquared;
+  
+        let theta = p5.Vector.sub(particle.position, position).heading();
+        let forceX = force * Math.cos(theta);
+        let forceY = force * Math.sin(theta);
+  
+        let forceVectors = canvas.createVector(forceX, forceY).mult(-1);
+  
+        finalVector.add(forceVectors);
+      }
+    });
+    
+  });
+
   return finalVector;
 }
 
-
-
-function voltageAtPoint(point)
-{
-  let voltage = 0;
-
-  charges.forEach(charge => {
-      let kq = (charge.charge / 10) * k;
-      let r = p5.Vector.dist(point, charge.position) / gridSize;
-      let v = kq / r;
-
-      voltage += v;
-  })
-
-
-  return voltage;
-}
 
 
 
@@ -190,11 +201,20 @@ function pointIsInsideRect(point, rect) // returns true or false based on if the
 }
 
 
-function pointIsInsidCircle(point, cirlce)    // returns true or false based on if the point is inside the circle
+function pointIsInsideCircle(point, cirlce)    // returns true or false based on if the point is inside the circle
 {
   let distance = point.dist(cirlce.position);
 
   return (distance < cirlce.radius);
+}
+
+
+function circleIsInRect(circle, rect)
+{
+  return (circle.position.x + circle.radius > rect.position.x &&
+          circle.position.y + circle.radius > rect.position.y &&
+          circle.position.x - circle.radius < rect.position.x + rect.width &&
+          circle.position.y - circle.radius < rect.position.y + rect.height)
 }
 
 

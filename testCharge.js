@@ -30,7 +30,11 @@ function displayTestCharges() // this displays all testcharges in the testCharge
             return (distance - (testChargeDiameter/2) < chargeRadius && charge.charge < 0) // if the two intersect, this is true
         })
 
-        if (!isTouchingPointCharge) // if the testcharge is not touching a negative charge
+        let isInsideConductor = conductors.some(conductor => {
+            return circleIsInRect(testCharge, conductor)
+        }) 
+
+        if (!isTouchingPointCharge && !isInsideConductor) // if the testcharge is not touching a negative charge
         {
             testCharge.move(canvas);
         }
@@ -64,6 +68,7 @@ class TestCharge extends Charge
 
         this.velocity = canvas.createVector(0, 0);
         this.acceleration = canvas.createVector(0, 0);
+        this.radius = testChargeRadius; 
 
         if (this.charge > 0) this.color = positiveChargeColor;
         if (this.charge < 0) this.color = negativeChargeColor;
@@ -104,7 +109,7 @@ class TestCharge extends Charge
 
     moveMetal()
     {
-        let force = netForceAtPoint(this.position).div(100000);
+        let force = netForceAtPoint(this.position).div(1000);
 
         if (force.mag() != Infinity)
         {
@@ -123,8 +128,8 @@ class TestCharge extends Charge
     {
         let rand1 = (Math.random() * 2) - 1
         let rand2 = (Math.random() * 2) - 1
-        this.position.x += rand1 * magnitude
-        this.position.y += rand2 * magnitude
+        this.position.x += rand1 * magnitude;
+        this.position.y += rand2 * magnitude;
     }
 
     checkWallCollision()

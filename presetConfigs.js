@@ -35,7 +35,7 @@ function createPreset(preset)
         {
             createPointCharge(canvas.createVector(point.x + origin.x, point.y + origin.y), 2,);
             point = p5.Vector.add(point, canvas.createVector(0,0));
-            point.rotate(360/times);
+            point.rotate( Math.PI * 2 / times);
         }
         createPointCharge(canvas.createVector(center.x, center.y), -2,);
     }

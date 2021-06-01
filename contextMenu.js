@@ -10,7 +10,7 @@ function createContextMenu()
 
     let rightClickedOnCharge = charges.some((charge, i) => {
         chargeToDelete = i; // the index of the charge to delete is set here
-        return pointIsInsidCircle(contextMenuPosition, charge);  // returns true or false based on if the charge is right clicked
+        return pointIsInsideCircle(contextMenuPosition, charge);  // returns true or false based on if the charge is right clicked
     })
 
     if (rightClickedOnCharge)   // a charge has been right clicked so create a 'delete charge' button

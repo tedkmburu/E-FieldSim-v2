@@ -89,14 +89,16 @@ class PointCharge extends Charge
             if (pointCharge.charge > 0) fillColor = positiveChargeColor;
             if (pointCharge.charge < 0) fillColor = negativeChargeColor;
 
+            // draw the circle
             canvas.fill(fillColor);
             canvas.ellipse(pointCharge.position.x, pointCharge.position.y, chargeDiameter, chargeDiameter);
 
+            // write down the charge of the point charge ontop of it
             canvas.textSize(16);
             canvas.textFont(buttonFont);
             canvas.fill("white");
             canvas.noStroke();
-            if (pointCharge.charge > 0)
+            if (pointCharge.charge > 0) // if the charge > 0, add a "+" sign before the number 
             {
                 let chargeStringLength = pointCharge.charge.toString().length + 1.5;
                 let chargeToShow = "+" + pointCharge.charge.toString(); 
@@ -114,5 +116,29 @@ class PointCharge extends Charge
                 canvas.text(pointCharge.charge, textPositionX, textPositionY);
             }
         canvas.pop();
+
+
+        // if a point charge touches a conductor, redice it's 
+        if (pointCharge.charge >= 0) 
+        {
+            conductors.forEach(conductor => {
+                let numberOfNegativeParticles = conductor.particles.filter(particle => particle.charge > 0).length;
+                if (circleIsInRect(pointCharge, conductor) && conductor.particles.length > numberOfNegativeParticles) 
+                {
+                    pointCharge.slider.value(pointCharge.charge - 1);
+                    pointCharge.charge--;
+
+                    conductor.charge = "+";
+
+                    conductor.particles.forEach((particle, i) => {
+                        if (particle.charge < 0) 
+                        {
+                            removeParticle(conductor, i);
+                        }
+                    });
+                }   
+            });
+        }
+        
     }
 }

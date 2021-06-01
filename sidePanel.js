@@ -18,12 +18,12 @@ function createSidePanel()
         new Button({position: canvas.createVector(innerWidth - 280, 10), width: buttonHeight / 2, height: buttonHeight / 2, text: "Menu", onClick: function(){ menuOpen = !menuOpen; } }))
 
     checkBoxes.push(
-        new CheckBox({position: canvas.createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines", value: false, onClick: function(){ showFieldLines = this.value; if(this.value) { createFieldLines() } } }),
-        new CheckBox({position: canvas.createVector(col1, 75), height: 20, width: checkBoxWidth, text: "Field Vectors", value: false, onClick: function(){ showFieldVectors = this.value; if(this.value) { createFieldVectors() } } }),
+        new CheckBox({position: canvas.createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines", value: true, onClick: function(){ showFieldLines = this.value; if (this.value) { createFieldLines() } } }),
+        new CheckBox({position: canvas.createVector(col1, 75), height: 20, width: checkBoxWidth, text: "Field Vectors", value: false, onClick: function(){ showFieldVectors = this.value; if (this.value) { createFieldVectors() } } }),
         new CheckBox({position: canvas.createVector(col1, 100), height: 20, width: checkBoxWidth, text: "Equipotential Lines", value: false, onClick: function(){ showEquipotentialLines = this.value; } }),
-        new CheckBox({position: canvas.createVector(col1, 125), height: 20, width: checkBoxWidth, text: "Voltage", value: true, onClick: function(){ showVoltage = this.value; if(this.value) { createVoltage() } } }),
-        new CheckBox({position: canvas.createVector(col1, 150), height: 20, width: checkBoxWidth, text: "Show Grid", value: true, onClick: function(){ createGrid = this.value; } }),
-        new CheckBox({position: canvas.createVector(col1 + 20, 175), height: 20, width: checkBoxWidth, text: "Snap to Grid", value: false, onClick: function(){ snapToGrid = this.value; if(this.value) { checkBoxes[4].value = true; createGrid = true;} } }))
+        new CheckBox({position: canvas.createVector(col1, 125), height: 20, width: checkBoxWidth, text: "Voltage", value: false, onClick: function(){ showVoltage = this.value; if (this.value) { createVoltage() } } }),
+        new CheckBox({position: canvas.createVector(col1, 150), height: 20, width: checkBoxWidth, text: "Show Grid", value: false, onClick: function(){ createGrid = this.value; } }),
+        new CheckBox({position: canvas.createVector(col1 + 20, 175), height: 20, width: checkBoxWidth, text: "Snap to Grid", value: false, onClick: function(){ snapToGrid = this.value; if (this.value) { checkBoxes[4].value = true; createGrid = true;} } }))
 
     buttons.push(
         new Button({position: canvas.createVector(col1, 255), width: butonHalfWidth, height: buttonHeight, text: "Single", onClick: function(){ createPreset('single') } }),
@@ -39,10 +39,10 @@ function createSidePanel()
         new Button({position: canvas.createVector(col1, 440), width: buttonFullWidth, height: buttonHeight, text: "Create Test Charge Map", onClick: function(){ testChargeMode = true; createTestChargeMap(); checkBoxes[6].value = true; testChargeMode = true;} }),
         new Button({position: canvas.createVector(col1, 480), width: buttonFullWidth, height: buttonHeight, text: "Clear Test Charges", onClick: function(){ testCharges = []; } }),
 
-        new Button({position: canvas.createVector(col1, 550), width: buttonFullWidth, height: buttonHeight, text: "Add Conductor", onClick: function(){ createMetal('='); createDataFromSidePanel(); } }),
-        new Button({position: canvas.createVector(col1, 590), width: buttonFullWidth, height: buttonHeight, text: "Add + Conductor", onClick: function(){ createMetal('+'); createDataFromSidePanel(); } }),
-        new Button({position: canvas.createVector(col1, 630), width: buttonFullWidth, height: buttonHeight, text: "Add - Conductor", onClick: function(){ createMetal('-'); createDataFromSidePanel(); } }),
-        new Button({position: canvas.createVector(col1, 670), width: buttonFullWidth, height: buttonHeight, text: "Remove All Conductors", onClick: function(){ metals=[]; createDataFromSidePanel(); } }))
+        new Button({position: canvas.createVector(col1, 550), width: buttonFullWidth, height: buttonHeight, text: "Add Conductor", onClick: function(){ createConductor('=', "rect"); createDataFromSidePanel(); } }),
+        new Button({position: canvas.createVector(col1, 590), width: buttonFullWidth, height: buttonHeight, text: "Add + Conductor", onClick: function(){ createConductor('+', "rect"); createDataFromSidePanel(); } }),
+        new Button({position: canvas.createVector(col1, 630), width: buttonFullWidth, height: buttonHeight, text: "Add - Conductor", onClick: function(){ createConductor('-', "rect"); createDataFromSidePanel(); } }),
+        new Button({position: canvas.createVector(col1, 670), width: buttonFullWidth, height: buttonHeight, text: "Remove All Conductors", onClick: function(){ conductors = []; createDataFromSidePanel(); } }))
 
 }
 
@@ -109,7 +109,7 @@ function displaySidePanel()
 
 function createDataFromSidePanel() // after reading the checkboxes in the side panel, this is called to update everything on the screen to reflect the side panel checkboxes
 {
-    noPositiveCharges = !charges.some(charge => charge.charge >= 0); // if a positive charge exists, this will be false
+    noPositiveCharges = !charges.some(charge => charge.charge >= 0) && !conductors.some(conductor => conductor.charge == "+"); // if a positive charge exists, this will be false
 
     if (showVoltage) createVoltage();
     

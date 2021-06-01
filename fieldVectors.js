@@ -21,8 +21,12 @@ function createFieldVectors()
                 let noChargesNearby = !charges.some(charge => { // if no charges are very clode to the vector, it will be drawn
                     return p5.Vector.dist(arrowLocation, charge.position) < chargeDiameter
                 })
+                
+                let isInsideConductor = conductors.some(conductor => {
+                    return pointIsInsideRect(arrowLocation, conductor)
+                }) 
         
-                if (noChargesNearby)
+                if (noChargesNearby && !isInsideConductor)
                 {
                     // this field vector object is added to an array and everything in the array
                     // will be stored in a variable so they don't need to be recalculated every frame
@@ -69,20 +73,28 @@ function displayFieldVectors()
 
 function showForceVectorsOnMouse()
 {
-    let force = netForceAtPoint(mousePosition).div(fieldVectorScale);
-    let end = p5.Vector.add(mousePosition, force);
-    let color = "rgba(250,250,250,1)";
-    let angle = force.heading();
-    let scale = force.mag() / 100;
+    let isInsideConductor = conductors.some(conductor => {
+        return pointIsInsideRect(mousePosition, conductor)
+    }) 
 
-    let noChargesNearby = !charges.some(charge => { // if no charges are very clode to the vector, it will be drawn
-        return p5.Vector.dist(mousePosition, charge.position) < chargeRadius
-    })
-
-    if (noChargesNearby)
+    if (!isInsideConductor) 
     {
-        createArrow(mousePosition, end, angle, color, scale); // this vector is not a saved object and will be recalciulated every frame
+        let force = netForceAtPoint(mousePosition).div(fieldVectorScale);
+        let end = p5.Vector.add(mousePosition, force);
+        let color = "rgba(250,250,250,1)";
+        let angle = force.heading();
+        let scale = force.mag() / 100;
+
+        let noChargesNearby = !charges.some(charge => { // if no charges are very clode to the vector, it will be drawn
+            return p5.Vector.dist(mousePosition, charge.position) < chargeRadius
+        })
+
+        if (noChargesNearby)
+        {
+            createArrow(mousePosition, end, angle, color, scale); // this vector is not a saved object and will be recalciulated every frame
+        }
     }
+    
 
 }
 

@@ -14,11 +14,13 @@ canvas
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
 }
 #defaultCanvas0 
 {
   z-index: 0;
-  filter:  blur( 10px );
+  filter:  blur( 15px );
 }
 #defaultCanvas1
 {
@@ -29,15 +31,15 @@ canvas
 
 div.popup
 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 9999;
-    overflow-y: scroll;
-    visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 9999;
+  overflow-y: scroll;
+  visibility: hidden;
 }
 div.popup div.content
 {
