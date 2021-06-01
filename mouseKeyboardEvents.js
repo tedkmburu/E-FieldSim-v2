@@ -120,6 +120,17 @@ function whenMouseMoved()
       }
     })
   }
+
+  let canvas = foreGroundCanvas;
+  conductors.forEach(conductor => {
+    let centerOfConductor = canvas.createVector(conductor.position.x + (conductor.width / 2), conductor.position.y + (conductor.height / 2));
+    //let angle = canvas.degrees(centerOfConductor.angleBetween(mousePosition));
+    let angle = p5.Vector.sub(centerOfConductor, mousePosition).heading();
+    let moveDistance = p5.Vector.fromAngle( angle, 50);
+    let end = p5.Vector.add(moveDistance, mousePosition)
+
+    createArrow(mousePosition, end, angle, "white", 1)
+  })
 }
 
 

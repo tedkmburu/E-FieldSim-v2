@@ -68,6 +68,13 @@ class Conductor
                 for (let y = 0; y < (this.height / gridSize) + 1; y++) 
                 {
                     this.particles.push(new ConductorParticle(canvas.createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , conductorParticleCharge))
+                } 
+            }
+
+            for (let x = 0; x < (this.width / gridSize) + 1; x++) 
+            {
+                for (let y = 0; y < (this.height / gridSize) + 1; y++) 
+                {
                     this.particles.push(new ConductorParticle(canvas.createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , -conductorParticleCharge))
                 } 
             }
@@ -112,62 +119,31 @@ class Conductor
             canvas.noStroke();
 
             this.particles.forEach(particle => {
-                let fillColor = (particle.charge > 0) ? positiveChargeColor : negativeChargeColor;
-                canvas.fill(fillColor)
-
+                // this will move all the particles as the conductor is dragged around
                 let displacmentVector = p5.Vector.sub(this.position, this.previousPosition)
                 particle.position.add(displacmentVector);
                 
                 if (particle.charge < 0 ) 
-                {
-                    canvas.ellipse(particle.position.x, particle.position.y, testChargeDiameter, testChargeDiameter);
-                    
-                
+                {}
                     if (circleIsInRect(particle, this)) 
                     {
-                        // particle.move()
                         particle.moveMetal();
-                        particle.position.x = canvas.constrain(particle.position.x, this.position.x + bumpWhenHitEdge, this.position.x + this.width - bumpWhenHitEdge)
-                        particle.position.y = canvas.constrain(particle.position.y, this.position.y + bumpWhenHitEdge, this.position.y + this.height - bumpWhenHitEdge)
-                        
-                        // particle.brownian(2)
                     }
                     else
                     {
-                        console.log("asdf");
-                    }
-                    // if (particle.position.x < this.position.x) 
-                    // {
-                    //     particle.position.x += bumpWhenHitEdge
-                    //     particle.acceleration.x = 0
-                    //     particle.velocity.x = 0
-                    // }
-                    // if (particle.position.x > this.position.x + this.width) 
-                    // {
-                    //     particle.position.x-=bumpWhenHitEdge
-                    //     particle.acceleration.x = 0
-                    //     particle.velocity.x = 0
-                    // }
-                    // if (particle.position.y < this.position.y) 
-                    // {
-                    //     particle.position.y+=bumpWhenHitEdge
-                    //     particle.acceleration.y = 0
-                    //     particle.velocity.y = 0
-                    // }
-                    // if (particle.position.y > this.position.y + this.height) 
-                    // {
-                    //     particle.position.y-=bumpWhenHitEdge
-                    //     particle.acceleration.y = 0
-                    //     particle.velocity.y = 0
-                    // }
-                }
-                else
-                {
-                    // canvas.ellipse(particle.position.x + 5, particle.position.y + 5, testChargeDiameter, testChargeDiameter);
+                        particle.velocity = canvas.createVector(0, 0)
+                        particle.acceleration = canvas.createVector(0, 0)
+                        
+                        let centerOfConductor = canvas.createVector(this.position.x + (this.width / 2), this.position.y + (this.height / 2));
+                        let angle = p5.Vector.sub(centerOfConductor, particle.position).heading() * -1;
 
-                    canvas.ellipse(particle.position.x, particle.position.y, testChargeDiameter, testChargeDiameter);
+                        let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 2);
+                        particle.position.add(moveDistance);
+                    }
+
+
                 }
-                
+                particle.display()
             })
         canvas.pop();
         this.previousPosition = this.position;
@@ -190,7 +166,7 @@ class ConductorParticle extends TestCharge
         let particle = this;
 
         canvas.push();
-        canvas.stroke(0);
+            canvas.noStroke();
             canvas.fill(particle.color);
             let x = particle.position.x;
             let y = particle.position.y;
@@ -214,5 +190,13 @@ class ConductorParticle extends TestCharge
             testCharge.velocity.add(particle.acceleration);
             particle.position.add(particle.velocity);
         }
+    }
+
+    brownian(magnitude)
+    {
+        let rand1 = (Math.random() * 2) - 1
+        let rand2 = (Math.random() * 2) - 1
+        this.position.x += rand1 * magnitude;
+        this.position.y += rand2 * magnitude;
     }
 }

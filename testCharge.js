@@ -126,8 +126,8 @@ class TestCharge extends Charge
 
     brownian(magnitude)
     {
-        let rand1 = (Math.random() * 2) - 1
-        let rand2 = (Math.random() * 2) - 1
+        let rand1 = Math.round(Math.random() * 2) - 1
+        let rand2 = Math.round(Math.random() * 2) - 1
         this.position.x += rand1 * magnitude;
         this.position.y += rand2 * magnitude;
     }

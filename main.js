@@ -49,7 +49,7 @@ const foreGround = canvas => {
     
     // createPreset("dipole"); // creates what is displayed when the simulation first starts up
 
-    createConductor('+', "rect");
+    createConductor('=', "rect");
     createDataFromSidePanel();
 
     canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
@@ -121,7 +121,7 @@ function displayGrid() // displays background grid
 
 
 
-function displayFrameRate()
+function displayFrameRate() // displays frame rate at the top left of the screen
 {
   let canvas = foreGroundCanvas;
   canvas.push();
@@ -135,11 +135,12 @@ function displayFrameRate()
 
 
 
-function netForceAtPoint(position)
+function netForceAtPoint(position) // given a vector, it will return the net force at that point as a vector
 {
   let canvas = foreGroundCanvas;
   let finalVector = canvas.createVector(0, 0);
 
+  // these are all the pointcharges
   charges.forEach(charge => {
       
     //F = KQ / (r^2)
@@ -160,7 +161,7 @@ function netForceAtPoint(position)
     finalVector.add(forceVectors);
   });
 
-
+  // these are all the particles in conductors
   conductors.forEach(conductor => {
     conductor.particles.forEach(particle => {
 
