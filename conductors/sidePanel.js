@@ -39,7 +39,12 @@ function createSidePanel()
         new Button({position: canvas.createVector(col1, 440), width: buttonFullWidth, height: buttonHeight, text: "Create Test Charge Map", onClick: function(){ testChargeMode = true; createTestChargeMap(); checkBoxes[6].value = true; testChargeMode = true;} }),
         new Button({position: canvas.createVector(col1, 480), width: buttonFullWidth, height: buttonHeight, text: "Clear Test Charges", onClick: function(){ testCharges = []; } }),
 
-        new Button({position: canvas.createVector(col1, 550), width: buttonFullWidth, height: buttonHeight, text: "Conductors", onClick: function(){ window.open("conductors/conductors.html") } }))
+        new Button({position: canvas.createVector(col1, 550), width: buttonFullWidth, height: buttonHeight, text: "Add Conductor", onClick: function(){ createConductor('=', "rect"); createDataFromSidePanel(); } }),
+        new Button({position: canvas.createVector(col1, 590), width: buttonFullWidth, height: buttonHeight, text: "Add + Conductor", onClick: function(){ createConductor('+', "rect"); createDataFromSidePanel(); } }),
+        new Button({position: canvas.createVector(col1, 630), width: buttonFullWidth, height: buttonHeight, text: "Add - Conductor", onClick: function(){ createConductor('-', "rect"); createDataFromSidePanel(); } }),
+        new Button({position: canvas.createVector(col1, 670), width: buttonFullWidth, height: buttonHeight, text: "Remove All Conductors", onClick: function(){ conductors = []; createDataFromSidePanel(); } }),
+
+        new Button({position: canvas.createVector(col1, 770), width: buttonFullWidth, height: buttonHeight, text: "Conductors", onClick: function(){ window.open("conductors.html") } }))
 
 }
 
@@ -106,7 +111,7 @@ function displaySidePanel()
 
 function createDataFromSidePanel() // after reading the checkboxes in the side panel, this is called to update everything on the screen to reflect the side panel checkboxes
 {
-    noPositiveCharges = !charges.some(charge => charge.charge >= 0); // if a positive charge exists, this will be false
+    noPositiveCharges = !charges.some(charge => charge.charge >= 0) && !conductors.some(conductor => conductor.charge == "+"); // if a positive charge exists, this will be false
 
     if (showVoltage) createVoltage();
     

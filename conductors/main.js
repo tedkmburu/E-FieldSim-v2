@@ -43,6 +43,7 @@ const foreGround = canvas => {
     
     createPreset("single"); // creates what is displayed when the simulation first starts up
 
+    //createConductor('=', "circle");
     createDataFromSidePanel();
 
     canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
@@ -58,6 +59,7 @@ const foreGround = canvas => {
     moveKeys(canvas); // if the arrow keys are pressed, the selected charge moves
     
     displayDataFromSidePanel(); // displays whatever settings are selected in the side panel
+    displayConductors();
     displayCharges();
     displayFrameRate();
     displaySidePanel();
@@ -151,6 +153,31 @@ function netForceAtPoint(position) // given a vector, it will return the net for
     let forceVectors = canvas.createVector(forceX, forceY).mult(-1);
 
     finalVector.add(forceVectors);
+  });
+
+  // these are all the particles in conductors
+  conductors.forEach(conductor => {
+    conductor.particles.forEach(particle => {
+
+      //F = KQ / (r^2)
+      let kq = particle.charge  * k;
+      let r = p5.Vector.dist(position, particle.position);
+  
+      if (r > 2.5)
+      {
+        let rSquared = Math.pow(r,2);
+        let force = kq / rSquared;
+  
+        let theta = p5.Vector.sub(particle.position, position).heading();
+        let forceX = force * Math.cos(theta);
+        let forceY = force * Math.sin(theta);
+  
+        let forceVectors = canvas.createVector(forceX, forceY).mult(-1);
+  
+        finalVector.add(forceVectors);
+      }
+    });
+    
   });
 
   return finalVector;

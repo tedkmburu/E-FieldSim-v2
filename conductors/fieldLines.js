@@ -34,6 +34,25 @@ function createFieldLines()
         }
         
     });
+
+    let startingPositions = [];
+    conductors.forEach(conductor => {
+        
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(-10, -10)))
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector( 50, -10)))
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(110, -10)))
+
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(-10, 50)))
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(110, 50)))
+
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(-10, 110)))
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector( 50, 110)))
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(110, 110)))
+    })
+
+    startingPositions.forEach(startingPosition => {
+        getFieldLinePoints(startingPosition);
+    })
 }
 
 
@@ -64,8 +83,11 @@ function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
     })
 
     let closestChargeDistance = Math.min(...finalPositionToChargesDistance)
+    let isInsideConductor = conductors.some(conductor => {
+        return pointIsInsideRect(startingPosition, conductor)
+    }) 
 
-    if (closestChargeDistance > chargeRadius / 2 && numberOfLoops < 100) 
+    if (closestChargeDistance > chargeRadius / 2 && numberOfLoops < 100 && !isInsideConductor) 
     {
         listOfPoints.push(forceVectorFinalPosition);
         getFieldLinePoints(forceVectorFinalPosition, numberOfLoops + 1, listOfPoints);

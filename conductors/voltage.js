@@ -11,6 +11,20 @@ function voltageAtPoint(point)
     voltage += v;
   })
 
+
+  conductors.forEach(conductor => {
+    conductor.particles.forEach(particle => {
+
+      //F = KQ / (r^2)
+      let kq = particle.charge * k;
+      let r = p5.Vector.dist(point, particle.position);
+      let v = kq / r;
+      
+      voltage += v;
+    })
+    
+  })
+
   return voltage;
 }
 

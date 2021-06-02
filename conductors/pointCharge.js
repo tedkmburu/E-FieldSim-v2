@@ -116,6 +116,29 @@ class PointCharge extends Charge
                 canvas.text(pointCharge.charge, textPositionX, textPositionY);
             }
         canvas.pop();
+
+
+        // if a point charge touches a conductor, redice it's 
+        if (pointCharge.charge >= 0) 
+        {
+            conductors.forEach(conductor => {
+                let numberOfNegativeParticles = conductor.particles.filter(particle => particle.charge > 0).length;
+                if (circleIsInRect(pointCharge, conductor) && conductor.particles.length > numberOfNegativeParticles) 
+                {
+                    pointCharge.slider.value(pointCharge.charge - 1);
+                    pointCharge.charge--;
+
+                    conductor.charge = "+";
+
+                    conductor.particles.forEach((particle, i) => {
+                        if (particle.charge < 0) 
+                        {
+                            removeParticle(conductor, i);
+                        }
+                    });
+                }   
+            });
+        }
         
     }
 }

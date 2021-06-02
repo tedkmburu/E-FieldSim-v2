@@ -30,7 +30,11 @@ function displayTestCharges() // this displays all testcharges in the testCharge
             return (distance - (testChargeDiameter/2) < chargeRadius && charge.charge < 0) // if the two intersect, this is true
         })
 
-        if (!isTouchingPointCharge) // if the testcharge is not touching a negative charge
+        let isInsideConductor = conductors.some(conductor => {
+            return circleIsInRect(testCharge, conductor)
+        }) 
+
+        if (!isTouchingPointCharge && !isInsideConductor) // if the testcharge is not touching a negative charge
         {
             testCharge.move(canvas);
         }
