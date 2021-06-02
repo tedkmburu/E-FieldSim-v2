@@ -3,7 +3,14 @@ function createConductor(charge, shape)
     let canvas = foreGroundCanvas;
 
     let position = canvas.createVector(((innerWidth - sidePanelWidth) / 2) - 50, (innerHeight / 2) - 50);
-    conductors.push(new Conductor({position: position, shape: shape, width: 100, height: 100, charge: charge}))
+    if (shape == "rect") {
+        conductors.push(new Conductor({position: position, shape: shape, width: 100, height: 100, charge: charge}))
+    }
+    else
+    {
+        conductors.push(new Conductor({position: position, shape: shape, radius: 100, charge: charge}))
+    }
+    
 }
 
 function displayConductors()
@@ -30,17 +37,25 @@ class Conductor
         this.position = props.position;
         this.previousPosition = props.position;
         this.shape = props.shape;
-        this.width = props.width;
-        this.height = props.height;
+        if (this.shape == "circle") 
+        {
+            this.radius = props.radius;
+            this.width = props.radius;
+            this.height = props.radius;
+        }
+        else
+        {
+            this.width = props.width;
+            this.height = props.height;
+        }
         this.selected = false;
         this.dragging = false;
         this.charge = props.charge;
 
 
-        this.particles = []
-
         let canvas = foreGroundCanvas;
-
+        this.particles = []
+    
         if (this.charge == "+") 
         {
             for (let x = 0; x < (this.width / gridSize) + 1; x++) 
@@ -70,7 +85,6 @@ class Conductor
                     this.particles.push(new ConductorParticle(canvas.createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , conductorParticleCharge))
                 } 
             }
-
             for (let x = 0; x < (this.width / gridSize) + 1; x++) 
             {
                 for (let y = 0; y < (this.height / gridSize) + 1; y++) 
@@ -87,15 +101,25 @@ class Conductor
     display = function()
     {
         let canvas = foreGroundCanvas;
-
+        let conductor = this;
         
 
         canvas.push();
-        canvas.fill("rgba(255,255,255,0.5)")
-            let particleStroke = (this.selected) ? "rgba(255,255,255,1)" : "rgba(255,255,255,0)"
-            canvas.stroke(particleStroke)
-            canvas.strokeWeight(4)
-            canvas.rect(this.position.x - 10, this.position.y - 10, this.width + 20, this.height + 20)
+            
+            let particleStroke = (conductor.selected) ? "rgba(255,255,255,1)" : "rgba(255,255,255,0)" ;
+            canvas.fill("rgba(255,255,255,0.5)");
+            canvas.stroke(particleStroke);
+            canvas.strokeWeight(4);
+
+            // draw the gray background for the conductor
+            if (conductor.shape == "circle")
+            {
+                canvas.ellipseMode(canvas.CORNER)
+                canvas.ellipse(conductor.position.x, conductor.position.y, conductor.radius + 10, conductor.radius + 10);
+                canvas.ellipseMode(canvas.CENTER);
+            } 
+            else canvas.rect(conductor.position.x - 10, conductor.position.y - 10, conductor.width + 20, conductor.height + 20);
+            
 
 
             // canvas.fill("yellow")
@@ -113,8 +137,6 @@ class Conductor
             //     createDataFromSidePanel()   
             // }
 
-            let bumpWhenHitEdge = 1
-
 
             canvas.noStroke();
 
@@ -122,9 +144,11 @@ class Conductor
                 // this will move all the particles as the conductor is dragged around
                 let displacmentVector = p5.Vector.sub(this.position, this.previousPosition)
                 particle.position.add(displacmentVector);
-                
-                if (particle.charge < 0 ) 
-                {}
+
+
+                // the boundary for particles inside a rectangle and cirlce are different
+                if (particle.charge < 0 && conductor.shape == "rect") 
+                {
                     if (circleIsInRect(particle, this)) 
                     {
                         particle.moveMetal();
@@ -140,8 +164,24 @@ class Conductor
                         let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 2);
                         particle.position.add(moveDistance);
                     }
+                }
+                else if (particle.charge < 0)
+                {
+                    if (circleIsInCircle(particle, this)) 
+                    {
+                        particle.moveMetal();
+                    }
+                    else
+                    {
+                        particle.velocity = canvas.createVector(0, 0)
+                        particle.acceleration = canvas.createVector(0, 0)
+                        
+                        let centerOfConductor = canvas.createVector(this.position.x + (this.width / 2), this.position.y + (this.height / 2));
+                        let angle = p5.Vector.sub(centerOfConductor, particle.position).heading() * -1;
 
-
+                        let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 2);
+                        particle.position.add(moveDistance);
+                    }
                 }
                 particle.display()
             })
@@ -170,7 +210,16 @@ class ConductorParticle extends TestCharge
             canvas.fill(particle.color);
             let x = particle.position.x;
             let y = particle.position.y;
-            canvas.ellipse(x, y, testChargeDiameter, testChargeDiameter);
+
+            if (particle.charge > 0) 
+            {
+                canvas.ellipse(x + 5, y + 5, testChargeDiameter, testChargeDiameter);
+            }
+            else
+            {
+                canvas.ellipse(x, y, testChargeDiameter, testChargeDiameter);
+            }
+            
         canvas.pop();
     }
 

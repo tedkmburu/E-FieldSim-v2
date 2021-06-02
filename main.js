@@ -47,9 +47,9 @@ const foreGround = canvas => {
 
     document.getElementById("defaultCanvas0").setAttribute("oncontextmenu", "rightClick(); return false"); // disables the right click menu before I create my own
     
-    // createPreset("dipole"); // creates what is displayed when the simulation first starts up
+    createPreset("single"); // creates what is displayed when the simulation first starts up
 
-    createConductor('=', "rect");
+    //createConductor('=', "circle");
     createDataFromSidePanel();
 
     canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
@@ -201,7 +201,6 @@ function pointIsInsideRect(point, rect) // returns true or false based on if the
           point.y < rect.position.y + rect.height);
 }
 
-
 function pointIsInsideCircle(point, cirlce)    // returns true or false based on if the point is inside the circle
 {
   let distance = point.dist(cirlce.position);
@@ -209,13 +208,18 @@ function pointIsInsideCircle(point, cirlce)    // returns true or false based on
   return (distance < cirlce.radius);
 }
 
-
 function circleIsInRect(circle, rect)
 {
   return (circle.position.x + circle.radius > rect.position.x &&
           circle.position.y + circle.radius > rect.position.y &&
           circle.position.x - circle.radius < rect.position.x + rect.width &&
           circle.position.y - circle.radius < rect.position.y + rect.height)
+}
+
+function circleIsInCircle(circle1, circle2)
+{
+  let distance = circle1.position.dist(circle2.position);
+  return (distance < circle1.radius + circle2.radius)
 }
 
 

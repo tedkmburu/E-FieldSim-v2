@@ -43,7 +43,7 @@ function createPreset(preset)
     {
         for (let i = 0; i < 4; i++)
         {
-            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + i), 4,);
+            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + i), 2,);
         }
     }
     else if (preset == "dipole row")
