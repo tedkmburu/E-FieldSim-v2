@@ -32,9 +32,9 @@ function displayTestCharges() // this displays all testcharges in the testCharge
 
         if (!isTouchingPointCharge) // if the testcharge is not touching a negative charge
         {
-            testCharge.move(canvas);
+            testCharge.move();
         }
-        testCharge.display(canvas);
+        testCharge.display();
     });
 }
 
@@ -43,13 +43,15 @@ function displayTestCharges() // this displays all testcharges in the testCharge
 function createTestChargeMap() // removes all test charges then fills the screen with testcharges
 {
     let canvas = foreGroundCanvas;
-    testCharges = [];
-    let incriment = gridSize * 2;
+
+    testCharges = []; // clears all test charges currently on screen
+    let incriment = gridSize * 2; // vertical and horizontal space between test charges
+
     for (let y = 0; y < innerHeight; y += incriment)
     {
         for (let x = 0; x < innerWidth - sidePanelWidth; x += incriment)
         {
-            testCharges.push(new TestCharge(canvas.createVector(x, y), testChargeCharge));
+            testCharges.push(new TestCharge(canvas.createVector(x, y), testChargeCharge)); // creates test charges where they're supposed to go
         }
     }
 }

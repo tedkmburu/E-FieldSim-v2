@@ -42,7 +42,6 @@ const foreGround = canvas => {
     showPopUp = false;
     
     createPreset("single"); // creates what is displayed when the simulation first starts up
-
     createDataFromSidePanel();
 
     canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
@@ -55,7 +54,7 @@ const foreGround = canvas => {
     canvas.clear();
     mousePosition = canvas.createVector(canvas.mouseX, canvas.mouseY)
     // canvas.background(0); // sets the background color to black
-    moveKeys(canvas); // if the arrow keys are pressed, the selected charge moves
+    moveKeys(); // if the arrow keys are pressed, the selected charge moves
     
     displayDataFromSidePanel(); // displays whatever settings are selected in the side panel
     displayCharges();

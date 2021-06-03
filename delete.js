@@ -109,7 +109,7 @@ class EquiLine
         this.equiLinePoints = equiLinePoints;
     }
 
-    display(canvas)
+    display()
     {
         canvas.push()
 
@@ -180,7 +180,7 @@ function voltageAtPoint(point)
 }
 
 
-function displayVoltage(canvas)
+function displayVoltage()
 {
     charges.forEach(charge => {
         let radius = chargeRadius / 2;

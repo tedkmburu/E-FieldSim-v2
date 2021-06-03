@@ -35,11 +35,10 @@ function createContextMenu()
 
 function displayContextMenu() // shows the right click menu. runs every frame after the user right clicks
 {
-    let canvas = foreGroundCanvas;
     contextMenuButtons.forEach(button => {
         if (button.visible) 
         {
-            button.display(canvas);
+            button.display();
         }
     })
 }
@@ -59,8 +58,6 @@ function saveAsPNG()
 
 function rightClick() // called when the user right clicks the page
 {
-    console.log("roight");
-    let canvas = foreGroundCanvas;
     charges.forEach(charge => {charge.selected = false;} ) // deselect all charges to get rid of sliders
 
     if (mousePosition.x < innerWidth - sidePanelWidth)    // if they didn't rightclick the side panel, show the right click menu
@@ -68,11 +65,11 @@ function rightClick() // called when the user right clicks the page
         showContextMenu = true;
 
         contextMenuPosition = mousePosition // sets the new position for the right click menu
-        createContextMenu(canvas);
+        createContextMenu();
     }
     else
     {
-        hideContextMenu(canvas); // if they did rightclick the side panel, hide the right click menu
+        hideContextMenu(); // if they did rightclick the side panel, hide the right click menu
     }
 }
 
