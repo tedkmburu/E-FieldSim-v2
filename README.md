@@ -34,9 +34,9 @@
   <h3 align="center">DEFI Game</h3>
 
   <p align="center">
-    Documentation on how the game works and how you can add to it.
+    Documentation on how the simulation works so that you can add to it.
     <br />
-    <a href="https://efieldsim.ithaca.edu/site/game.html"><strong>Play Game »</strong></a>
+    <a href="https://efieldsim.ithaca.edu/site/game.html"><strong>View Simulation »</strong></a>
     <br />
     <br />
 
