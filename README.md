@@ -145,41 +145,6 @@ While in "Play" mode:
 
 More info on Mayer's Principles of Multimedia Learning [here](https://ctl.wiley.com/principles-of-multimedia-learning/).
 
-### Inspiration
-
-Games used as inspiration for this
-
-<img src="images/inspiration/inspiration (1).jpg" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (2).jpg" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (3).jpg" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (5).jpg" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (6).jpg" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (7).jpg" alt="Logo" width="45%" style="display: inline-block">
-
-<img src="images/inspiration/inspiration (1).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (2).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (3).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (4).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (5).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (6).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (7).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (8).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (9).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (10).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (11).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (12).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (13).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (14).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (15).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (16).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (17).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (18).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (19).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (20).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (22).png" alt="Logo" width="45%" style="display: inline-block">
-<img src="images/inspiration/inspiration (23).png" alt="Logo" width="45%" style="display: inline-block">
-
-
 
 
 ## Code
@@ -205,40 +170,6 @@ The setup() function is called once when the program starts. It's used to create
 Called directly after setup(), the draw() function continuously executes the lines of code contained inside its block until the program is stopped. The number of times draw() executes in each second may be controlled with the frameRate() function.
 
 All of these functions can be found in the game.js file. 
-
-### Screens
-The game works around different "screens" that are all created when the game first launches but only one screen is visible and can be interacted with at any given time.
-
-These are examples of screens:
-
-<img src="images/screen2.png" alt="Logo" width="32%" style="display: inline-block">
-<img src="images/screen1.png" alt="Logo" width="32%" style="display: inline-block">
-<img src="images/screen3.png" alt="Logo" width="32%" style="display: inline-block">
-
-In the first screen, there are 4 buttons that navigate to different screens and one image on the track and game title. The second screen has the title "Level Select", some navigation buttons and an image. The third screen has a stopwatch as its title and buttons to interact with the game.
-
-
-The createScreens() function in the screens.js file creates each screen and gives it its unique properties. These include the name of the screen, the textboxes and the buttons that are used in said screen. All screens are stored in an array called screens. 
-
-The draw() function displays whichever screen the user is on every frame. While that screen is being displayed, all the buttons, textboxes and images that are associated with the screen are also shown. 
-
-
-
-
-
-This is how a screen is created:
-   ```sh
-   new Screen({
-            name: "",       // Will not be seen by tthe user. Only used for navigaiton - STRING
-            title: "",      // This will be displayed on the screen - STRING
-            titlePosition: createVector(0, 0),      // x-y vector position of title
-            titleFontSize: 24,          // title font size - INT
-            visibility: "",             // visibiliy of screen. Only visible when user is on the screen - STRING
-            backgroundColor: "",        //  Background color - STRING 
-            buttons: [],                // Create button objects for every button that will appear - ARRAY of objects
-            textBoxes: [],              // create textbox objects fot every textbox that will appear - ARRAY of objects
-            })
-   ```
 
 
 ### Buttons
