@@ -1,9 +1,13 @@
-function createConductor(charge, shape)
+function createConductor(charge, shape, position)
 {
     let canvas = foreGroundCanvas;
 
-    let position = canvas.createVector(((innerWidth - sidePanelWidth) / 2) - 50, (innerHeight / 2) - 50);
-    if (shape == "rect") {
+    if (position == undefined) 
+    {
+        position = canvas.createVector(((innerWidth - sidePanelWidth) / 2) - 50, (innerHeight / 2) - 50);
+    }
+    if (shape == "rect") 
+    {
         conductors.push(new Conductor({position: position, shape: shape, width: 100, height: 100, charge: charge}))
     }
     else
@@ -36,6 +40,7 @@ class Conductor
     {
         this.position = props.position;
         this.previousPosition = props.position;
+
         this.shape = props.shape;
         if (this.shape == "circle") 
         {
@@ -118,7 +123,8 @@ class Conductor
                 canvas.ellipse(conductor.position.x, conductor.position.y, conductor.radius + 10, conductor.radius + 10);
                 canvas.ellipseMode(canvas.CENTER);
             } 
-            else canvas.rect(conductor.position.x - 10, conductor.position.y - 10, conductor.width + 20, conductor.height + 20);
+            // else canvas.rect(conductor.position.x - 10, conductor.position.y - 10, conductor.width + 20, conductor.height + 20);
+            else canvas.rect(conductor.position.x - 0, conductor.position.y - 0, conductor.width + 0, conductor.height + 0);
             
 
 
@@ -185,6 +191,11 @@ class Conductor
                 }
                 particle.display()
             })
+            canvas.fill("yellow")
+            canvas.ellipse(this.position.x + this.width, this.position.y + this.height, 10 ,10);
+            canvas.ellipse(this.position.x             , this.position.y + this.height, 10 ,10);
+            canvas.ellipse(this.position.x + this.width, this.position.y              , 10 ,10);
+            canvas.ellipse(this.position.x             , this.position.y              , 10 ,10);
         canvas.pop();
         this.previousPosition = this.position;
     }
@@ -213,11 +224,11 @@ class ConductorParticle extends TestCharge
 
             if (particle.charge > 0) 
             {
-                canvas.ellipse(x + 5, y + 5, testChargeDiameter, testChargeDiameter);
+                canvas.ellipse(x + 2, y + 2, testChargeDiameter, testChargeDiameter);
             }
             else
             {
-                canvas.ellipse(x, y, testChargeDiameter, testChargeDiameter);
+                canvas.ellipse(x - 1, y - 1, testChargeDiameter, testChargeDiameter);
             }
             
         canvas.pop();
@@ -238,6 +249,23 @@ class ConductorParticle extends TestCharge
             particle.acceleration = force.mult(particle.charge);
             testCharge.velocity.add(particle.acceleration);
             particle.position.add(particle.velocity);
+        }
+    }
+
+    moveMetal()
+    {
+        let force = netForceAtPoint(this.position).div(30000);
+
+        if (force.mag() != Infinity)
+        {
+            // F  = qE
+            // ma = qE
+            // a  = (qE)/m
+            // m = 1
+            // a  = q*E
+            this.acceleration = force.mult(this.charge);
+            this.velocity.add(this.acceleration);
+            this.position.add(this.velocity);
         }
     }
 

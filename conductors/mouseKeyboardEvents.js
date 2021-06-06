@@ -312,18 +312,28 @@ function whenMouseDragged()
   }
   
   let conductorToMove = conductors.find(conductor => conductor.dragging) // this searches the conductors array and finds the first conductor with a true dragging property and sets it equal to the variable
-  
+  let conductorToMoveIndex = conductors.indexOf(conductorToMove); // this is the index of the conductor found in the previous line
+
+  let moveConductor = true;
   if (mousePosition.x < innerWidth - sidePanelWidth && conductorToMove != undefined) // if the mouse isn't over the side panel
   {
-    if (!snapToGrid) 
+    conductors.forEach((conductor, i) => {
+      if (rectIsInsideRect(conductor, conductorToMove) && conductorToMoveIndex != i) 
+      {
+        moveConductor = false;
+      }
+    })
+
+    if (!snapToGrid && moveConductor) 
     {
       let canvas = foreGroundCanvas;
       conductorToMove.position = p5.Vector.sub(mousePosition, canvas.createVector(conductorToMove.width / 2, conductorToMove.height / 2)); // make the conductors position equal to the mouse position
     }
-    else
+    else if (moveConductor)
     {
       conductorToMove.position = roundVectorToNearestGrid(mousePosition)// the conductor position will round to the nearest grid
     }
+   
 
     createData = true; 
   }

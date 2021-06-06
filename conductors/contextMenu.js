@@ -16,18 +16,21 @@ function createContextMenu()
     if (rightClickedOnCharge)   // a charge has been right clicked so create a 'delete charge' button
     {
         contextMenuButtons.push(
-            new Button({position: canvas.createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Delete Charge", onClick: function(){ removeCharge(chargeToDelete) } }))
+            new Button({position: canvas.createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Delete Conductor", onClick: function(){ removeCharge(chargeToDelete) } })
+            )
     }
     else   // a charge has not been right clicked so create a 'add charge' button
     {
         contextMenuButtons.push(
-            new Button({position: canvas.createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Add Charge", onClick: function(){ createPointCharge(contextMenuPosition) } }))
+            new Button({position: canvas.createVector(0, 0 ).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Add Conductor", onClick: function(){ createConductor("=", "rect", contextMenuPosition) } })
+            )
     }
     
     contextMenuButtons.push(
-        new Button({position: canvas.createVector(0, 35).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Clear Charges", onClick: function(){ createPreset(null); testCharges=[]; equiPoints = []; } }),
+        new Button({position: canvas.createVector(0, 35).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Clear Conductor", onClick: function(){ createPreset(null); conductors = []; equiPoints = []; } }),
         new Button({position: canvas.createVector(0, 70).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Refresh", onClick: function(){ location.reload(); } }),
-        new Button({position: canvas.createVector(0, 105).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Save As PNG", onClick: function(){ setTimeout(function(){ saveAsPNG(); }, 250); } }))
+        new Button({position: canvas.createVector(0, 105).add(contextMenuPosition), width: buttonWidth, height: buttonHeight, alignText: canvas.LEFT, text: "Save As PNG", onClick: function(){ setTimeout(function(){ saveAsPNG(); }, 250); } })
+        )
 
 }
 

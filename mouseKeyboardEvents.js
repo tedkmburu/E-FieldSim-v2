@@ -62,10 +62,17 @@ function whenMouseClicked() // this is an inbuilt p5 function that runs everytim
     })
   }
 
+  if (showEquipotentialLines && mousePosition.x < innerWidth - sidePanelWidth)
+  {
+    createEquipotentialLine(mousePosition);
+  }
+
   if (testChargeMode) // if test charge mode is on, this will create a test charge wherever the user clicks 
   {
     testCharges.push(new TestCharge(mousePosition, testChargeCharge));
   }
+
+  
 
 
 
@@ -159,7 +166,8 @@ function whenMouseDragged()
       chargeToMove.position = roundVectorToNearestGrid(mousePosition)// the charge position will round to the nearest grid
     }
 
-    createDataFromSidePanel();
+    equiLines = []; // if a charge is being dragged, clear all of the equipotential lines
+    createDataFromSidePanel(); // recalculate whatever is toggled in the side panel
   }
 }
 

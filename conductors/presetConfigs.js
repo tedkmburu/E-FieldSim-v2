@@ -3,6 +3,7 @@ function createPreset(preset)
     let canvas = foreGroundCanvas;
 
     removeAllCharges();
+    equiLines = [];
 
     let centerXRounded = floorToNearestGrid((innerWidth / 2) - chargeRadius) - 100;
     let centerYRounded = floorToNearestGrid((innerHeight / 2) - chargeRadius);

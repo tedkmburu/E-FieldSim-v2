@@ -41,9 +41,9 @@ const foreGround = canvas => {
     fullscreen = false;
     showPopUp = false;
     
-    createPreset("single"); // creates what is displayed when the simulation first starts up
+    //createPreset("single"); // creates what is displayed when the simulation first starts up
 
-    //createConductor('=', "circle");
+    createConductor('=', "rect");
     createDataFromSidePanel();
 
     canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
@@ -163,7 +163,7 @@ function netForceAtPoint(position) // given a vector, it will return the net for
       let kq = particle.charge  * k;
       let r = p5.Vector.dist(position, particle.position);
   
-      if (r > 2.5)
+      if (r > 0.1)
       {
         let rSquared = Math.pow(r,2);
         let force = kq / rSquared;
@@ -214,6 +214,14 @@ function circleIsInCircle(circle1, circle2)
 {
   let distance = circle1.position.dist(circle2.position);
   return (distance < circle1.radius + circle2.radius)
+}
+
+function rectIsInsideRect(rect1, rect2) // returns true or false based on if the point is inside the rectangle
+{
+  return (rect1.position.x + rect1.width  > rect2.position.x &&
+          rect1.position.y + rect1.height > rect2.position.y &&
+          rect1.position.x < rect2.position.x + rect2.width &&
+          rect1.position.y < rect2.position.y + rect2.height);
 }
 
 

@@ -56,8 +56,8 @@ class PointCharge extends Charge
 
         this.slider = canvas.createSlider(-5, 5, charge, 1);
         this.slider.style("zIndex", "999");
-        this.slider.input( function(){  createDataFromSidePanel(); } ); // recalculate everything that's displayed on screen
-        this.slider.changed( function(){  createDataFromSidePanel(); } ); // recalculate everything that's displayed on screen
+        this.slider.input( function(){  createDataFromSidePanel(); equiLines = []; } ); // recalculate everything that's displayed on screen
+        this.slider.changed( function(){  createDataFromSidePanel(); equiLines = []; } ); // recalculate everything that's displayed on screen
     }
 
     display()

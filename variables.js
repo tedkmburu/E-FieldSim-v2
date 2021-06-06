@@ -7,8 +7,8 @@ const testChargeDiameter = 10;
 const testChargeRadius = testChargeDiameter / 2;
 const testChargeCharge = 0.000005; //q = 5 micro coulombs;
 const fieldLinesPerCoulomb = 4;
-const equiLinesAccuracy = 1; 
-const equiLinesLimit = 4000;
+const equiLinesAccuracy = 0.5; 
+const equiLinesLimit = 4500;
 const voltageAccuracy = 30;
 
 const positiveChargeColor = "rgb(210, 41, 45)";

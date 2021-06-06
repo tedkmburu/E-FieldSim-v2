@@ -3,7 +3,7 @@ const k = 89900; // k = 8.99 * Math.pow(10, -9) adjusted because all charges are
 const gridSize = 25;
 const chargeDiameter = 40; // diameter of a point charge
 const chargeRadius = chargeDiameter / 2;
-const conductorParticleCharge = 0.0625;
+const conductorParticleCharge = 0.25;
 const testChargeDiameter = 10;
 const testChargeRadius = testChargeDiameter / 2;
 const testChargeCharge = 0.000005; //q = 5 micro coulombs;

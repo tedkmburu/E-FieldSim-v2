@@ -3,6 +3,7 @@ function createPreset(preset)
     let canvas = foreGroundCanvas;
 
     removeAllCharges();
+    equiLines = [];
 
     let centerXRounded = floorToNearestGrid((innerWidth / 2) - chargeRadius) - 100;
     let centerYRounded = floorToNearestGrid((innerHeight / 2) - chargeRadius);
@@ -50,8 +51,22 @@ function createPreset(preset)
     {
         for (let i = 0; i < 4; i++)
         {
-            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y - 100 + i), 4,);
-            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + 100 + i), -4,);
+            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y - 100 + i), 4);
+            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + 100 + i), -4);
+        }
+    }
+    else if (preset == "random")
+    {
+        for (let i = 0; i < 10; i++)
+        {
+            let x = (Math.random() * (innerWidth - sidePanelWidth)) 
+            let y = (Math.random() * innerHeight) 
+            let charge = Math.round(Math.random() * 10) - 5;
+            if (charge == 0) 
+            {
+                charge++;    
+            }
+            createPointCharge(canvas.createVector(x, y), charge);
         }
     }
     createDataFromSidePanel();

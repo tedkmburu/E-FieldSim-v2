@@ -1,14 +1,13 @@
 function displayEquipotentialLines()
 {
-    
-    equiLines = []
-
-    getEquiLinePoints(mousePosition);
-
     equiLines.forEach(equiLine => {
         equiLine.display();
     });
-    
+}
+
+function createEquipotentialLine(position)
+{
+    getEquiLinePoints(position);    
 }
 
 
@@ -24,40 +23,42 @@ function getEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops, ar
         numberOfLoops = 0;
     }
 
-    let forceVector = netForceAtPoint(leftPoint);
-    forceVector.rotate(Math.PI / 2);
-    forceVector.setMag(equiLinesAccuracy);
 
-    let nextLeftPoint = p5.Vector.add(leftPoint, forceVector);
-    arrayOfLeftPoints.push(nextLeftPoint);
-
-
-
-
-
-    forceVector = netForceAtPoint(rightPoint);
-    forceVector.mult(-1);
-    forceVector.rotate(Math.PI / 2);
-    forceVector.setMag(equiLinesAccuracy);
-
-    let nextRightPoint = p5.Vector.add(rightPoint, forceVector);
-    arrayOfRightPoints.push(nextRightPoint);
-
-
-    if (numberOfLoops % 5 == 0) {
-        arrayOfRightPoints.forEach(point => {
-            if (p5.Vector.dist(leftPoint, point) < 10 && numberOfLoops > 100) 
-            {
-                numberOfLoops = equiLinesLimit;
-            }
-        })
+    for (let i = 0; i < 10; i++) 
+    {
+        let forceVector = netForceAtPoint(leftPoint);
+        forceVector.rotate(Math.PI / 2);
+        forceVector.setMag(equiLinesAccuracy);
+        leftPoint = p5.Vector.add(leftPoint, forceVector);
     }
+    arrayOfLeftPoints.push(leftPoint);
+
+
+    for (let i = 0; i < 10; i++) 
+    {
+        let forceVector = netForceAtPoint(rightPoint);
+        forceVector.mult(-1);
+        forceVector.rotate(Math.PI / 2);
+        forceVector.setMag(equiLinesAccuracy);
+        rightPoint = p5.Vector.add(rightPoint, forceVector);
+    }
+    arrayOfRightPoints.push(rightPoint);
+
+
+
+    arrayOfRightPoints.forEach(point => {
+        if (p5.Vector.dist(leftPoint, point) < 20 & numberOfLoops > 10) 
+        {
+            numberOfLoops = equiLinesLimit;
+        }
+    })
+    
     
     
     
     if (numberOfLoops < equiLinesLimit)
     {
-        getEquiLinePoints(originPoint, nextLeftPoint, nextRightPoint, numberOfLoops + 1, arrayOfLeftPoints, arrayOfRightPoints);
+        getEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops + 1, arrayOfLeftPoints, arrayOfRightPoints);
     } 
     else
     {
@@ -69,8 +70,6 @@ function getEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops, ar
         equiLines.push(new EquiLine(arrayOfRightPoints));
     } 
 }
-
-// 2000 - 0.25
 
 class EquiLine
 {
@@ -88,8 +87,9 @@ class EquiLine
             canvas.noFill()
                 let strokeColor = voltageAtPoint(points[0]) > 0 ? positiveChargeColor : negativeChargeColor ;
                 canvas.stroke(strokeColor);
-                canvas.strokeWeight(3)
+                canvas.strokeWeight(2)
 
+                //points.forEach(point => canvas.vertex(point.x, point.y));
                 points.forEach(point => canvas.curveVertex(point.x, point.y));
             canvas.endShape();
         

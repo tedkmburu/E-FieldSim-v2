@@ -107,22 +107,7 @@ class TestCharge extends Charge
         }
     }
 
-    moveMetal()
-    {
-        let force = netForceAtPoint(this.position).div(1000);
-
-        if (force.mag() != Infinity)
-        {
-            // F  = qE
-            // ma = qE
-            // a  = (qE)/m
-            // m = 1
-            // a  = q*E
-            this.acceleration = force.mult(this.charge);
-            this.velocity.add(this.acceleration);
-            this.position.add(this.velocity);
-        }
-    }
+    
 
     brownian(magnitude)
     {
