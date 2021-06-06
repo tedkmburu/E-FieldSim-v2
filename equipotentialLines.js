@@ -1,44 +1,76 @@
 function displayEquipotentialLines()
 {
+    
     equiLines = []
-    getEquiLinePoints(mousePosition, -1);
-    getEquiLinePoints(mousePosition, 1);
+
+    getEquiLinePoints(mousePosition);
 
     equiLines.forEach(equiLine => {
         equiLine.display();
     });
+    
 }
 
 
 
-function getEquiLinePoints(originPoint, direction, currentPoint, numberOfLoops, arrayOfPoints)
+function getEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops, arrayOfLeftPoints, arrayOfRightPoints)
 {
-    if (arrayOfPoints == undefined) 
+    if (arrayOfLeftPoints == undefined) 
     {
-        arrayOfPoints = [originPoint, originPoint]
-        currentPoint = originPoint;
+        arrayOfLeftPoints = [originPoint, originPoint]
+        arrayOfRightPoints = [originPoint, originPoint]
+        leftPoint = originPoint;
+        rightPoint = originPoint;
         numberOfLoops = 0;
     }
 
-    let forceVector = netForceAtPoint(currentPoint);
-    forceVector.mult(direction);
+    let forceVector = netForceAtPoint(leftPoint);
     forceVector.rotate(Math.PI / 2);
     forceVector.setMag(equiLinesAccuracy);
 
+    let nextLeftPoint = p5.Vector.add(leftPoint, forceVector);
+    arrayOfLeftPoints.push(nextLeftPoint);
 
-    let nextPoint = p5.Vector.add(currentPoint, forceVector);
-    arrayOfPoints.push(nextPoint);
 
 
-    let distanceToOriginPoint = p5.Vector.dist(currentPoint, originPoint)
-    if (distanceToOriginPoint < 10 && numberOfLoops > 100) numberOfLoops = equiLinesLimit;
-        
+
+
+    forceVector = netForceAtPoint(rightPoint);
+    forceVector.mult(-1);
+    forceVector.rotate(Math.PI / 2);
+    forceVector.setMag(equiLinesAccuracy);
+
+    let nextRightPoint = p5.Vector.add(rightPoint, forceVector);
+    arrayOfRightPoints.push(nextRightPoint);
+
+
+    if (numberOfLoops % 5 == 0) {
+        arrayOfRightPoints.forEach(point => {
+            if (p5.Vector.dist(leftPoint, point) < 10 && numberOfLoops > 100) 
+            {
+                numberOfLoops = equiLinesLimit;
+            }
+        })
+    }
     
-    if (numberOfLoops < equiLinesLimit) getEquiLinePoints(originPoint, direction, nextPoint, numberOfLoops + 1, arrayOfPoints)
-    else equiLines.push(new EquiLine(arrayOfPoints));
+    
+    
+    if (numberOfLoops < equiLinesLimit)
+    {
+        getEquiLinePoints(originPoint, nextLeftPoint, nextRightPoint, numberOfLoops + 1, arrayOfLeftPoints, arrayOfRightPoints);
+    } 
+    else
+    {
+        //equiLines.push(new EquiLine(arrayOfLeftPoints.concat(arrayOfRightPoints.reverse())));
+        //.reverse()
+        // equiLines.push(new EquiLine(arrayOfRightPoints));
+
+        equiLines.push(new EquiLine(arrayOfLeftPoints));
+        equiLines.push(new EquiLine(arrayOfRightPoints));
+    } 
 }
 
-
+// 2000 - 0.25
 
 class EquiLine
 {
