@@ -46,12 +46,17 @@ function getEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops, ar
 
 
 
-    arrayOfRightPoints.forEach(point => {
-        if (p5.Vector.dist(leftPoint, point) < 20 & numberOfLoops > 10) 
-        {
-            numberOfLoops = equiLinesLimit;
-        }
-    })
+    if (numberOfLoops > 10) 
+    {
+        arrayOfRightPoints.forEach(point => {
+            let pointToCheck = arrayOfLeftPoints[arrayOfLeftPoints.length - 5]
+            if (p5.Vector.dist(pointToCheck, point) < 20) 
+            {
+                numberOfLoops = equiLinesLimit;
+            }
+        })
+    }
+    
     
     
     
@@ -62,9 +67,13 @@ function getEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops, ar
     } 
     else
     {
-        //equiLines.push(new EquiLine(arrayOfLeftPoints.concat(arrayOfRightPoints.reverse())));
-        //.reverse()
-        // equiLines.push(new EquiLine(arrayOfRightPoints));
+        let distanceBetweenLines = p5.Vector.dist(arrayOfLeftPoints[arrayOfLeftPoints.length - 1], arrayOfRightPoints[arrayOfRightPoints.length - 1])
+        if (distanceBetweenLines < 10) 
+        {
+            arrayOfLeftPoints.push(arrayOfRightPoints[arrayOfRightPoints.length - 1])
+            arrayOfRightPoints.push(arrayOfLeftPoints[arrayOfLeftPoints.length - 1])
+        }
+        
 
         equiLines.push(new EquiLine(arrayOfLeftPoints));
         equiLines.push(new EquiLine(arrayOfRightPoints));
@@ -85,7 +94,13 @@ class EquiLine
         canvas.push()
             canvas.beginShape();
             canvas.noFill()
-                let strokeColor = voltageAtPoint(points[0]) > 0 ? positiveChargeColor : negativeChargeColor ;
+
+                let strokeColor;
+                let voltageOfLine = voltageAtPoint(points[0]);
+                if (voltageOfLine == 0) strokeColor = neutralChargeColor;
+                if (voltageOfLine > 0)  strokeColor = positiveChargeColor;
+                if (voltageOfLine < 0)  strokeColor = negativeChargeColor;
+
                 canvas.stroke(strokeColor);
                 canvas.strokeWeight(2)
 
