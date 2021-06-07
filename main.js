@@ -11,12 +11,12 @@ const background = canvas => {
   canvas.draw = function() // this function runs every frame. Everything on the background canvas starts here.
   {  
     canvas.background(0); // sets the background color to black
-    if (showVoltage){ displayVoltage(); }
+    if (showVoltage){ displayVoltage(); } // if voltage mode is on, show the gradients in the background
   }
 
-  canvas.windowResized = function() 
+  canvas.windowResized = function() // inbuilt p5 function. runs everytime the window is resized
   {
-    canvas.resizeCanvas(innerWidth, innerHeight);
+    canvas.resizeCanvas(innerWidth, innerHeight); // resizes the canvas to fit the new window size
   }
 }
 

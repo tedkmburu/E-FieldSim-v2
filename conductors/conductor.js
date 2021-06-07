@@ -63,9 +63,9 @@ class Conductor
     
         if (this.charge == "+") 
         {
-            for (let x = 0; x < (this.width / gridSize) + 1; x++) 
+            for (let x = 0; x < (this.width / gridSize) + 1; x+=2) 
             {
-                for (let y = 0; y < (this.height / gridSize) + 1; y++) 
+                for (let y = 0; y < (this.height / gridSize) + 1; y+=2) 
                 {
                     this.particles.push(new ConductorParticle(canvas.createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , conductorParticleCharge))
                 } 
@@ -73,9 +73,9 @@ class Conductor
         }
         else if (this.charge == "-") 
         {
-            for (let x = 0; x < (this.width / gridSize) + 1; x++) 
+            for (let x = 0; x < (this.width / gridSize) + 1; x+=2) 
             {
-                for (let y = 0; y < (this.height / gridSize) + 1; y++) 
+                for (let y = 0; y < (this.height / gridSize) + 1; y+=2) 
                 {
                     this.particles.push(new ConductorParticle(canvas.createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , -conductorParticleCharge))
                 } 
@@ -83,16 +83,16 @@ class Conductor
         }
         else
         {
-            for (let x = 0; x < (this.width / gridSize) + 1; x++) 
+            for (let x = 0; x < (this.width / gridSize) + 1; x+=2) 
             {
-                for (let y = 0; y < (this.height / gridSize) + 1; y++) 
+                for (let y = 0; y < (this.height / gridSize) + 1; y+=2) 
                 {
                     this.particles.push(new ConductorParticle(canvas.createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , conductorParticleCharge))
                 } 
             }
-            for (let x = 0; x < (this.width / gridSize) + 1; x++) 
+            for (let x = 0; x < (this.width / gridSize) + 1; x+=2) 
             {
-                for (let y = 0; y < (this.height / gridSize) + 1; y++) 
+                for (let y = 0; y < (this.height / gridSize) + 1; y+=2) 
                 {
                     this.particles.push(new ConductorParticle(canvas.createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , -conductorParticleCharge))
                 } 
