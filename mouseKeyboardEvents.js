@@ -114,7 +114,6 @@ function whenMouseMoved()
         {
           button.hovering = true;
         }
-
       }
     })
   }

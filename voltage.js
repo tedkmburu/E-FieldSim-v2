@@ -36,6 +36,36 @@ function displayVoltage()
 
 
 
+function showVoltageOnCursor()
+{
+  let notTouchingACharge = charges.every(charge => {
+    let distance = p5.Vector.dist(mousePosition, charge.position);
+    return distance > chargeRadius;
+  })
+
+
+  if (notTouchingACharge) 
+  {
+    let canvas = foreGroundCanvas;
+
+    canvas.push();
+      canvas.textSize(16);
+      canvas.textFont(buttonFont);
+      canvas.fill("white");
+      canvas.noStroke();
+
+      let textToShow = Math.round(voltageAtPoint(mousePosition)).toString() + " V";
+      let textPositionX = mousePosition.x - ((textToShow.length / 2) * 9);
+      let textPositionY = mousePosition.y - 5;
+      canvas.text(textToShow, textPositionX, textPositionY);
+
+    canvas.pop();
+  }
+  
+}
+
+
+
 function createVoltage()
 {
   let canvas = backgroundCanvas;

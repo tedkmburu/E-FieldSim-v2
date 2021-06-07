@@ -8,7 +8,7 @@ const background = canvas => {
     canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
   }
 
-  canvas.draw = function() // this function runs every frame. Everything on screen starts here.
+  canvas.draw = function() // this function runs every frame. Everything on the background canvas starts here.
   {  
     canvas.background(0); // sets the background color to black
     if (showVoltage){ displayVoltage(); }
@@ -49,11 +49,11 @@ const foreGround = canvas => {
 
 
 
-  canvas.draw = function() // this function runs every frame. Everything on screen starts here.
+  canvas.draw = function() // this function runs every frame. Everything on the foreground canvas starts here.
   {  
-    canvas.clear();
+    canvas.clear(); // clears the canvas so that it's transparent
     mousePosition = canvas.createVector(canvas.mouseX, canvas.mouseY)
-    // canvas.background(0); // sets the background color to black
+
     moveKeys(); // if the arrow keys are pressed, the selected charge moves
     
     displayDataFromSidePanel(); // displays whatever settings are selected in the side panel
@@ -69,15 +69,15 @@ const foreGround = canvas => {
     displayCursor(); // if in test charge mode, replace cursor with test charge. Otherwise, keep it normal
   }
 
-  canvas.mouseClicked = function() { whenMouseClicked(); } // this is an inbuilt p5 function that runs everytime any mouse button is clicked
-  canvas.mouseDragged = function() { whenMouseDragged(); }
-  canvas.doubleClicked = function() { whenDoubleClicked(); }
-  canvas.keyPressed = function() { whenKeyPressed(); }
-  canvas.mouseMoved = function() { whenMouseMoved(); }
+  canvas.mouseClicked = function() { whenMouseClicked(); } // inbuilt p5 function. runs everytime any mouse button is clicked
+  canvas.mouseDragged = function() { whenMouseDragged(); } // inbuilt p5 function. runs everytime the mosue is dragged (clicked down and moving)
+  canvas.doubleClicked = function() { whenDoubleClicked(); } // inbuilt p5 function. runs everytime the mouse is double clicked
+  canvas.keyPressed = function() { whenKeyPressed(); } // inbuilt p5 function. runs everytime any keyboard button is clicked
+  canvas.mouseMoved = function() { whenMouseMoved(); } // inbuilt p5 function. runs everytime the mouse moves
 
-  canvas.windowResized = function() 
+  canvas.windowResized = function()  // inbuilt p5 function. runs everytime the window is resized
   {
-    canvas.resizeCanvas(innerWidth, innerHeight);
+    canvas.resizeCanvas(innerWidth, innerHeight); // resize the canvas to fit the new window
     
     createSidePanel();
     createDataFromSidePanel();
@@ -91,8 +91,13 @@ const foreGround = canvas => {
 
 
 
-new p5(background); // invoke p5
-new p5(foreGround); // invoke p5
+new p5(background); // creates the background instance of p5
+new p5(foreGround); // creates the foreground instance of p5
+
+
+
+
+
 
 function displayGrid() // displays background grid
 {

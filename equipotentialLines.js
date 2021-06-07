@@ -24,7 +24,7 @@ function getEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops, ar
     }
 
 
-    for (let i = 0; i < 10; i++) 
+    for (let i = 0; i < 100; i++) 
     {
         let forceVector = netForceAtPoint(leftPoint);
         forceVector.rotate(Math.PI / 2);
@@ -34,7 +34,7 @@ function getEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops, ar
     arrayOfLeftPoints.push(leftPoint);
 
 
-    for (let i = 0; i < 10; i++) 
+    for (let i = 0; i < 100; i++) 
     {
         let forceVector = netForceAtPoint(rightPoint);
         forceVector.mult(-1);
