@@ -107,8 +107,6 @@ class TestCharge extends Charge
         }
     }
 
-    
-
     brownian(magnitude)
     {
         let rand1 = Math.round(Math.random() * 2) - 1

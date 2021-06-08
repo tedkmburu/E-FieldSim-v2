@@ -62,6 +62,11 @@ function whenMouseClicked() // this is an inbuilt p5 function that runs everytim
     })
   }
 
+  if (showEquipotentialLines && mousePosition.x < innerWidth - sidePanelWidth)
+  {
+    createEquipotentialLine(mousePosition);
+  }
+
   if (testChargeMode) // if test charge mode is on, this will create a test charge wherever the user clicks 
   {
     testCharges.push(new TestCharge(mousePosition, testChargeCharge));
@@ -156,112 +161,6 @@ function whenMouseMoved()
 
 function whenMouseDragged()
 {
-  // let chargeDragged = null;
-
-  // charges.forEach(charge => {
-  //   if (charge.dragging)
-  //   {
-  //     chargeDragged = charge;
-  //   }
-  // })
-
-  
-
-  // if (chargeDragged == null && mousePosition.x <= width - sidePanelWidth)
-  // {
-  //   for (let i = charges.length - 1; i >= 0; i--)
-  //   {
-  //     charges[i].dragging = false;
-  //     let distance = mousePosition.dist(charges[i].position);
-  //     if (distance < (chargeDiameter/2) && chargeDragged == null)
-  //     {
-  //       chargeDragged = charges[i];
-  //       chargeDragged.dragging = true;
-  //     }
-  //   }
-  //   if (chargeDragged != null && chargeDragged.dragging)
-  //   {
-  //     if (snapToGrid)
-  //     {
-  //       chargeDragged.position.x = constrain(roundToNearestGrid(mousePosition.x), 0, width - sidePanelWidth);
-  //       chargeDragged.position.y = constrain(roundToNearestGrid(mouseY), 0, height);
-  //       // chargeDragged.position = createVector(roundToNearestGrid(mousePosition.x), roundToNearestGrid(mouseY));
-  //     }
-  //     else
-  //     {
-  //       chargeDragged.x = constrain(mousePosition.x, 0, width - sidePanelWidth);
-  //       chargeDragged.y = constrain(mouseY, 0, height);
-  //       chargeDragged.position = createVector(mousePosition.x, mouseY);
-  //     }
-  //     chargeDragged.dragging = true;
-  //   }
-  //   else
-  //   {
-  //     conductors.forEach( conductor => {
-  //       conductor.selected = false
-  //       if (mousePosition.x > conductor.position.x &&
-  //         mousePosition.x < conductor.position.x + conductor.size.x && 
-  //         mousePosition.y > conductor.position.y &&
-  //         mousePosition.y < conductor.position.y + conductor.size.y)
-  //       {
-  //         conductor.selected = true
-  //         conductor.dragging = true
-  //         conductor.particles.forEach(particle => {
-            
-  //           let newPosition = p5.Vector.sub(conductor.position, particle.originalPosition).add(createVector( 2 * conductor.size.x, 2 * conductor.size.y))
-
-  //           particle.position = newPosition
-  //         })
-
-  //         conductor.position = p5.Vector.sub(mousePosition, createVector(conductor.size.x / 2, conductor.size.y / 2))
-
-
-  //       }
-  //       else
-  //       {
-  //         conductor.dragging = false
-  //       }
-  //       // else if (p5.Vector.dist(mousePosition, createVector(conductor.position.x + conductor.size.x + 10, conductor.position.y + conductor.size.y + 10)) < 10)
-  //       // {
-  //       //   conductor.size.x = mouseX - conductor.position.x - 10
-  //       //   conductor.size.y = mouseY - conductor.position.y - 10
-  //       //   conductor.resizing = true
-  //       // }
-  //     })
-  //   }
-  // }
-  // else if (mousePosition.x <= innerWidth - sidePanelWidth)
-  // {
-  //   charges.forEach(charge => {
-  //     charge.selected = false;
-  //   })
-
-  //   if (snapToGrid)
-  //   {
-  //     chargeDragged.position.x = constrain(roundToNearestGrid(mouseX), 0, width);
-  //     chargeDragged.position.y = constrain(roundToNearestGrid(mouseY), 0, height);
-  //     // chargeDragged.position = createVector(roundToNearestGrid(mouseX), roundToNearestGrid(mouseY));
-  //   }
-  //   else
-  //   {
-  //     chargeDragged.position.x = constrain(mouseX,0,width);
-  //     chargeDragged.position.y = constrain(mouseY,0,height);
-  //     // chargeDragged.position = createVector(mouseX, mouseY);
-  //   }
-  //   chargeDragged.dragging = true;
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
   let createData = false; 
 
 
@@ -292,6 +191,7 @@ function whenMouseDragged()
       chargeToMove.position = roundVectorToNearestGrid(mousePosition)// the charge position will round to the nearest grid
     }
 
+    equiLines = []; // if a charge is being dragged, clear all of the equipotential lines
     createData = true; 
   }
 
@@ -308,7 +208,7 @@ function whenMouseDragged()
     conductors.forEach(conductor => {
       
       let canvas = foreGroundCanvas;
-      let conductorRect = {position: canvas.createVector(conductor.leftEnd, conductor.topEnd), width: conductor.width, height: conductor.height}
+      let conductorRect = {position: canvas.createVector(conductor.leftEnd - 10, conductor.topEnd - 10), width: conductor.width + 20, height: conductor.height + 20}
       if (pointIsInsideRect(mousePosition, conductorRect)) conductor.dragging = true;  // if the mouse is hovering over a conductor , set it's dragging property to true
       else conductor.dragging = false;
     })
@@ -328,11 +228,12 @@ function whenMouseDragged()
     })
 
     conductors.forEach((conductor, i) => {
-      let conductorRect = {position: mousePosition, width: conductorToMove.width, height: conductorToMove.height}
+      let canvas = foreGroundCanvas;
+      let conductorRect = {position: canvas.createVector(mousePosition.x - 20, mousePosition.y - 20), width: conductor.width + 40, height: conductor.height + 40}
       if (rectIsInsideRect(conductor, conductorRect) && conductorToMoveIndex != i) 
       {
         moveConductor = false;
-        return
+        return;
       }
     })
 
@@ -373,11 +274,12 @@ function whenMouseDragged()
       // })
     }
    
-
+    equiLines = []; // if a charge is being dragged, clear all of the equipotential lines
     createData = true; 
   }
 
-  if (createData) {
+  if (createData) 
+  {
     createDataFromSidePanel();
   }
 

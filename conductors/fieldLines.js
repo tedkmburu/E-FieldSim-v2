@@ -38,16 +38,16 @@ function createFieldLines()
     let startingPositions = [];
     conductors.forEach(conductor => {
         
-        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(-10, -10)))
-        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector( 50, -10)))
-        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(110, -10)))
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(-60, -60)));
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(  0, -60)));
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector( 60, -60)));
 
-        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(-10, 50)))
-        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(110, 50)))
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(-60, 0)));
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector( 60, 0)));
 
-        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(-10, 110)))
-        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector( 50, 110)))
-        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(110, 110)))
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(-60, 60)));
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector(  0, 60)));
+        startingPositions.push(p5.Vector.add(conductor.position, canvas.createVector( 60, 60)));
     })
 
     startingPositions.forEach(startingPosition => {
@@ -83,8 +83,11 @@ function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
     })
 
     let closestChargeDistance = Math.min(...finalPositionToChargesDistance)
+    
     let isInsideConductor = conductors.some(conductor => {
-        return pointIsInsideRect(startingPosition, conductor)
+        let canvas = foreGroundCanvas;
+        let conductorRect = {position: canvas.createVector(conductor.leftEnd, conductor.topEnd), width: conductor.width, height: conductor.height}
+        return pointIsInsideRect(startingPosition, conductorRect)
     }) 
 
     if (closestChargeDistance > chargeRadius / 2 && numberOfLoops < 100 && !isInsideConductor) 

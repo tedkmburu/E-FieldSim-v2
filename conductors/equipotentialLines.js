@@ -1,44 +1,84 @@
 function displayEquipotentialLines()
 {
-    equiLines = []
-    getEquiLinePoints(mousePosition, -1);
-    getEquiLinePoints(mousePosition, 1);
-
     equiLines.forEach(equiLine => {
         equiLine.display();
     });
 }
 
-
-
-function getEquiLinePoints(originPoint, direction, currentPoint, numberOfLoops, arrayOfPoints)
+function createEquipotentialLine(position)
 {
-    if (arrayOfPoints == undefined) 
-    {
-        arrayOfPoints = [originPoint, originPoint]
-        currentPoint = originPoint;
-        numberOfLoops = 0;
-    }
-
-    let forceVector = netForceAtPoint(currentPoint);
-    forceVector.mult(direction);
-    forceVector.rotate(Math.PI / 2);
-    forceVector.setMag(equiLinesAccuracy);
-
-
-    let nextPoint = p5.Vector.add(currentPoint, forceVector);
-    arrayOfPoints.push(nextPoint);
-
-
-    let distanceToOriginPoint = p5.Vector.dist(currentPoint, originPoint)
-    if (distanceToOriginPoint < 10 && numberOfLoops > 100) numberOfLoops = equiLinesLimit;
-        
-    
-    if (numberOfLoops < equiLinesLimit) getEquiLinePoints(originPoint, direction, nextPoint, numberOfLoops + 1, arrayOfPoints)
-    else equiLines.push(new EquiLine(arrayOfPoints));
+    getEquiLinePoints(position);    
 }
 
 
+
+function getEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops, arrayOfLeftPoints, arrayOfRightPoints)
+{
+    if (arrayOfLeftPoints == undefined) 
+    {
+        arrayOfLeftPoints = [originPoint, originPoint]
+        arrayOfRightPoints = [originPoint, originPoint]
+        leftPoint = originPoint;
+        rightPoint = originPoint;
+        numberOfLoops = 0;
+    }
+
+
+    for (let i = 0; i < 100; i++) 
+    {
+        let forceVector = netForceAtPoint(leftPoint);
+        forceVector.rotate(Math.PI / 2);
+        forceVector.setMag(equiLinesAccuracy);
+        leftPoint = p5.Vector.add(leftPoint, forceVector);
+    }
+    arrayOfLeftPoints.push(leftPoint);
+
+
+    for (let i = 0; i < 100; i++) 
+    {
+        let forceVector = netForceAtPoint(rightPoint);
+        forceVector.mult(-1);
+        forceVector.rotate(Math.PI / 2);
+        forceVector.setMag(equiLinesAccuracy);
+        rightPoint = p5.Vector.add(rightPoint, forceVector);
+    }
+    arrayOfRightPoints.push(rightPoint);
+
+
+
+    if (numberOfLoops > 10) 
+    {
+        arrayOfRightPoints.forEach(point => {
+            let pointToCheck = arrayOfLeftPoints[arrayOfLeftPoints.length - 5]
+            if (p5.Vector.dist(pointToCheck, point) < 20) 
+            {
+                numberOfLoops = equiLinesLimit;
+            }
+        })
+    }
+    
+    
+    
+    
+    
+    if (numberOfLoops < equiLinesLimit)
+    {
+        getEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops + 1, arrayOfLeftPoints, arrayOfRightPoints);
+    } 
+    else
+    {
+        let distanceBetweenLines = p5.Vector.dist(arrayOfLeftPoints[arrayOfLeftPoints.length - 1], arrayOfRightPoints[arrayOfRightPoints.length - 1])
+        if (distanceBetweenLines < 10) 
+        {
+            arrayOfLeftPoints.push(arrayOfRightPoints[arrayOfRightPoints.length - 1])
+            arrayOfRightPoints.push(arrayOfLeftPoints[arrayOfLeftPoints.length - 1])
+        }
+        
+
+        equiLines.push(new EquiLine(arrayOfLeftPoints));
+        equiLines.push(new EquiLine(arrayOfRightPoints));
+    } 
+}
 
 class EquiLine
 {
@@ -54,10 +94,17 @@ class EquiLine
         canvas.push()
             canvas.beginShape();
             canvas.noFill()
-                let strokeColor = voltageAtPoint(points[0]) > 0 ? positiveChargeColor : negativeChargeColor ;
-                canvas.stroke(strokeColor);
-                canvas.strokeWeight(3)
 
+                let strokeColor;
+                let voltageOfLine = voltageAtPoint(points[0]);
+                if (voltageOfLine == 0) strokeColor = neutralChargeColor;
+                if (voltageOfLine > 0)  strokeColor = positiveChargeColor;
+                if (voltageOfLine < 0)  strokeColor = negativeChargeColor;
+
+                canvas.stroke(strokeColor);
+                canvas.strokeWeight(2)
+
+                //points.forEach(point => canvas.vertex(point.x, point.y));
                 points.forEach(point => canvas.curveVertex(point.x, point.y));
             canvas.endShape();
         

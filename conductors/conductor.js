@@ -123,7 +123,8 @@ class Conductor
         canvas.push();
             
             let particleStroke = (conductor.selected) ? "rgba(255,255,255,1)" : "rgba(255,255,255,0)" ;
-            canvas.fill("rgba(255,255,255,0.5)");
+            // canvas.fill("rgb(128,128,128)");
+            canvas.fill("rgba(255, 255, 255, 0.5)");
             canvas.stroke(particleStroke);
             canvas.strokeWeight(4);
 
@@ -135,82 +136,21 @@ class Conductor
                 canvas.ellipseMode(canvas.CENTER);
             } 
             // else canvas.rect(conductor.position.x - 10, conductor.position.y - 10, conductor.width + 20, conductor.height + 20);
-            else canvas.rect(conductor.position.x - (conductor.width / 2), conductor.position.y - (conductor.height / 2), conductor.width + 0, conductor.height + 0);
+            else canvas.rect(conductor.position.x - (conductor.width / 2) - 10, conductor.position.y - (conductor.height / 2) - 10, conductor.width + 20, conductor.height + 20);
             
 
 
-            // canvas.fill("yellow")
-            // canvas.ellipse(this.position.x, this.position.y, 20 ,20)
-            // if (this.selected) 
-            // {
-            //     createDataFromSidePanel(canvas);
-            //     canvas.noStroke()
-            //     canvas.fill(255)
-            //     canvas.ellipse(this.position.x + this.size.x + 10, this.position.y + this.size.y + 10, 10, 10)
-            // }
-
-            // if (this.dragging) 
-            // {
-            //     createDataFromSidePanel()   
-            // }
-
-
-            canvas.noStroke();
 
             this.particles.forEach(particle => {
-                // this will move all the particles as the conductor is dragged around
-                let displacmentVector = p5.Vector.sub(this.position, this.previousPosition)
+                
+                let displacmentVector = p5.Vector.sub(particle.position, conductor.previousPosition);
                 particle.position.add(displacmentVector);
+            
 
-
-                // the boundary for particles inside a rectangle and cirlce are different
-                if (particle.charge < 0 && conductor.shape == "rect") 
-                {
-                    let conductorRect = {position: canvas.createVector(conductor.leftEnd, conductor.topEnd), width: conductor.width, height: conductor.height}
-                    if (circleIsInRect(particle, conductorRect)) 
-                    {
-                        particle.moveMetal();
-                    }
-                    else
-                    {
-                        particle.velocity = canvas.createVector(0, 0)
-                        particle.acceleration = canvas.createVector(0, 0)
-                        
-                        let centerOfConductor = this.position;
-                        let angle = p5.Vector.sub(centerOfConductor, particle.position).heading() * -1;
-
-                        let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 2);
-                        particle.position.add(moveDistance);
-                    }
-                }
-                else if (particle.charge < 0)
-                {
-                    if (circleIsInCircle(particle, this)) 
-                    {
-                        particle.moveMetal();
-                    }
-                    else
-                    {
-                        particle.velocity = canvas.createVector(0, 0)
-                        particle.acceleration = canvas.createVector(0, 0)
-                        
-                        let centerOfConductor = canvas.createVector(this.position.x + (this.width / 2), this.position.y + (this.height / 2));
-                        let angle = p5.Vector.sub(centerOfConductor, particle.position).heading() * -1;
-
-                        let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 2);
-                        particle.position.add(moveDistance);
-                    }
-                }
-                particle.display()
+                particle.moveMetal();
+                particle.display();
             })
-            canvas.fill("yellow")
-            // canvas.ellipse(this.position.x + this.width, this.position.y + this.height, 10 ,10);
-            // canvas.ellipse(this.position.x             , this.position.y + this.height, 10 ,10);
-            // canvas.ellipse(this.position.x + this.width, this.position.y              , 10 ,10);
-            canvas.ellipse(this.leftEnd, this.topEnd, 10 ,10);
-            canvas.ellipse(this.rightEnd, this.topEnd, 10 ,10);
-            canvas.ellipse(this.leftEnd, this.bottomEnd, 10 ,10);
-            canvas.ellipse(this.rightEnd, this.bottomEnd, 10 ,10);
+
         canvas.pop();
         this.previousPosition = this.position;
     }
@@ -269,19 +209,104 @@ class ConductorParticle extends TestCharge
 
     moveMetal()
     {
-        let force = netForceAtPoint(this.position).div(30000);
+        let particle = this;
+        let canvas = foreGroundCanvas;
 
-        if (force.mag() != Infinity)
+        
+
+        let conductorContainsParticle = conductors.find(conductor => {
+            let conductorRect = {position: canvas.createVector(conductor.leftEnd, conductor.topEnd), width: conductor.width, height: conductor.height}
+            return circleIsInRect(particle, conductorRect)
+        })
+        let conductor = conductors.indexOf(conductorContainsParticle);
+
+
+
+        let particleToConductorDistance = [];
+        conductors.forEach(conductor => {
+            let distance = p5.Vector.dist(particle.position, conductor.position);
+            particleToConductorDistance.push(distance);
+        })
+
+        let closestConductor = Math.min(...particleToConductorDistance)
+        let indexOfClosestConductor = particleToConductorDistance.indexOf(closestConductor);
+        closestConductor = conductors[indexOfClosestConductor];
+
+
+
+        if (!conductorContainsParticle) 
+        {
+            particle.velocity = canvas.createVector(0, 0);
+            particle.acceleration = canvas.createVector(0, 0);
+            
+            let centerOfConductor = closestConductor.position;
+            let angle = p5.Vector.sub(centerOfConductor, particle.position).heading() * -1;
+
+            let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 3);
+            particle.position.add(moveDistance);
+        }
+
+
+        let force = netForceAtPoint(particle.position).div(30000);
+
+        if (force.mag() != Infinity && conductorContainsParticle)
         {
             // F  = qE
             // ma = qE
             // a  = (qE)/m
             // m = 1
             // a  = q*E
-            this.acceleration = force.mult(this.charge);
-            this.velocity.add(this.acceleration);
-            this.position.add(this.velocity);
+            particle.acceleration = force.mult(particle.charge);
+            particle.velocity.add(particle.acceleration);
+            particle.position.add(particle.velocity);
         }
+        
+        // this.particles.forEach(particle => {
+        //     // this will move all the particles as the conductor is dragged around
+            // let displacmentVector = p5.Vector.sub(this.position, this.previousPosition)
+            // particle.position.add(displacmentVector);
+
+
+        //     // the boundary for particles inside a rectangle and cirlce are different
+        //     if (particle.charge < 0 && conductor.shape == "rect") 
+        //     {
+        //         let conductorRect = {position: canvas.createVector(conductor.leftEnd, conductor.topEnd), width: conductor.width, height: conductor.height}
+        //         if (circleIsInRect(particle, conductorRect)) 
+        //         {
+        //             particle.moveMetal();
+        //         }
+        //         else
+        //         {
+        //             particle.velocity = canvas.createVector(0, 0);
+        //             particle.acceleration = canvas.createVector(0, 0);
+                    
+        //             let centerOfConductor = this.position;
+        //             let angle = p5.Vector.sub(centerOfConductor, particle.position).heading() * -1;
+
+        //             let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 3);
+        //             particle.position.add(moveDistance);
+        //         }
+        //     }
+        //     else if (particle.charge < 0)
+        //     {
+        //         if (circleIsInCircle(particle, this)) 
+        //         {
+        //             particle.moveMetal();
+        //         }
+        //         else
+        //         {
+        //             particle.velocity = canvas.createVector(0, 0)
+        //             particle.acceleration = canvas.createVector(0, 0)
+                    
+        //             let centerOfConductor = canvas.createVector(this.position.x + (this.width / 2), this.position.y + (this.height / 2));
+        //             let angle = p5.Vector.sub(centerOfConductor, particle.position).heading() * -1;
+
+        //             let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 2);
+        //             particle.position.add(moveDistance);
+        //         }
+        //     }
+        //     particle.display();
+        // })
     }
 
     brownian(magnitude)
