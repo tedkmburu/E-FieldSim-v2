@@ -21,8 +21,7 @@ function displayConductors()
 {
     if (conductors.length > 0) 
     {
-        conductors.forEach(conductor =>
-        {
+        conductors.forEach(conductor => {
             conductor.display();
         })
         createDataFromSidePanel();
@@ -40,8 +39,10 @@ class Conductor
     {
         this.position = props.position;
         this.previousPosition = props.position;
+        this.draggedPosition = props.position
 
         this.shape = props.shape;
+
         if (this.shape == "circle") 
         {
             this.radius = props.radius;
@@ -52,6 +53,11 @@ class Conductor
         {
             this.width = props.width;
             this.height = props.height;
+            
+            this.leftEnd = this.position.x - (this.width / 2); 
+            this.rightEnd = this.position.x + (this.width / 2);
+            this.topEnd = this.position.y - (this.height / 2); 
+            this.bottomEnd = this.position.y + (this.height / 2);
         }
         this.selected = false;
         this.dragging = false;
@@ -63,38 +69,38 @@ class Conductor
     
         if (this.charge == "+") 
         {
-            for (let x = 0; x < (this.width / gridSize) + 1; x+=2) 
+            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize) 
             {
-                for (let y = 0; y < (this.height / gridSize) + 1; y+=2) 
+                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize) 
                 {
-                    this.particles.push(new ConductorParticle(canvas.createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , conductorParticleCharge))
+                    this.particles.push(new ConductorParticle(canvas.createVector(x, y), conductorParticleCharge))
                 } 
             }
         }
         else if (this.charge == "-") 
         {
-            for (let x = 0; x < (this.width / gridSize) + 1; x+=2) 
+            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize) 
             {
-                for (let y = 0; y < (this.height / gridSize) + 1; y+=2) 
+                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize) 
                 {
-                    this.particles.push(new ConductorParticle(canvas.createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , -conductorParticleCharge))
+                    this.particles.push(new ConductorParticle(canvas.createVector(x, y), -conductorParticleCharge))
                 } 
             }
         }
         else
         {
-            for (let x = 0; x < (this.width / gridSize) + 1; x+=2) 
+            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize) 
             {
-                for (let y = 0; y < (this.height / gridSize) + 1; y+=2) 
+                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize) 
                 {
-                    this.particles.push(new ConductorParticle(canvas.createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , conductorParticleCharge))
+                    this.particles.push(new ConductorParticle(canvas.createVector(x, y), conductorParticleCharge))
                 } 
             }
-            for (let x = 0; x < (this.width / gridSize) + 1; x+=2) 
+            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize) 
             {
-                for (let y = 0; y < (this.height / gridSize) + 1; y+=2) 
+                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize) 
                 {
-                    this.particles.push(new ConductorParticle(canvas.createVector(this.position.x + (x * gridSize), this.position.y + (y * gridSize) ) , -conductorParticleCharge))
+                    this.particles.push(new ConductorParticle(canvas.createVector(x, y), -conductorParticleCharge))
                 } 
             }
         }
@@ -107,6 +113,11 @@ class Conductor
     {
         let canvas = foreGroundCanvas;
         let conductor = this;
+
+        this.leftEnd = this.position.x - (this.width / 2); 
+        this.rightEnd = this.position.x + (this.width / 2);
+        this.topEnd = this.position.y - (this.height / 2); 
+        this.bottomEnd = this.position.y + (this.height / 2);
         
 
         canvas.push();
@@ -124,7 +135,7 @@ class Conductor
                 canvas.ellipseMode(canvas.CENTER);
             } 
             // else canvas.rect(conductor.position.x - 10, conductor.position.y - 10, conductor.width + 20, conductor.height + 20);
-            else canvas.rect(conductor.position.x - 0, conductor.position.y - 0, conductor.width + 0, conductor.height + 0);
+            else canvas.rect(conductor.position.x - (conductor.width / 2), conductor.position.y - (conductor.height / 2), conductor.width + 0, conductor.height + 0);
             
 
 
@@ -155,7 +166,8 @@ class Conductor
                 // the boundary for particles inside a rectangle and cirlce are different
                 if (particle.charge < 0 && conductor.shape == "rect") 
                 {
-                    if (circleIsInRect(particle, this)) 
+                    let conductorRect = {position: canvas.createVector(conductor.leftEnd, conductor.topEnd), width: conductor.width, height: conductor.height}
+                    if (circleIsInRect(particle, conductorRect)) 
                     {
                         particle.moveMetal();
                     }
@@ -164,7 +176,7 @@ class Conductor
                         particle.velocity = canvas.createVector(0, 0)
                         particle.acceleration = canvas.createVector(0, 0)
                         
-                        let centerOfConductor = canvas.createVector(this.position.x + (this.width / 2), this.position.y + (this.height / 2));
+                        let centerOfConductor = this.position;
                         let angle = p5.Vector.sub(centerOfConductor, particle.position).heading() * -1;
 
                         let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 2);
@@ -192,10 +204,13 @@ class Conductor
                 particle.display()
             })
             canvas.fill("yellow")
-            canvas.ellipse(this.position.x + this.width, this.position.y + this.height, 10 ,10);
-            canvas.ellipse(this.position.x             , this.position.y + this.height, 10 ,10);
-            canvas.ellipse(this.position.x + this.width, this.position.y              , 10 ,10);
-            canvas.ellipse(this.position.x             , this.position.y              , 10 ,10);
+            // canvas.ellipse(this.position.x + this.width, this.position.y + this.height, 10 ,10);
+            // canvas.ellipse(this.position.x             , this.position.y + this.height, 10 ,10);
+            // canvas.ellipse(this.position.x + this.width, this.position.y              , 10 ,10);
+            canvas.ellipse(this.leftEnd, this.topEnd, 10 ,10);
+            canvas.ellipse(this.rightEnd, this.topEnd, 10 ,10);
+            canvas.ellipse(this.leftEnd, this.bottomEnd, 10 ,10);
+            canvas.ellipse(this.rightEnd, this.bottomEnd, 10 ,10);
         canvas.pop();
         this.previousPosition = this.position;
     }

@@ -60,7 +60,7 @@ function createPreset(preset)
         for (let i = 0; i < 5; i++)
         {
             let x = (Math.random() * (innerWidth - sidePanelWidth - 200)) + 100
-            let y = (Math.random() * (innerHeight - 200)) + 100 
+            let y = (Math.random() * (innerHeight - 200)) + 100; 
             let charge = Math.round(Math.random() * 10) - 5;
             if (charge == 0) 
             {

@@ -306,7 +306,10 @@ function whenMouseDragged()
   if (noChargeIsBeingDragged && noConductorIsBeingDragged) // if no conductor is being dragged, check if the mouse is over a conductor and is dragging
   {
     conductors.forEach(conductor => {
-      if (pointIsInsideRect(mousePosition, conductor)) conductor.dragging = true;  // if the mouse is hovering over a conductor , set it's dragging property to true
+      
+      let canvas = foreGroundCanvas;
+      let conductorRect = {position: canvas.createVector(conductor.leftEnd, conductor.topEnd), width: conductor.width, height: conductor.height}
+      if (pointIsInsideRect(mousePosition, conductorRect)) conductor.dragging = true;  // if the mouse is hovering over a conductor , set it's dragging property to true
       else conductor.dragging = false;
     })
   }
@@ -315,7 +318,7 @@ function whenMouseDragged()
   let conductorToMoveIndex = conductors.indexOf(conductorToMove); // this is the index of the conductor found in the previous line
 
   let moveConductor = true;
-  if (mousePosition.x < innerWidth - sidePanelWidth && conductorToMove != undefined) // if the mouse isn't over the side panel
+  if (mousePosition.x < innerWidth - sidePanelWidth && conductorToMove != undefined) // if the mouse isn't over the side panel and is currently dragging a conductor
   {
     conductors.forEach((conductor, i) => {
       if (rectIsInsideRect(conductor, conductorToMove) && conductorToMoveIndex != i) 
@@ -324,14 +327,50 @@ function whenMouseDragged()
       }
     })
 
+    conductors.forEach((conductor, i) => {
+      let conductorRect = {position: mousePosition, width: conductorToMove.width, height: conductorToMove.height}
+      if (rectIsInsideRect(conductor, conductorRect) && conductorToMoveIndex != i) 
+      {
+        moveConductor = false;
+        return
+      }
+    })
+
+
     if (!snapToGrid && moveConductor) 
     {
-      let canvas = foreGroundCanvas;
-      conductorToMove.position = p5.Vector.sub(mousePosition, canvas.createVector(conductorToMove.width / 2, conductorToMove.height / 2)); // make the conductors position equal to the mouse position
+      conductorToMove.position = mousePosition; // make the conductors position equal to the mouse position
     }
-    else if (moveConductor)
+    else if (moveConductor && snapToGrid)
     {
       conductorToMove.position = roundVectorToNearestGrid(mousePosition)// the conductor position will round to the nearest grid
+    }
+    else
+    {
+      // conductors.forEach((conductor, i) => {
+      //   if (rectIsInsideRect(conductor, conductorToMove) && conductorToMoveIndex != i) 
+      //   {
+      //     if (conductorToMove.position.x > conductor.position.x + (3 * conductor.width / 4) && conductorToMove.position.y > conductor.position.y - (3 * conductor.height / 4)) 
+      //     {
+      //       //console.log("right");
+      //       //conductorToMove.previousPosition.x = conductor.position.x + conductor.width + ((1/4) * conductor.width);
+      //       conductorToMove.position.x = conductor.position.x + conductor.width;
+      //     }
+      //     else if (conductorToMove.position.x < conductor.position.x + (3 * conductor.width / 4) && conductorToMove.position.y > conductor.position.y - (3 * conductor.height / 4)) 
+      //     {
+      //       //console.log("left");
+      //       conductorToMove.position.x = conductor.position.x - conductor.width;
+      //     }
+      //     else if (conductorToMove.position.x > conductor.position.x - (3 * conductor.width / 4) && conductorToMove.position.y > conductor.position.y + (3 * conductor.height / 4)) 
+      //     {
+      //       console.log("below");
+      //     }
+      //     else if (conductorToMove.position.x > conductor.position.x && conductorToMove.position.x > conductor.position.x) 
+      //     {
+      //       console.log("top");
+      //     }
+      //   }
+      // })
     }
    
 
