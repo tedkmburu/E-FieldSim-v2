@@ -42,7 +42,7 @@ function createSidePanel()
         new Button({position: canvas.createVector(col1, 550), width: buttonFullWidth, height: buttonHeight, text: "Add Conductor", onClick: function(){ createConductor('=', "rect"); createDataFromSidePanel(); } }),
         new Button({position: canvas.createVector(col1, 590), width: buttonFullWidth, height: buttonHeight, text: "Add + Conductor", onClick: function(){ createConductor('+', "rect"); createDataFromSidePanel(); } }),
         new Button({position: canvas.createVector(col1, 630), width: buttonFullWidth, height: buttonHeight, text: "Add - Conductor", onClick: function(){ createConductor('-', "rect"); createDataFromSidePanel(); } }),
-        new Button({position: canvas.createVector(col1, 670), width: buttonFullWidth, height: buttonHeight, text: "Remove All Conductors", onClick: function(){ conductors = []; createDataFromSidePanel(); } }),
+        new Button({position: canvas.createVector(col1, 670), width: buttonFullWidth, height: buttonHeight, text: "Remove All Conductors", onClick: function(){ conductors = []; particles = []; createDataFromSidePanel(); } }),
 
         new Button({position: canvas.createVector(col1, 770), width: buttonFullWidth, height: buttonHeight, text: "Point Charges", onClick: function(){ window.open("../index.html") } }))
 

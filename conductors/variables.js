@@ -36,6 +36,8 @@ let fieldLineArrows = [];
 let equiLines = []; // equipotentialLines but shortened
 let voltageMap = [];
 
+let particles = []
+
 
 let sidePanelWidth = 300;
 let snapToGrid = false;

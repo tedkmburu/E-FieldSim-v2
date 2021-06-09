@@ -155,30 +155,29 @@ function netForceAtPoint(position) // given a vector, it will return the net for
     finalVector.add(forceVectors);
   });
 
-  // these are all the particles in conductors
-  conductors.forEach(conductor => {
-    conductor.particles.forEach(particle => {
+  // these are all the particles in the conductors
+  particles.forEach(particle => {
 
-      //F = KQ / (r^2)
-      let kq = particle.charge  * k;
-      let r = p5.Vector.dist(position, particle.position);
-  
-      if (r > 0.1)
-      {
-        let rSquared = Math.pow(r,2);
-        let force = kq / rSquared;
-  
-        let theta = p5.Vector.sub(particle.position, position).heading();
-        let forceX = force * Math.cos(theta);
-        let forceY = force * Math.sin(theta);
-  
-        let forceVectors = canvas.createVector(forceX, forceY).mult(-1);
-  
-        finalVector.add(forceVectors);
-      }
-    });
-    
+    //F = KQ / (r^2)
+    let kq = particle.charge  * k;
+    let r = p5.Vector.dist(position, particle.position);
+
+    if (r > 0.1)
+    {
+      let rSquared = Math.pow(r,2);
+      let force = kq / rSquared;
+
+      let theta = p5.Vector.sub(particle.position, position).heading();
+      let forceX = force * Math.cos(theta);
+      let forceY = force * Math.sin(theta);
+
+      let forceVectors = canvas.createVector(forceX, forceY).mult(-1);
+
+      finalVector.add(forceVectors);
+    }
   });
+    
+
 
   return finalVector;
 }

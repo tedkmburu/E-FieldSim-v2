@@ -24,13 +24,23 @@ function displayConductors()
         conductors.forEach(conductor => {
             conductor.display();
         })
+        conductors.forEach(conductor => {
+            conductor.particles = [];
+        })
+        particles.forEach(particle => {
+            
+            particle.moveMetal();
+            particle.display();
+        })
+
+        
         createDataFromSidePanel();
     }
 }
 
-function removeParticle(conductor, i) // deletes a charge from the charges array and removes its slider
+function removeParticle(i)
 {
-    conductor.particles.splice(i,1);
+    particles.splice(i,1);
 }
 
 class Conductor
@@ -65,42 +75,43 @@ class Conductor
 
 
         let canvas = foreGroundCanvas;
+
         this.particles = []
     
         if (this.charge == "+") 
         {
-            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize) 
+            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize * 2) 
             {
-                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize) 
+                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize * 2) 
                 {
-                    this.particles.push(new ConductorParticle(canvas.createVector(x, y), conductorParticleCharge))
+                    particles.push(new ConductorParticle(canvas.createVector(x, y), conductorParticleCharge))
                 } 
             }
         }
         else if (this.charge == "-") 
         {
-            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize) 
+            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize * 2) 
             {
-                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize) 
+                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize * 2) 
                 {
-                    this.particles.push(new ConductorParticle(canvas.createVector(x, y), -conductorParticleCharge))
+                    particles.push(new ConductorParticle(canvas.createVector(x, y), -conductorParticleCharge))
                 } 
             }
         }
         else
         {
-            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize) 
+            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize * 2) 
             {
-                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize) 
+                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize * 2) 
                 {
-                    this.particles.push(new ConductorParticle(canvas.createVector(x, y), conductorParticleCharge))
+                    particles.push(new ConductorParticle(canvas.createVector(x, y), conductorParticleCharge))
                 } 
             }
-            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize) 
+            for (let x = this.leftEnd; x < this.rightEnd + 1; x+= gridSize * 2) 
             {
-                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize) 
+                for (let y = this.topEnd; y < this.bottomEnd + 1; y+= gridSize * 2) 
                 {
-                    this.particles.push(new ConductorParticle(canvas.createVector(x, y), -conductorParticleCharge))
+                    particles.push(new ConductorParticle(canvas.createVector(x, y), -conductorParticleCharge))
                 } 
             }
         }
@@ -123,8 +134,8 @@ class Conductor
         canvas.push();
             
             let particleStroke = (conductor.selected) ? "rgba(255,255,255,1)" : "rgba(255,255,255,0)" ;
-            // canvas.fill("rgb(128,128,128)");
-            canvas.fill("rgba(255, 255, 255, 0.5)");
+            canvas.fill("rgb(128,128,128)");
+            // canvas.fill("rgba(255, 255, 255, 0.5)");
             canvas.stroke(particleStroke);
             canvas.strokeWeight(4);
 
@@ -142,13 +153,11 @@ class Conductor
 
 
             this.particles.forEach(particle => {
-                
-                let displacmentVector = p5.Vector.sub(particle.position, conductor.previousPosition);
-                particle.position.add(displacmentVector);
-            
 
-                particle.moveMetal();
-                particle.display();
+                let displacmentVector = p5.Vector.sub(conductor.position, conductor.previousPosition);
+                particles[particle].position.add(displacmentVector);
+
+                
             })
 
         canvas.pop();
@@ -164,6 +173,7 @@ class ConductorParticle extends TestCharge
     constructor(position, charge, velocity, acceleration, color)
     {
         super(position, charge, velocity, acceleration, color) // inherited from the TestCharge class
+        this.conductor;
     }
 
     display()
@@ -187,24 +197,7 @@ class ConductorParticle extends TestCharge
             }
             
         canvas.pop();
-    }
-
-    move()
-    {
-        let particle = this;
-        let force = netForceAtPoint(particle.position);
-
-        if (force.mag() != Infinity)
-        {
-            // F  = qE
-            // ma = qE
-            // a  = (qE)/m
-            // m = 1
-            // a  = q*E
-            particle.acceleration = force.mult(particle.charge);
-            testCharge.velocity.add(particle.acceleration);
-            particle.position.add(particle.velocity);
-        }
+        
     }
 
     moveMetal()
@@ -218,7 +211,14 @@ class ConductorParticle extends TestCharge
             let conductorRect = {position: canvas.createVector(conductor.leftEnd, conductor.topEnd), width: conductor.width, height: conductor.height}
             return circleIsInRect(particle, conductorRect)
         })
-        let conductor = conductors.indexOf(conductorContainsParticle);
+        let conductor = conductors[conductors.indexOf(conductorContainsParticle)];
+
+        if (conductor != null) 
+        {
+            // console.log(particles.indexOf(this));
+            conductor.particles.push(particles.indexOf(this));
+        }
+        
 
 
 
@@ -245,21 +245,25 @@ class ConductorParticle extends TestCharge
             let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 3);
             particle.position.add(moveDistance);
         }
-
-
-        let force = netForceAtPoint(particle.position).div(30000);
-
-        if (force.mag() != Infinity && conductorContainsParticle)
+        else if (particle.charge < 0 && conductorContainsParticle != null)
         {
-            // F  = qE
-            // ma = qE
-            // a  = (qE)/m
-            // m = 1
-            // a  = q*E
-            particle.acceleration = force.mult(particle.charge);
-            particle.velocity.add(particle.acceleration);
-            particle.position.add(particle.velocity);
+            let force = netForceAtPoint(particle.position).div(30000);
+
+            if (force.mag() != Infinity)
+            {
+                // F  = qE
+                // ma = qE
+                // a  = (qE)/m
+                // m = 1
+                // a  = q*E
+                particle.acceleration = force.mult(particle.charge);
+                particle.velocity.add(particle.acceleration);
+                particle.position.add(particle.velocity);
+            }
         }
+
+
+        
         
         // this.particles.forEach(particle => {
         //     // this will move all the particles as the conductor is dragged around
