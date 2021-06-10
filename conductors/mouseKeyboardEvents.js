@@ -208,7 +208,7 @@ function whenMouseDragged()
     conductors.forEach(conductor => {
       
       let canvas = foreGroundCanvas;
-      let conductorRect = {position: canvas.createVector(conductor.leftEnd - 10, conductor.topEnd - 10), width: conductor.width + 20, height: conductor.height + 20}
+      let conductorRect = {position: canvas.createVector(conductor.leftEnd - 0, conductor.topEnd - 0), width: conductor.width + 0, height: conductor.height + 0}
       if (pointIsInsideRect(mousePosition, conductorRect)) conductor.dragging = true;  // if the mouse is hovering over a conductor , set it's dragging property to true
       else conductor.dragging = false;
     })
@@ -229,7 +229,7 @@ function whenMouseDragged()
 
     conductors.forEach((conductor, i) => {
       let canvas = foreGroundCanvas;
-      let conductorRect = {position: canvas.createVector(mousePosition.x - 20, mousePosition.y - 20), width: conductor.width + 40, height: conductor.height + 40}
+      let conductorRect = {position: canvas.createVector(mousePosition.x - 0, mousePosition.y - 0), width: conductor.width + 0, height: conductor.height + 0}
       if (rectIsInsideRect(conductor, conductorRect) && conductorToMoveIndex != i) 
       {
         moveConductor = false;

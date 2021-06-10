@@ -37,6 +37,7 @@ let equiLines = []; // equipotentialLines but shortened
 let voltageMap = [];
 
 let particles = []
+let groups = []
 
 
 let sidePanelWidth = 300;

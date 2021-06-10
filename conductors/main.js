@@ -43,7 +43,7 @@ const foreGround = canvas => {
     
     //createPreset("single"); // creates what is displayed when the simulation first starts up
 
-    createConductor('+', "rect");
+    createConductor('=', "rect");
     createDataFromSidePanel();
 
     canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
