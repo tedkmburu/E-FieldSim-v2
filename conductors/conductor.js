@@ -236,17 +236,23 @@ class ConductorParticle extends TestCharge
 
         if (!conductorContainsParticle) 
         {
-            particle.velocity = canvas.createVector(0, 0);
+            // console.log("edge");
+            // particle.velocity = canvas.createVector(0, 0);
             particle.acceleration = canvas.createVector(0, 0);
             
             let centerOfConductor = closestConductor.position;
             let angle = p5.Vector.sub(centerOfConductor, particle.position).heading() * -1;
 
-            let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 3);
-            particle.position.add(moveDistance);
+            let moveDistance = p5.Vector.fromAngle( canvas.degrees(-angle), 2);
+            particle.velocity = (moveDistance);
+
+            // particle.acceleration = force.mult(particle.charge);
+            // particle.velocity.add(particle.acceleration);
+            particle.position.add(particle.velocity);
         }
         else if (particle.charge < 0 && conductorContainsParticle != null)
         {
+            
             let force = netForceAtPoint(particle.position).div(30000);
 
             if (force.mag() != Infinity)
