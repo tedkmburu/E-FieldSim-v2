@@ -4,7 +4,7 @@ function createConductor(charge, shape, position)
 
     if (position == undefined)
     {
-        position = canvas.createVector(Math.random() * (innerWidth - sidePanelWidth) + 50, Math.random() * innerHeight - 50);
+        position = canvas.createVector(Math.round(Math.random() * (innerWidth - sidePanelWidth) + 50), Math.round(Math.random() * innerHeight - 50));
     }
     if (shape == "rect") 
     {
@@ -67,9 +67,9 @@ function removeParticle(i)
 function fillRectWithParticles(conductor, charge)
 {
     let canvas = foreGroundCanvas;
-    for (let x = conductor.leftEnd; x < conductor.rightEnd + 1; x+= gridSize) 
+    for (let x = conductor.leftEnd + 12; x < conductor.rightEnd + 1; x+= gridSize * 1.5) 
     {
-        for (let y = conductor.topEnd; y < conductor.bottomEnd + 1; y+= gridSize) 
+        for (let y = conductor.topEnd + 12; y < conductor.bottomEnd + 1; y+= gridSize * 1.5) 
         {
             particles.push(new ConductorParticle(canvas.createVector(x, y), charge))
         } 
@@ -161,11 +161,30 @@ class Conductor
             
 
 
+            let conductorIndex = conductors.indexOf(this)
+            this.particles = []
+
+            particles.forEach((particle, j) => {
+
+                conductors.forEach((conductor, i) => {
+                    let conductorRect = {position: canvas.createVector(conductor.leftEnd + testChargeRadius, conductor.topEnd + testChargeRadius) , width: conductor.width - testChargeDiameter, height: conductor.height - testChargeDiameter}
+                    if (circleIsInRect(particle, conductorRect) && conductorIndex == i) 
+                    {
+                        particle.conductor = i;
+                        this.particles.push(j)
+                    }
+                })       
+            })
+
+            
+
 
             this.particles.forEach(particle => {
-
+                
                 let displacmentVector = p5.Vector.sub(conductor.position, conductor.previousPosition);
                 particles[particle].position.add(displacmentVector);
+
+                
 
                 
             })
@@ -214,7 +233,13 @@ class ConductorParticle extends TestCharge
             {
                 canvas.ellipse(x - 1, y - 1, testChargeDiameter, testChargeDiameter);
             }
-            
+
+            let chargeStringLength = this.conductor;
+            let textPositionX = x;
+            let textPositionY = y;
+            canvas.fill(0);
+            canvas.noStroke();
+            canvas.text(chargeStringLength, textPositionX, textPositionY);
         canvas.pop();
         
     }
@@ -227,7 +252,7 @@ class ConductorParticle extends TestCharge
         
 
         let conductorContainsParticle = conductors.find(conductor => {
-            let conductorRect = {position: canvas.createVector(conductor.leftEnd + 0, conductor.topEnd + 0) , width: conductor.width, height: conductor.height}
+            let conductorRect = {position: canvas.createVector(conductor.leftEnd + testChargeRadius, conductor.topEnd + testChargeRadius) , width: conductor.width - testChargeDiameter, height: conductor.height - testChargeDiameter}
             return circleIsInRect(particle, conductorRect)
         })
         let conductorIndex = conductors.indexOf(conductorContainsParticle)
@@ -235,7 +260,7 @@ class ConductorParticle extends TestCharge
 
         groups.forEach(group => {
             group.forEach(conductorInGroup => {
-                let conductorRect = {position: canvas.createVector(conductorInGroup.leftEnd + 0, conductorInGroup.topEnd + 0) , width: conductorInGroup.width, height: conductorInGroup.height}
+                let conductorRect = {position: canvas.createVector(conductorInGroup.leftEnd + testChargeRadius, conductorInGroup.topEnd + testChargeRadius) , width: conductorInGroup.width - testChargeDiameter, height: conductorInGroup.height - testChargeDiameter}
                 if (circleIsInRect(particle, conductorRect)) 
                 {
                     conductorContainsParticle = true;
