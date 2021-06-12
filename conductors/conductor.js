@@ -162,16 +162,16 @@ class Conductor
 
 
             let conductorIndex = conductors.indexOf(this)
-            this.particles = []
+            
 
-            particles.forEach((particle, j) => {
+            particles.forEach(particle => {
 
                 conductors.forEach((conductor, i) => {
                     let conductorRect = {position: canvas.createVector(conductor.leftEnd + testChargeRadius, conductor.topEnd + testChargeRadius) , width: conductor.width - testChargeDiameter, height: conductor.height - testChargeDiameter}
                     if (circleIsInRect(particle, conductorRect) && conductorIndex == i) 
                     {
                         particle.conductor = i;
-                        this.particles.push(j)
+
                     }
                 })       
             })
@@ -191,7 +191,7 @@ class Conductor
             
             // canvas.strokeWeight(1);
             // canvas.noFill()
-            // canvas.stroke("yellow")
+            // canvas.stroke("blue")
             // let width = conductor.rightEnd - conductor.leftEnd;
             // let height = conductor.bottomEnd - conductor.topEnd;
 
@@ -299,6 +299,8 @@ class ConductorParticle extends TestCharge
         closestConductor = conductors[indexOfClosestConductor];
 
 
+        let damping = 1.01;
+        particle.velocity = canvas.createVector(particle.velocity.x / damping, particle.velocity.y / damping);
 
         if (!conductorContainsParticle) 
         {
@@ -319,7 +321,7 @@ class ConductorParticle extends TestCharge
         else if (particle.charge < 0 && conductorContainsParticle != null)
         {
             
-            let force = netForceAtPoint(particle.position).div(30000);
+            let force = netForceAtPoint(particle.position).div(3000);
 
             if (force.mag() != Infinity)
             {

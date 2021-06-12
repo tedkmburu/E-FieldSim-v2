@@ -162,7 +162,7 @@ function netForceAtPoint(position) // given a vector, it will return the net for
     let kq = particle.charge  * k;
     let r = p5.Vector.dist(position, particle.position);
 
-    if (r > 0.1)
+    if (r > 0.05)
     {
       let rSquared = Math.pow(r,2);
       let force = kq / rSquared;
