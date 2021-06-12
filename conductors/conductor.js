@@ -189,13 +189,13 @@ class Conductor
                 
             })
             
-            canvas.strokeWeight(1);
-            canvas.noFill()
-            canvas.stroke("blue")
-            let width = conductor.rightEnd - conductor.leftEnd;
-            let height = conductor.bottomEnd - conductor.topEnd;
+            // canvas.strokeWeight(1);
+            // canvas.noFill()
+            // canvas.stroke("yellow")
+            // let width = conductor.rightEnd - conductor.leftEnd;
+            // let height = conductor.bottomEnd - conductor.topEnd;
 
-            canvas.rect(conductor.leftEnd, conductor.topEnd, width, height)
+            // canvas.rect(conductor.leftEnd, conductor.topEnd, width, height)
 
         canvas.pop();
         this.previousPosition = this.position;
@@ -234,12 +234,12 @@ class ConductorParticle extends TestCharge
                 canvas.ellipse(x - 1, y - 1, testChargeDiameter, testChargeDiameter);
             }
 
-            let chargeStringLength = this.conductor;
-            let textPositionX = x;
-            let textPositionY = y;
-            canvas.fill(0);
-            canvas.noStroke();
-            canvas.text(chargeStringLength, textPositionX, textPositionY);
+            // let chargeStringLength = this.conductor;
+            // let textPositionX = x;
+            // let textPositionY = y;
+            // canvas.fill(0);
+            // canvas.noStroke();
+            // canvas.text(chargeStringLength, textPositionX, textPositionY);
         canvas.pop();
         
     }

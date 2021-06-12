@@ -5,7 +5,7 @@ const background = canvas => {
     canvas.createCanvas(innerWidth, innerHeight); // creates the <canvas> that everything runs on.
     backgroundCanvas = canvas;
     canvas.angleMode(canvas.RADIANS);
-    canvas.frameRate(10);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
+    canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
   }
 
   canvas.draw = function() // this function runs every frame. Everything on screen starts here.
@@ -46,7 +46,7 @@ const foreGround = canvas => {
     createConductor('=', "rect");
     createDataFromSidePanel();
 
-    canvas.frameRate(10);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
+    canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
   }
 
 
