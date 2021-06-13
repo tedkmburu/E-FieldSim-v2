@@ -38,7 +38,7 @@ function createFieldVectors()
     //     }
         
     // });
-
+ 
     
     conductors.forEach(conductor => {
         let reach = (20) * gridSize
@@ -56,7 +56,7 @@ function createFieldVectors()
                 
                 
                 let isInsideConductor = conductors.some(conductor => {
-                    let conductorRect = {position: p5.Vector.sub(conductor.position, canvas.createVector(50, 50)), width: conductor.width + 50, height: conductor.height + 50};
+                    let conductorRect = {position: p5.Vector.sub(conductor.position, canvas.createVector(50, 50)), width: conductor.width + 0, height: conductor.height + 0};
                     return pointIsInsideRect(arrowLocation, conductorRect)
                 }) 
         
