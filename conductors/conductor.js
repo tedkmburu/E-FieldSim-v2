@@ -286,7 +286,7 @@ class ConductorParticle extends TestCharge
         }
         
 
-
+ 
 
         let particleToConductorDistance = [];
         conductors.forEach(conductor => {
@@ -335,6 +335,9 @@ class ConductorParticle extends TestCharge
                 particle.position.add(particle.velocity);
             }
         }
+
+        particle.position.x = canvas.constrain(particle.position.x, closestConductor.leftEnd, closestConductor.rightEnd)
+        particle.position.y = canvas.constrain(particle.position.y, closestConductor.topEnd, closestConductor.bottomEnd)
     }
 
     brownian(magnitude)
