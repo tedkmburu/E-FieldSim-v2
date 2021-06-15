@@ -98,11 +98,11 @@ function displaySidePanel()
         canvas.fill(255)
         canvas.rect(innerWidth - sidePanelWidth, 0, sidePanelWidth, innerHeight)
 
-        canvas.fill(0);
-        canvas.noStroke();
-        canvas.textSize(16);
+        // canvas.fill(0);
+        // canvas.noStroke();
+        // canvas.textSize(16);
         
-        canvas.text("Premade Configurations: " , buttons[1].position.x, 250);
+        // canvas.text("Premade Configurations: " , buttons[1].position.x, 250);
     canvas.pop()
 }
 
