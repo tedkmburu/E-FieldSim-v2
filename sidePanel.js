@@ -40,7 +40,8 @@ function createSidePanel()
         new Button({position: canvas.createVector(col1, 490), width: buttonFullWidth, height: buttonHeight, text: "Create Test Charge Map", onClick: function(){ testChargeMode = true; createTestChargeMap(); checkBoxes[6].value = true; testChargeMode = true;} }),
         new Button({position: canvas.createVector(col1, 530), width: buttonFullWidth, height: buttonHeight, text: "Clear Test Charges", onClick: function(){ testCharges = []; } }),
 
-        new Button({position: canvas.createVector(col1, 600), width: buttonFullWidth, height: buttonHeight, text: "Conductors", onClick: function(){ window.open("conductors/conductors.html") } }))
+        // new Button({position: canvas.createVector(col1, 600), width: buttonFullWidth, height: buttonHeight, text: "Conductors", onClick: function(){ window.open("conductors/conductors.html") } })
+        )
 
 }
 
