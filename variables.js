@@ -38,6 +38,7 @@ let voltageMap = [];
 let sidePanelWidth = 300;
 let snapToGrid = false;
 let menuOpen = true;
+let QRCode;
 
 let foreGroundCanvas;
 let backgroundCanvas;

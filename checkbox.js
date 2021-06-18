@@ -17,10 +17,13 @@ class CheckBox
         this.height = props.height;
 
         this.visible = props.visible || true;
+        this.hovering = false;
+        this.hoverText = props.hoverText;
 
         this.text = props.text; // text shown beside the checkBox
         this.value = props.value; // boolean value for the checkBox
         this.onClick = props.onClick; // function to run when user clicks the checkBox
+        
 
         this.onClick() // calls the onClick function once when the checkbox is created
     }
@@ -74,6 +77,21 @@ class CheckBox
             canvas.textSize(16);
             canvas.noStroke();
             canvas.text(checkBox.text, checkBox.position.x + (1.4 * checkBox.height),  checkBox.position.y + (checkBox.height / 2) );
+
+            if (checkBox.hovering && checkBox.hoverText != null) 
+            {
+                canvas.fill(255);
+                canvas.rect(checkBox.position.x + 20, checkBox.position.y, checkBox.width + 100, checkBox.height, 2);
+
+
+                canvas.fill(0);
+                canvas.textAlign(canvas.LEFT, canvas.CENTER);
+                canvas.textSize(16);
+                canvas.noStroke();
+                canvas.text(checkBox.hoverText, checkBox.position.x + (1.4 * checkBox.height),  checkBox.position.y + (checkBox.height / 2) );
+            }
+
+
         canvas.pop();  
         
     }

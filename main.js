@@ -27,6 +27,11 @@ const background = canvas => {
 
 const foreGround = canvas => {
 
+  canvas.preload = function()
+  {
+    QRCode = canvas.loadImage("qrcode.png");
+  }
+
   canvas.setup = function()  // This function only runs once when the page first loads. 
   {
     canvas.createCanvas(innerWidth, innerHeight); // creates the <canvas> that everything runs on.

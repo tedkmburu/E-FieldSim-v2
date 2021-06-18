@@ -62,9 +62,11 @@ function whenMouseClicked() // this is an inbuilt p5 function that runs everytim
     })
   }
 
+  
   if (showEquipotentialLines && mousePosition.x < innerWidth - sidePanelWidth)
   {
-    createEquipotentialLine(mousePosition);
+    let mouseClickPosition = new p5.Vector(mousePosition.x, mousePosition.y); 
+    createEquipotentialLine(mouseClickPosition);
   }
 
   if (testChargeMode) // if test charge mode is on, this will create a test charge wherever the user clicks 
@@ -100,6 +102,18 @@ function whenMouseMoved()
       if (pointIsInsideRect(mousePosition, button)) // if the mouse position is over a button
       {
         button.hovering = true;
+      }
+    }
+  })
+
+  
+  checkBoxes.forEach(checkBox => { // this will loop through all the checkBoxes
+    if (checkBox.visible) 
+    {
+      checkBox.hovering = false;
+      if (pointIsInsideRect(mousePosition, checkBox)) // if the mouse position is over a checkBox
+      {
+        checkBox.hovering = true;
       }
     }
   })

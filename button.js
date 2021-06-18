@@ -23,6 +23,7 @@ class Button
         this.alignText = props.alignText || canvas.CENTER;
 
         this.text = props.text;
+        this.hoverText = props.hoverText;
 
         this.onClick = props.onClick;
     }
@@ -78,6 +79,11 @@ class Button
                     canvas.textAlign(button.alignText, canvas.CENTER);
                     canvas.textSize(16);
                     canvas.text(button.text, button.position.x + 10,  button.position.y + (button.height / 2));
+                }
+
+                if (button.hovering && button.hoverText != null) 
+                {
+                    console.log(button.hoverText);
                 }
                 
             canvas.pop();  

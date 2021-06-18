@@ -42,48 +42,49 @@ function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
 {
     if (listOfPoints == undefined) 
     {
-        listOfPoints = [startingPosition]   
+        listOfPoints = []
         numberOfLoops = 0; 
     }
 
-    if (numberOfLoops % 7 == 0 && numberOfLoops > 5) 
-    {
-        let arrowPosition = startingPosition;
-        let arrowAngle = noPositiveCharges ? netForceAtPoint(startingPosition).mult(-1).heading() : netForceAtPoint(startingPosition).heading();
-
-        fieldLineArrows.push(new FieldLineArrow(arrowPosition, arrowAngle));
-    }
+    listOfPoints.push(startingPosition);
 
     let forceVector = noPositiveCharges ? netForceAtPoint(startingPosition).setMag(chargeRadius).mult(-1) : netForceAtPoint(startingPosition).setMag(chargeRadius);
     let forceVectorFinalPosition = p5.Vector.add(forceVector, startingPosition);
 
-    let finalPositionToChargesDistance = [];
-    charges.forEach(charge => {
-        let finalPositionToChargeDistance = p5.Vector.dist(startingPosition, charge.position)
-        finalPositionToChargesDistance.push(finalPositionToChargeDistance)
-    })
+    if (numberOfLoops % 7 == 0 && numberOfLoops > 6) 
+    {
+        let arrowPosition = startingPosition;
+        let arrowAngle = forceVector.heading();
 
-    let closestChargeDistance = Math.min(...finalPositionToChargesDistance)
+        fieldLineArrows.push(new FieldLineArrow(arrowPosition, arrowAngle));
+    }
+
+    let distanceToCharges = [];
+    charges.forEach(charge => {
+        let finalPositionToChargeDistance = p5.Vector.dist(startingPosition, charge.position);
+        distanceToCharges.push(finalPositionToChargeDistance);
+    })
+    let closestChargeDistance = Math.min(...distanceToCharges)
+
+    let index = distanceToCharges.indexOf(closestChargeDistance);
 
     if (closestChargeDistance > chargeRadius / 2 && numberOfLoops < 100) 
     {
-        listOfPoints.push(forceVectorFinalPosition);
         getFieldLinePoints(forceVectorFinalPosition, numberOfLoops + 1, listOfPoints);
     }
-    else if (closestChargeDistance < chargeRadius / 2)
+    else if (closestChargeDistance < chargeRadius / 2 && charges[index].charge == 0)
     {
-        let index = finalPositionToChargesDistance.indexOf(closestChargeDistance)
-
-        listOfPoints.push(charges[index].position)
-
+        getFieldLinePoints(forceVectorFinalPosition, numberOfLoops + 1, listOfPoints);
+    }
+    else if (closestChargeDistance < chargeRadius / 2 && charges[index].charge != 0)
+    {
+        listOfPoints.push(charges[index].position);
         fieldLines.push(new FieldLine(listOfPoints));
     }
     else
     {
         fieldLines.push(new FieldLine(listOfPoints));
     }
-
-
 }
 
 
@@ -99,7 +100,7 @@ class FieldLine
     {
         let canvas = foreGroundCanvas;
         canvas.beginShape();
-        //beginShape(POINTS);
+        // canvas.beginShape(canvas.POINTS);
         canvas.noFill();
             canvas.stroke(255);
             canvas.vertex(this.fieldLinePoints[0].x, this.fieldLinePoints[0].y)
