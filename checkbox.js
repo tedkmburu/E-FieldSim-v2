@@ -78,17 +78,18 @@ class CheckBox
             canvas.noStroke();
             canvas.text(checkBox.text, checkBox.position.x + (1.4 * checkBox.height),  checkBox.position.y + (checkBox.height / 2) );
 
-            if (checkBox.hovering && checkBox.hoverText != null) 
+            if (checkBox.hovering && checkBox.hoverText != null && checkBox.value == true) 
             {
+                canvas.fill("rgba(0,0,0,0.75)");
+                canvas.rect(0, 0, innerWidth - sidePanelWidth, innerHeight);
+
+
                 canvas.fill(255);
-                canvas.rect(checkBox.position.x + 20, checkBox.position.y, checkBox.width + 100, checkBox.height, 2);
-
-
-                canvas.fill(0);
-                canvas.textAlign(canvas.LEFT, canvas.CENTER);
-                canvas.textSize(16);
+                
+                canvas.textAlign(canvas.CENTER);
+                canvas.textSize(24);
                 canvas.noStroke();
-                canvas.text(checkBox.hoverText, checkBox.position.x + (1.4 * checkBox.height),  checkBox.position.y + (checkBox.height / 2) );
+                canvas.text(checkBox.hoverText, (innerWidth - sidePanelWidth)/2, innerHeight/2);
             }
 
 

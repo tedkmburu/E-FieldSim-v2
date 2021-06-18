@@ -39,6 +39,7 @@ let sidePanelWidth = 300;
 let snapToGrid = false;
 let menuOpen = true;
 let QRCode;
+let icons;
 
 let foreGroundCanvas;
 let backgroundCanvas;

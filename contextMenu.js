@@ -46,12 +46,14 @@ function displayContextMenu() // shows the right click menu. runs every frame af
 
 
 function saveAsPNG() 
-{
+{ 
+    let canvas = foreGroundCanvas;
+
     let  options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' }; // specifies the format to get the date in
     let d = new Date();
     let date = d.toLocaleDateString("en-US", options);
     let time = d.toLocaleTimeString();
-    saveCanvas(`Electric Field - ${date}  ${time}`, 'png'); // saves a screenshot of the page to the user's device with the name inside the parentheses 
+    canvas.saveCanvas(`Electric Field - ${date}  ${time}`, 'png'); // saves a screenshot of the page to the user's device with the name inside the parentheses 
 }
 
 

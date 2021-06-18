@@ -20,7 +20,7 @@ function createSidePanel()
     checkBoxes.push(
         new CheckBox({position: canvas.createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines",          value: true, onClick: function(){ showFieldLines = this.value; if (this.value) { createFieldLines() } } }),
         new CheckBox({position: canvas.createVector(col1, 75), height: 20, width: checkBoxWidth, text: "Field Vectors",        value: false, onClick: function(){ showFieldVectors = this.value; if (this.value) { createFieldVectors() } } }),
-        new CheckBox({position: canvas.createVector(col1, 100), height: 20, width: checkBoxWidth, text: "Equipotential Lines", value: false, onClick: function(){ showEquipotentialLines = this.value; equiLines = []; }, hoverText: "Click to create" }),
+        new CheckBox({position: canvas.createVector(col1, 100), height: 20, width: checkBoxWidth, text: "Equipotential Lines", value: false, onClick: function(){ showEquipotentialLines = this.value; equiLines = []; }, hoverText: "Click to Anywhere to Create an Equipotential Line" }),
         new CheckBox({position: canvas.createVector(col1, 125), height: 20, width: checkBoxWidth, text: "Voltage",             value: false, onClick: function(){ showVoltage = this.value; if (this.value) { createVoltage() } } }),
         new CheckBox({position: canvas.createVector(col1, 150), height: 20, width: checkBoxWidth, text: "Show Grid",           value: true,  onClick: function(){ createGrid = this.value; } }),
         new CheckBox({position: canvas.createVector(col1 + 20, 175), height:20, width:checkBoxWidth, text:"Snap to Grid",      value: false, onClick: function(){ snapToGrid = this.value; if (this.value) { checkBoxes[4].value = true; createGrid = true;} } }))
@@ -34,7 +34,7 @@ function createSidePanel()
         new Button({position: canvas.createVector(col1, 375), width: buttonFullWidth, height: buttonHeight, text: "Remove All Charges", onClick: function(){ createPreset(null); testCharges=[];} }))
 
     checkBoxes.push(
-        new CheckBox({position: canvas.createVector(col1, 465), height: 20, width: checkBoxWidth, text: "Test Charge Mode", value: false, onClick: function(){ testChargeMode = this.value; }, hoverText: "Click to create" }))
+        new CheckBox({position: canvas.createVector(col1, 465), height: 20, width: checkBoxWidth, text: "Test Charge Mode", value: false, onClick: function(){ testChargeMode = this.value; }, hoverText: "Click to Anywhere to Place a Test Charge" }))
 
     buttons.push(
         new Button({position: canvas.createVector(col1, 490), width: buttonFullWidth, height: buttonHeight, text: "Create Test Charge Map", onClick: function(){ testChargeMode = true; createTestChargeMap(); checkBoxes[6].value = true; testChargeMode = true;} }),
@@ -43,6 +43,33 @@ function createSidePanel()
         // new Button({position: canvas.createVector(col1, 600), width: buttonFullWidth, height: buttonHeight, text: "Conductors", onClick: function(){ window.open("conductors/conductors.html") } })
         )
 
+        for (let i = 0; i < icons.length - 1; i++) 
+        {
+            let x = innerWidth - 230 + (i * 50); 
+            let y = innerHeight - 50; 
+            buttons.push(new Button({position: canvas.createVector(x, y), width: 25, height: 25, image: icons[i], onClick: function(){ bottomButtons(i); } }));
+        }
+
+}
+
+
+
+
+function bottomButtons(i)
+{
+    console.log(i);
+    if (i == 0) 
+    {
+        saveAsPNG();
+    }
+    if (i == 1) 
+    {
+        console.log("help");
+    }
+    if (i == 2) 
+    {
+        console.log("share");   
+    }
 }
 
 
@@ -102,7 +129,14 @@ function displaySidePanel()
         canvas.text("Premade Configurations: " , buttons[1].position.x, 250);
 
         canvas.imageMode(canvas.CENTER);
-        canvas.image(QRCode, innerWidth - (sidePanelWidth / 2), innerHeight - 150, 200, 200);
+        canvas.image(QRCode, innerWidth - (sidePanelWidth / 2), innerHeight - 200, 200, 200);
+
+        
+        // for (let i = 0; i < icons.length - 1; i++) 
+        // {
+        //     canvas.image(icons[i], innerWidth - 230 + (i * 50), innerHeight - 50, 25, 25);
+        // }
+
     canvas.pop()
 }
 

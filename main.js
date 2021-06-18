@@ -30,6 +30,14 @@ const foreGround = canvas => {
   canvas.preload = function()
   {
     QRCode = canvas.loadImage("qrcode.png");
+
+    icons = [
+      canvas.loadImage("icons/download.png"), 
+      canvas.loadImage("icons/help.png"), 
+      //canvas.loadImage("icons/info.png"), 
+      canvas.loadImage("icons/share.png"), 
+      canvas.loadImage("icons/menu.png") 
+    ]
   }
 
   canvas.setup = function()  // This function only runs once when the page first loads. 

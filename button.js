@@ -24,6 +24,7 @@ class Button
 
         this.text = props.text;
         this.hoverText = props.hoverText;
+        this.image = props.image;
 
         this.onClick = props.onClick;
     }
@@ -33,7 +34,7 @@ class Button
         let button = this;
         let canvas = foreGroundCanvas;
         
-        if (button.text != "Menu") // this will be all the normal buttons
+        if (button.image == undefined) // this will be all the normal buttons
         {
             canvas.push();
                 
@@ -93,11 +94,13 @@ class Button
             canvas.push();
                 canvas.noStroke();
                 canvas.fill(0);
-                canvas.rect(button.position.x, button.position.y, button.width, button.height / 5, 2);
+                // canvas.rect(button.position.x, button.position.y, button.width, button.height / 5, 2);
 
-                canvas.rect(button.position.x, button.position.y + (button.height / 3), button.width, button.height / 5, 2);
+                // canvas.rect(button.position.x, button.position.y + (button.height / 3), button.width, button.height / 5, 2);
 
-                canvas.rect(button.position.x, button.position.y + (2 * button.height / 3), button.width, button.height / 5, 2);
+                // canvas.rect(button.position.x, button.position.y + (2 * button.height / 3), button.width, button.height / 5, 2);
+
+                canvas.image(button.image, button.position.x, button.position.y, button.width, button.height);
             canvas.pop(); 
         }
         
