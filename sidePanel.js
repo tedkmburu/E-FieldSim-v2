@@ -15,7 +15,7 @@ function createSidePanel()
     let col2 = innerWidth - 155;
 
     buttons.push(
-        new Button({position: canvas.createVector(innerWidth - 280, 10), width: buttonHeight / 2, height: buttonHeight / 2, text: "Menu", onClick: function(){ menuOpen = !menuOpen; } }))
+        new Button({position: canvas.createVector(innerWidth - 280, 10), width: buttonHeight / 2, height: buttonHeight / 2, image: icons[3], onClick: function(){ menuOpen = !menuOpen; } }))
 
     checkBoxes.push(
         new CheckBox({position: canvas.createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines",          value: true, onClick: function(){ showFieldLines = this.value; if (this.value) { createFieldLines() } } }),
