@@ -31,14 +31,16 @@
     <img src="images/edit.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">DEFI Game</h3>
+  <h3 align="center">E field Simulator</h3>
 
   <p align="center">
     Documentation on how the simulation works so that you can add to it.
-    <br />
-    <a href="https://efieldsim.ithaca.edu/site/game.html"><strong>View Simulation »</strong></a>
-    <br />
-    <br />
+    <br/>
+      <a href="https://icphysweb.z13.web.core.windows.net/">
+      <strong>View Simulation »</strong>
+      </a>
+    <br/>
+    <br/>
 
   </p>
 </p>
@@ -60,16 +62,12 @@
         <a href="#Design">Design</a>
         <ul>
             <li><a href="#Mayer's-Principles-of-Multimedia-Learning">Mayers Principles of Multimedia Learning</a></li>
-            <li><a href="#Inspiration">Inspiration</a></li>
         </ul>
     </li>
     <li>
         <a href="#Code">Code</a>
         <ul>
             <li><a href="#p5.js-Basics">p5.js Basics</a></li>
-            <li><a href="#Screens">Screens</a></li>
-            <li><a href="#Collision-Detection">Collision Detection</a></li>
-            <li><a href="#Screens">Screens</a></li>
         </ul>
     </li>
     <li>
@@ -77,6 +75,9 @@
         <ul>
             <li><a href="#Test-Charge-Movement">Test Charge Movement</a></li>
             <li><a href="#Field-Lines">Field Lines</a></li>
+            <li><a href="#Field-Lines">Vector Field</a></li>
+            <li><a href="#Field-Lines">Eqiopotenital Lines</a></li>
+            <li><a href="#Field-Lines">Voltage</a></li>
         </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
@@ -92,9 +93,8 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://efieldsim.ithaca.edu/site/game.html)
 
-Because electric fields cannot be touched or seen, simulations are often utilized to build students' understanding of them by providing them with a visual of electric fields and the motion of test charges through them. The objective of the simulation is to improve students’ qualitative understanding of how electric fields are impacted by a configuration of charges by creating a dynamic representation of the electric field lines, field vectors, equipotential lines and the voltage created by the charges on screen. After creating a charge configuration, the simulation visualizes the motion of test charges through the electric field. 
+Because electric fields cannot be touched or seen, simulations are often utilized to build students' understanding of them by providing them with a visual experience of electric fields and the motion of test charges through them. The objective of the simulation is to improve students’ qualitative understanding of how electric fields are impacted by the charges around them by creating a dynamic representation of the electric field lines, field vectors, equipotential lines and the voltage created by the charges on screen. After creating a charge configuration, students can observe the motion of test charges through the electric field. The simulation was built in JavaScript so it will run on most browsers on a computer or mobile device. The simulation is intended to be used by college students taking introductory physics courses. The core principles of the simulation will then be used to create a game. Although the Learning objectives of the game and the simulation will be almost identical, we hope that the game will motivate students to build their intuition on how electric fields work outside of class in their own time. The effectiveness of the simulation and game will be analyzed after students test both in an introductory physics class. 
 
-The core physics principles of the simulation have also been used as the foundation of the mechanics of an educational game. Our aim in the gamification of the simulation is to improve motivation and engagement in the material. Both the simulation and game were built in JavaScript so they will run on most browsers on a computer or mobile device. 
 
 
 ### Learning Objectives
@@ -106,7 +106,7 @@ Students will be able to:
 
 ### Languages and Libraries
 
-The entire game runs inside a canvas tag in a webpage, so it is accessible from both mobile phones and computers. HTML and CSS are used to set up the page then p5.js creates the canvas with the game loop and everything else. Everything else is done in Javascript. 
+The entire simulation runs inside 2 canvases in a webpage, so it is accessible from both mobile phones and computers. HTML and a little CSS are used to set up the page then p5.js creates the canvas with the game loop and everything else. Everything else is done in Javascript. 
 * [Javascript](https://www.w3schools.com/js/default.asp)
 * [p5.js](https://p5js.org/)
 * [HTML](https://www.w3schools.com/html/default.asp)
@@ -117,49 +117,23 @@ The entire game runs inside a canvas tag in a webpage, so it is accessible from 
 
 ## Design
 
-The game is primarily designed to target the learning goals listed above. Intuition and multimedia learning resources were used when making the smaller decisions in the game. 
-
-### Game Play
-
-The gameplay is broken down into a few distinct parts.
-
-While in "Build" mode:
-* You add neutral charges to the screen by touching anywhere on the screen 
-* You can then use the slider that appears on the bottom of the screen to adjust the magnitude and sign of the charge that you just created. 
-* As you add, remove or adjust the magnitude of test charges, you will see a live representation of how the electric field changes as well as a small hint as to what the trajectory of the test charge will look like. 
-* When you are satisfied with the electric field that you have created, you can press the “Play” button to see the full trajectory of the test charge in your electric field. 
-
-While in "Play" mode:
-* you cannot edit any charge's location or magniude but not the test charge will move in accordace to the electric field. 
-* When the test charge touches any of the stars, they are collected and will improve your score
-* If the test charge hits the edge of the track, it stops moving and you need to click the "Build" button to edit your charge configuration to change the resulting electric field.
-
-
-### Mayer's Principles of Multimedia Learning
-
-* Manage the extraneous load by limiting the cognitive effort on material or details that don’t support the learning outcomes while still making the game engaging
-
-* Manage the intrinsic load (the cognitive effort required to represent the material in working memory) by focusing narrowly on the essential material and eschewing everything that could distract learners
-
-* Manage the germane load (the effort required of learners to actually understand the material) to keep players motivated. We tried to optimize the germane load by scaffolding learning and pacing material appropriately.
-
-More info on Mayer's Principles of Multimedia Learning [here](https://ctl.wiley.com/principles-of-multimedia-learning/).
-
+The simulation is primarily designed to target the learning goals listed above. There are different mods that display different inforamtion about the configuration of charges shown on then screen. 
 
 
 ## Code
 
-Object-oriented programming is used throughout the game. The Screen, Button, Popup, FieldLine, Image, Screen, Star, TestCharge and Track classes can be found in own their self-titled files. Functions that primarily only use that one class can also be found in that classes self-titled file. 
+Object-oriented programming is used throughout the simulation. The Button, Charge, FieldLine, CheckBox, TestCharge, fieldVector, PointCharge and other classes can be found in own their self-titled files. Functions that primarily only use that one class can also be found in that classes self-titled file. 
 
 The p5.js library is inside the file titled p5.min.js. It should not be tampered with. The library creates the game loop and has useful Vector math functions.
 
 There is a file called variables.js that has all global variables in it. They can technically be declared anywhere but this is a little more organized. 
 
-JavaScript has inbuild functions that can be done to arrays that are used throughout this game. Learn more about them here: [https://www.w3schools.com/jsref/jsref_obj_array.asp](https://www.w3schools.com/jsref/jsref_obj_array.asp)
+JavaScript has inbuild functions that can be done to arrays that are used throughout this game. Learn more about them here: [Read more on that here](https://www.w3schools.com/jsref/jsref_obj_array.asp). The 2 canvases are layered on top of eachother and the background gradient is always blured with css. This is the canvas that the voltage is displayed on. Everything else is in the foreground canvas. Anytime you want to call an inbuilt p5 function, you have to specify which canvas you will call it from because p5 is no longer in a global mode. 
 
 
+### p5.js
 
-### p5.js Basics
+Because the simulation uses 2 canvases, they each run on their own instance of p5.js. This is called Instance Mode [https://p5js.org/examples/instance-mode-instantiation.html](https://p5js.org/examples/instance-mode-instantiation.html)
 
 When the page is first loaded, the p5.js library will look for the preload(), setup() and draw functions. They are run in that order. 
 
