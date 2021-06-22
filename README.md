@@ -68,6 +68,8 @@
         <a href="#Code">Code</a>
         <ul>
             <li><a href="#p5.js-Basics">p5.js Basics</a></li>
+            <li><a href="#Buttons">Buttons</a></li>
+            <li><a href="#CheckBoxes">CheckBoxes</a></li>
         </ul>
     </li>
     <li>
@@ -135,7 +137,7 @@ JavaScript has inbuild functions that can be done to arrays that are used throug
 
 Because the simulation uses 2 canvases, they each run on their own instance of p5.js. This is called Instance Mode [https://p5js.org/examples/instance-mode-instantiation.html](https://p5js.org/examples/instance-mode-instantiation.html)
 
-When the page is first loaded, the p5.js library will look for the preload(), setup() and draw functions. They are run in that order. 
+When the page is first loaded, each canvas will look for its preload(), setup() and draw() functions. They are run in that order and are all indepentant from eachother. 
 
 The preload() function is used to handle asynchronous loading of external files in a blocking way. If a preload function is defined, setup() will wait until any load calls within have finished. This is where all of the images and fonts are moved to the user's RAM for later usage. 
 
@@ -143,30 +145,40 @@ The setup() function is called once when the program starts. It's used to create
 
 Called directly after setup(), the draw() function continuously executes the lines of code contained inside its block until the program is stopped. The number of times draw() executes in each second may be controlled with the frameRate() function.
 
-All of these functions can be found in the game.js file. 
+All of these functions can be found a the top of the main.js file. 
 
 
 ### Buttons
-Each Screen has its own buttons. Buttons will visually showup on the screen and will do whatever funtion is assigned to them when they are clicked. They know they are clicked because of collision detection based on the buttons shape and size. 
-
-The clicked() function inside the Button class in the button.js file tells the game what to do when the button is clicked. For now, there is a giant if statement that checks which button was clicked and runs he functions needed.
+Buttons are used in the side panel and the right click menu. 
 
 This is how a button is created:
    ```sh
    new Button({
-       x: 662,              // x position - INT
-       y: 75,               // y position - INT
-       width: 100,          // width - INT
-       height: 40,          // height - INT
-       title: "" ,          // text shown on button - STRING
-       onClick: "",         // function ran when button is clicked - STRING
-       shape: "",           // shape used for collision detection - STRING
-       bgColor: "",         // background color - STRING
-       fontColor: "",       // font color - STRING
-       fontSize: 24,        // font size - INT
-       font: spaceFont      // font of text displayed - Font decared in preload()
-       })
+      position: canvas.createVector(100, 255),        //  x y position of the button
+      width: 200,                                     // integer
+      height: 200,                                    // integer
+      text: "Single",                                 // String
+      image: icons[1]                                 // optional - will replace the text with an image 
+      onClick: function(){ createPreset('single') }   // function will run when button is clicked
+      })
    ```
+  
+
+### CheckBoxes
+CheckBoxes are used in the side panel. 
+
+This is how a CheckBox is created:
+   ```sh
+   new CheckBox({
+      position: canvas.createVector(100, 255),        //  x y position of the CheckBox
+      width: 200,                                     // integer
+      height: 200,                                    // integer
+      text: "Show Grid",                                 // String
+      value: true,                                    // boolean
+      onClick: function(){createGrid = this.value;}   // function will run when checkbox is clicked
+      })
+   ```
+  
 
 ### Pop Ups
 Each Screen has its own buttons. Buttons will visually showup on the screen and will do whatever funtion is assigned to them when they are clicked. They know they are clicked because of collision detection based on the buttons shape and size. 
