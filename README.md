@@ -60,9 +60,6 @@
     </li>
     <li>
         <a href="#Design">Design</a>
-        <ul>
-            <li><a href="#Mayer's-Principles-of-Multimedia-Learning">Mayers Principles of Multimedia Learning</a></li>
-        </ul>
     </li>
     <li>
         <a href="#Code">Code</a>
@@ -179,7 +176,7 @@ This is how a CheckBox is created:
       })
    ```
   
-
+<!-- 
 ### Pop Ups
 Each Screen has its own buttons. Buttons will visually showup on the screen and will do whatever funtion is assigned to them when they are clicked. They know they are clicked because of collision detection based on the buttons shape and size. 
 
@@ -223,7 +220,7 @@ This is how a button is created:
       ],
       // functions: { // this function runs every frame when the popup is visible. Comment it out if you dont want anything to run},
   }),
-   ```
+   ``` -->
 
 
 ### Charges
@@ -285,7 +282,7 @@ class Charge
    ```
 
 ### Collision Detection
-
+<!-- 
 There are a few different methods of collision deection throuout the game. The first kind works only with circles and squares and the second type works with all shapes. The key difference between the two types of collisions is that the first kind will return true whenever a point is inside another shape and the second type of collision will only return true when a point collides with the edge of a shape. 
 
 This is how the first kind of collision detection is used for something like button collisions. This can be seen in the mouseEvents.js file inside the mouseClicked() function.
@@ -345,7 +342,7 @@ function intersect(s1,s2)       // s1 and s2 are two different lines. They are e
               ((s2[1].x - s2[0].x) * (s1[0].y - s1[1].y) - (s1[0].x - s1[1].x) * (s2[1].y - s2[0].y));
     return [tA, tB];
 }
-```
+``` -->
 
 
 ## Physics
@@ -534,7 +531,7 @@ Dr. Colleen Countryman - [Assistant Professor](https://www.ithaca.edu/academics/
 
 
 
-Project Link: [https://github.com/tedkmburu/DEFI-Game](https://github.com/tedkmburu/DEFI-Game)
+Project Link: [https://github.com/tedkmburu/E-FieldSim-v2](https://github.com/tedkmburu/E-FieldSim-v2)
 
 
 
@@ -542,15 +539,8 @@ Project Link: [https://github.com/tedkmburu/DEFI-Game](https://github.com/tedkmb
 ## Acknowledgements
 
 * Dr. Colleen Countryman
-* Dr. John Barr
 
-* Sean Blackford
-* Amber Elliott
 * Ted Mburu
-* Eli Robinson
-* Mark Volkov
-* Yemi Afobali
-* Liana Rodelli
 
 * Ithaca College Physics & Astronomy Department
 * Ithaca College IT
