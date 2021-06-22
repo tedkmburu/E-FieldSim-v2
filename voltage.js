@@ -36,7 +36,7 @@ function displayVoltage()
 
 
 
-function showVoltageOnCursor()
+function showVoltageValueOnCursor()
 {
   let notTouchingACharge = charges.every(charge => {
     let distance = p5.Vector.dist(mousePosition, charge.position);

@@ -19,11 +19,11 @@ class Button
         this.height = props.height;
 
         this.visible = props.visible || true;
-        this.hovering = false;
         this.alignText = props.alignText || canvas.CENTER;
+        this.hovering = false;
+        this.hoverText = props.hoverText;
 
         this.text = props.text;
-        this.hoverText = props.hoverText;
         this.image = props.image;
 
         this.onClick = props.onClick;
@@ -84,6 +84,17 @@ class Button
 
                 if (button.hovering && button.hoverText != null) 
                 {
+                    canvas.fill("rgba(0,0,0,0.75)");
+                    canvas.rect(0, 0, innerWidth - sidePanelWidth, innerHeight);
+
+
+                    canvas.fill(255);
+                    
+                    canvas.textAlign(canvas.CENTER);
+                    canvas.textSize(24);
+                    canvas.noStroke();
+                    canvas.text(button.hoverText, (innerWidth - sidePanelWidth)/2, innerHeight/2);
+
                     console.log(button.hoverText);
                 }
                 
@@ -91,17 +102,7 @@ class Button
         }
         else // this is the three line "burger" at the top of the side panel
         {
-            canvas.push();
-                canvas.noStroke();
-                canvas.fill(0);
-                // canvas.rect(button.position.x, button.position.y, button.width, button.height / 5, 2);
-
-                // canvas.rect(button.position.x, button.position.y + (button.height / 3), button.width, button.height / 5, 2);
-
-                // canvas.rect(button.position.x, button.position.y + (2 * button.height / 3), button.width, button.height / 5, 2);
-
-                canvas.image(button.image, button.position.x, button.position.y, button.width, button.height);
-            canvas.pop(); 
+            canvas.image(button.image, button.position.x, button.position.y, button.width, button.height);   
         }
         
         

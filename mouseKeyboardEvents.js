@@ -161,7 +161,7 @@ function whenMouseDragged()
   if (noChargeIsBeingDragged) // if no charge is being dragged, check if the mouse is over a charge and is dragging
   {
     charges.forEach(charge => {
-      if (pointIsInsideCircle(mousePosition, charge)) charge.dragging = true  // if the mouse is hovering over a charge , set it's dragging property to true
+      if (pointIsInsideCircle(mousePosition, charge)) charge.dragging = true;  // if the mouse is hovering over a charge while it's being dragged, set it's dragging property to true
       else charge.dragging = false;
     })
   }

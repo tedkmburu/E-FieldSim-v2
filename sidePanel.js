@@ -15,23 +15,24 @@ function createSidePanel()
     let col2 = innerWidth - 155;
 
     buttons.push(
-        new Button({position: canvas.createVector(innerWidth - 280, 10), width: buttonHeight / 2, height: buttonHeight / 2, image: icons[3], onClick: function(){ menuOpen = !menuOpen; } }))
+        new Button({position: canvas.createVector(innerWidth - 280, 10), width: buttonHeight / 2, height: buttonHeight / 2, image: icons[3], onClick: function(){ menuOpen = !menuOpen; } }));
 
     checkBoxes.push(
-        new CheckBox({position: canvas.createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines",          value: false, onClick: function(){ showFieldLines = this.value; if (this.value) { createFieldLines() } } }),
+        new CheckBox({position: canvas.createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines",          value: true, onClick: function(){ showFieldLines = this.value; if (this.value) { createFieldLines() } } }),
         new CheckBox({position: canvas.createVector(col1, 75), height: 20, width: checkBoxWidth, text: "Field Vectors",        value: false, onClick: function(){ showFieldVectors = this.value; if (this.value) { createFieldVectors() } } }),
-        new CheckBox({position: canvas.createVector(col1, 100), height: 20, width: checkBoxWidth, text: "Equipotential Lines", value: true, onClick: function(){ showEquipotentialLines = this.value; equiLines = []; }, hoverText: "Click to Anywhere to Create an Equipotential Line" }),
+        new CheckBox({position: canvas.createVector(col1, 100), height: 20, width: checkBoxWidth, text: "Equipotential Lines", value: false, onClick: function(){ showEquipotentialLines = this.value; equiLines = []; }, hoverText: "Click to Anywhere to Create an Equipotential Line" }),
         new CheckBox({position: canvas.createVector(col1, 125), height: 20, width: checkBoxWidth, text: "Voltage",             value: false, onClick: function(){ showVoltage = this.value; if (this.value) { createVoltage() } } }),
-        new CheckBox({position: canvas.createVector(col1, 150), height: 20, width: checkBoxWidth, text: "Show Grid",           value: true,  onClick: function(){ createGrid = this.value; } }),
-        new CheckBox({position: canvas.createVector(col1 + 20, 175), height:20, width:checkBoxWidth, text:"Snap to Grid",      value: false, onClick: function(){ snapToGrid = this.value; if (this.value) { checkBoxes[4].value = true; createGrid = true;} } }))
+        new CheckBox({position: canvas.createVector(col1 + 20, 150), height: 20, width: checkBoxWidth, text: "Show Value",     value: false, onClick: function(){ showVoltageValue = this.value } }),
+        new CheckBox({position: canvas.createVector(col1, 175), height: 20, width: checkBoxWidth, text: "Show Grid",           value: true,  onClick: function(){ createGrid = this.value; } }),
+        new CheckBox({position: canvas.createVector(col1 + 20, 200), height:20, width:checkBoxWidth, text:"Snap to Grid",      value: false, onClick: function(){ snapToGrid = this.value; if (this.value) { checkBoxes[4].value = true; createGrid = true;} } }))
 
     buttons.push(
-        new Button({position: canvas.createVector(col1, 255), width: butonHalfWidth, height: buttonHeight, text: "Single", onClick: function(){ createPreset('single') } }),
-        new Button({position: canvas.createVector(col2, 255), width: butonHalfWidth, height: buttonHeight, text: "Dipole", onClick: function(){ createPreset('dipole') } }),
-        new Button({position: canvas.createVector(col1, 295), width: butonHalfWidth, height: buttonHeight, text: "Row", onClick: function(){ createPreset('row') } }),
-        new Button({position: canvas.createVector(col2, 295), width: butonHalfWidth, height: buttonHeight, text: "Dipole Row", onClick: function(){ createPreset('dipole row') } }),
-        new Button({position: canvas.createVector(col1, 335), width: buttonFullWidth, height: buttonHeight, text: "Random", onClick: function(){ createPreset("random"); } }),
-        new Button({position: canvas.createVector(col1, 375), width: buttonFullWidth, height: buttonHeight, text: "Remove All Charges", onClick: function(){ createPreset(null); testCharges=[];} }))
+        new Button({position: canvas.createVector(col1, 265), width: butonHalfWidth, height: buttonHeight, text: "Single", onClick: function(){ createPreset('single') } }),
+        new Button({position: canvas.createVector(col2, 265), width: butonHalfWidth, height: buttonHeight, text: "Dipole", onClick: function(){ createPreset('dipole') } }),
+        new Button({position: canvas.createVector(col1, 305), width: butonHalfWidth, height: buttonHeight, text: "Row", onClick: function(){ createPreset('row') } }),
+        new Button({position: canvas.createVector(col2, 305), width: butonHalfWidth, height: buttonHeight, text: "Dipole Row", onClick: function(){ createPreset('dipole row') } }),
+        new Button({position: canvas.createVector(col1, 345), width: buttonFullWidth, height: buttonHeight, text: "Random", onClick: function(){ createPreset("random"); } }),
+        new Button({position: canvas.createVector(col1, 385), width: buttonFullWidth, height: buttonHeight, text: "Remove All Charges", onClick: function(){ createPreset(null); testCharges=[];} }));
 
     checkBoxes.push(
         new CheckBox({position: canvas.createVector(col1, 465), height: 20, width: checkBoxWidth, text: "Test Charge Mode", value: false, onClick: function(){ testChargeMode = this.value; }, hoverText: "Click to Anywhere to Place a Test Charge" }))
@@ -41,15 +42,13 @@ function createSidePanel()
         new Button({position: canvas.createVector(col1, 530), width: buttonFullWidth, height: buttonHeight, text: "Clear Test Charges", onClick: function(){ testCharges = []; } }),
 
         // new Button({position: canvas.createVector(col1, 600), width: buttonFullWidth, height: buttonHeight, text: "Conductors", onClick: function(){ window.open("conductors/conductors.html") } })
-        )
+        );
 
-        for (let i = 0; i < icons.length - 1; i++) 
-        {
-            let x = innerWidth - 230 + (i * 50); 
-            let y = innerHeight - 50; 
-            buttons.push(new Button({position: canvas.createVector(x, y), width: 25, height: 25, image: icons[i], onClick: function(){ bottomButtons(i); } }));
-        }
-
+    buttons.push(
+        new Button({position: canvas.createVector(innerWidth - 100, innerHeight - 50), width: 25, height: 25, image: icons[0], onClick: function(){ saveAsPNG(); } }),
+        new Button({position: canvas.createVector(innerWidth - 180, innerHeight - 50), width: 25, height: 25, image: icons[1], onClick: function(){ console.log("help"); }, hoverText: "Help" }),
+        new Button({position: canvas.createVector(innerWidth - 250, innerHeight - 50), width: 25, height: 25, image: icons[2], onClick: function(){ showQRCode = !showQRCode;  }, hoverText: "Share" })
+        );
 }
 
 
@@ -57,7 +56,6 @@ function createSidePanel()
 
 function bottomButtons(i)
 {
-    console.log(i);
     if (i == 0) 
     {
         saveAsPNG();
@@ -68,7 +66,7 @@ function bottomButtons(i)
     }
     if (i == 2) 
     {
-        console.log("share");   
+        showQRCode = !showQRCode; 
     }
 }
 
@@ -117,7 +115,7 @@ function displaySidePanel()
         }  
     }
 
-    // creates white background for side panel
+    // creates white background for side panel and writes text
     canvas.push()
         canvas.fill(255)
         canvas.rect(innerWidth - sidePanelWidth, 0, sidePanelWidth, innerHeight)
@@ -126,16 +124,15 @@ function displaySidePanel()
         canvas.noStroke();
         canvas.textSize(16);
         
-        canvas.text("Premade Configurations: " , buttons[1].position.x, 250);
+        canvas.text("Premade Configurations: " , buttons[1].position.x, 260);
 
         canvas.imageMode(canvas.CENTER);
-        canvas.image(QRCode, innerWidth - (sidePanelWidth / 2), innerHeight - 200, 200, 200);
 
+        if (showQRCode) 
+        {
+            canvas.image(QRCode, innerWidth - (sidePanelWidth / 2), innerHeight - 200, 200, 200);
+        }
         
-        // for (let i = 0; i < icons.length - 1; i++) 
-        // {
-        //     canvas.image(icons[i], innerWidth - 230 + (i * 50), innerHeight - 50, 25, 25);
-        // }
 
     canvas.pop()
 }
@@ -168,5 +165,5 @@ function displayDataFromSidePanel() // After creating data based off of the side
 
   if (testChargeMode) displayTestCharges(); 
 
-  if (showVoltage) showVoltageOnCursor();
+  if (showVoltageValue) showVoltageValueOnCursor();
 }

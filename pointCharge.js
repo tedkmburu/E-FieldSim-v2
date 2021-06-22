@@ -71,6 +71,16 @@ class PointCharge extends Charge
             pointCharge.charge = pointCharge.slider.value();
         }
 
+        // if a charge is no longer being dragged and is over the trash can, it will be removed
+        if (!pointCharge.dragging && pointCharge.position.x < 100 && pointCharge.position.y > innerHeight - 100)
+        {
+            let index = charges.findIndex(charge => {
+                return !charge.dragging && charge.position.x < 100 && charge.position.y > innerHeight - 100;
+            });
+            
+            removeCharge(index);
+        }
+
         canvas.push();
             if (pointCharge.selected) // if the charge has been selected, create a white stroke around it and display its slider
             {

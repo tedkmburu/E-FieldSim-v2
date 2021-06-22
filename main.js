@@ -36,7 +36,8 @@ const foreGround = canvas => {
       canvas.loadImage("icons/help.png"), 
       //canvas.loadImage("icons/info.png"), 
       canvas.loadImage("icons/share.png"), 
-      canvas.loadImage("icons/menu.png") 
+      canvas.loadImage("icons/menu.png"), 
+      canvas.loadImage("icons/trashWhite.png") 
     ]
   }
 
@@ -70,6 +71,7 @@ const foreGround = canvas => {
     moveKeys(); // if the arrow keys are pressed, the selected charge moves
     
     displayDataFromSidePanel(); // displays whatever settings are selected in the side panel
+    displayTrashCan();
     displayCharges();
     displayFrameRate();
     displaySidePanel();
@@ -139,6 +141,12 @@ function displayFrameRate() // displays frame rate at the top left of the screen
     canvas.textSize(20);
     canvas.text(Math.round(canvas.frameRate()), 10, 25);
   canvas.pop();
+}
+
+function displayTrashCan()
+{
+  let canvas = foreGroundCanvas;
+  canvas.image(icons[4], 20, innerHeight - 80, 60, 60);   
 }
 
 
