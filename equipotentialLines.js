@@ -7,7 +7,10 @@ function displayEquipotentialLines()
 
 function createEquipotentialLine(position)
 {
-    getEquiLinePoints(position);    
+    if (charges.length != 0) 
+    {
+        getEquiLinePoints(position);    
+    }
 }
 
 
@@ -85,6 +88,28 @@ class EquiLine
     constructor(equiLinePoints)
     {
         this.equiLinePoints = equiLinePoints;
+
+        let canvas = foreGroundCanvas;
+
+        let voltageOfLine = voltageAtPoint(equiLinePoints[0]);
+        // let intensity = Math.round(canvas.map(Math.abs(voltageOfLine), 0, 5475, 0, 255));
+        let intensity = Math.round(canvas.map(Math.abs(voltageOfLine), 0, 475, 0, 255));
+
+        let red = 0;
+        let blue = 0;
+        let alpha = intensity * 10;
+
+        if (voltageOfLine > 0) red = intensity;
+        else if (voltageOfLine < 0) blue = intensity;
+
+        let voltageColor = canvas.color(red, 0, blue, alpha);
+
+        if (voltageOfLine == 0) 
+        {
+            voltageColor = canvas.color(255,255,255,255)  
+        }
+
+        this.strokeColor = voltageColor;
     }
 
     display()
@@ -95,13 +120,13 @@ class EquiLine
             canvas.beginShape();
             canvas.noFill()
 
-                let strokeColor;
-                let voltageOfLine = voltageAtPoint(points[0]);
-                if (voltageOfLine == 0) strokeColor = neutralChargeColor;
-                if (voltageOfLine > 0)  strokeColor = positiveChargeColor;
-                if (voltageOfLine < 0)  strokeColor = negativeChargeColor;
+                // let strokeColor;
+                // let voltageOfLine = voltageAtPoint(points[0]);
+                // if (voltageOfLine == 0) strokeColor = neutralChargeColor;
+                // if (voltageOfLine > 0)  strokeColor = positiveChargeColor;
+                // if (voltageOfLine < 0)  strokeColor = negativeChargeColor;
 
-                canvas.stroke(strokeColor);
+                canvas.stroke(this.strokeColor);
                 canvas.strokeWeight(2)
 
                 //points.forEach(point => canvas.vertex(point.x, point.y));

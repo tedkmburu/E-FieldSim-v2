@@ -71,7 +71,7 @@ const foreGround = canvas => {
     
     displayDataFromSidePanel(); // displays whatever settings are selected in the side panel
     displayCharges();
-    // displayFrameRate();
+    displayFrameRate();
     displaySidePanel();
     displayCheckBoxes();
     displayButtons();
