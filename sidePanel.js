@@ -45,7 +45,7 @@ function createSidePanel()
         );
 
     buttons.push(
-        new Button({position: canvas.createVector(innerWidth - 100, innerHeight - 50), width: 25, height: 25, image: icons[0], onClick: function(){ saveAsPNG(); } }),
+        //new Button({position: canvas.createVector(innerWidth - 100, innerHeight - 50), width: 25, height: 25, image: icons[0], onClick: function(){ saveAsPNG(); } }),
         new Button({position: canvas.createVector(innerWidth - 180, innerHeight - 50), width: 25, height: 25, image: icons[1], onClick: function(){ console.log("help"); }, hoverText: "Help" }),
         new Button({position: canvas.createVector(innerWidth - 250, innerHeight - 50), width: 25, height: 25, image: icons[2], onClick: function(){ showQRCode = !showQRCode;  }, hoverText: "Share" })
         );
@@ -132,6 +132,14 @@ function displaySidePanel()
         {
             canvas.image(QRCode, innerWidth - (sidePanelWidth / 2), innerHeight - 200, 200, 200);
         }
+
+        canvas.fill(100);
+        canvas.textSize(12);
+        canvas.textFont(buttonFont);
+
+        canvas.text("Help" ,  buttons[10].position.x - 0, buttons[10].position.y + 40);
+        // canvas.text("Save" ,  buttons[9].position.x  - 2, buttons[9].position.y  + 40);
+        canvas.text("Share" , buttons[11].position.x - 5, buttons[11].position.y + 40);
         
 
     canvas.pop()
