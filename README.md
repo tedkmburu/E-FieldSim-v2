@@ -223,7 +223,7 @@ This is how a button is created:
    ``` -->
 
 
-### Charges
+### Point Charges
 
 
 This is how a charge is created. 
