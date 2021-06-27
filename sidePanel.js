@@ -90,12 +90,45 @@ function displayHelp()
         canvas.fill(0);
         canvas.noStroke();
         canvas.textSize(16);
+
+        let title = 36;
+        let body = 16; 
+
+        let maxWidth = 3 * innerWidth / 4 - 200; 
+        let halfWidth = (3 * innerWidth / 4 - 300) / 2; 
+        let col1 = innerWidth / 8 + 100;
+        let col2 = innerWidth / 8 + 150 + halfWidth;
+
         
-        canvas.text("Double click anywhere to create a charge. The slider underneath the charge can be used to adjust the magnitude and sign of that charge. Charges can also be dragged around the screen by clicking and dragging on them. You can right click on a charge to delete it. You can also click on the charge and hit the \"delete\" key on your keyboard. \n \n The checkboxes on the right side of the screen can be used to toggle the different \"modes\" of the simulation that display different information about the electric field. ", innerWidth/8 + 50, 260, 3*innerWidth/4 - 100);
+        canvas.textSize(title);
+        canvas.text("How to use", col1, 200, halfWidth);
         
-        canvas.text("Test Charges", innerWidth/8 + 50, 360, 3*innerWidth/4 - 100);
+        canvas.textSize(body);
+        canvas.text("Double click anywhere to create a charge. The slider underneath the charge can be used to adjust the magnitude and sign of that charge. Charges can also be dragged around the screen by clicking and dragging on them. You can right click on a charge to delete it. You can also click on the charge and hit the \"delete\" key on your keyboard. \n \n The checkboxes on the right side of the screen can be used to toggle the different \"modes\" of the simulation that display different information about the electric field. ", col1, 260, halfWidth);
         
-        canvas.text("You can place test charges on the screen when the \"Test Charge Mode\" checkbox is toggled by clicking anywhere on the screen. Test charges will them move with accordance to the electric field that the onscreen charges create." , innerWidth/8 + 50, 460, 3*innerWidth/4 - 100);
+        canvas.textSize(title);
+        canvas.text("Test Charges", col1, 420, halfWidth);
+        
+        canvas.textSize(body);
+        canvas.text("You can place test charges on the screen when the \"Test Charge Mode\" checkbox is toggled by clicking anywhere on the screen. Test charges will them move with accordance to the electric field that the onscreen charges create." , col1, 470, halfWidth);
+
+
+
+
+
+        
+
+        canvas.textSize(title);
+        canvas.text("Report a bug", col2, 200, halfWidth);
+        
+        canvas.textSize(body);
+        canvas.text("Email: tmburu@ithaca.edu", col2, 260, halfWidth);
+        
+        canvas.textSize(body);
+        canvas.text("Created by: Ted Mburu \n ", col2, 320, halfWidth);
+        
+        canvas.textSize(body);
+        canvas.text(" Aknowlegements \n Dr. Colleen Countryman \n Dr. John Barr \n Dr. Doug Turnbull \n Ithaca College Physics Department \n Ithaca College IT \n p5.js (p5js.org) \n Daniel Shiffman (The Coding Train)" , col2, 370, halfWidth);
         
 
     canvas.pop()
