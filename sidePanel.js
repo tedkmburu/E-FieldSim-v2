@@ -20,7 +20,7 @@ function createSidePanel()
     checkBoxes.push(
         new CheckBox({position: canvas.createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines",          value: true, onClick: function(){ showFieldLines = this.value; if (this.value) { createFieldLines() } } }),
         new CheckBox({position: canvas.createVector(col1, 75), height: 20, width: checkBoxWidth, text: "Field Vectors",        value: false, onClick: function(){ showFieldVectors = this.value; if (this.value) { createFieldVectors() } } }),
-        new CheckBox({position: canvas.createVector(col1, 100), height: 20, width: checkBoxWidth, text: "Equipotential Lines", value: false, onClick: function(){ showEquipotentialLines = this.value; equiLines = []; }, hoverText: "Click to Anywhere to Create an Equipotential Line" }),
+        new CheckBox({position: canvas.createVector(col1, 100), height: 20, width: checkBoxWidth, text: "Equipotential Lines", value: false, onClick: function(){ showEquipotentialLines = this.value; equiLines = []; }, hoverText: "Click to Anywhere to Draw an Equipotential Line" }),
         new CheckBox({position: canvas.createVector(col1, 125), height: 20, width: checkBoxWidth, text: "Voltage",             value: false, onClick: function(){ showVoltage = this.value; if (this.value) { createVoltage() } } }),
         new CheckBox({position: canvas.createVector(col1 + 20, 150), height: 20, width: checkBoxWidth, text: "Show Value",     value: false, onClick: function(){ showVoltageValue = this.value } }),
         new CheckBox({position: canvas.createVector(col1, 175), height: 20, width: checkBoxWidth, text: "Show Grid",           value: true,  onClick: function(){ createGrid = this.value; } }),
@@ -46,7 +46,7 @@ function createSidePanel()
 
     buttons.push(
         //new Button({position: canvas.createVector(innerWidth - 100, innerHeight - 50), width: 25, height: 25, image: icons[0], onClick: function(){ saveAsPNG(); } }),
-        new Button({position: canvas.createVector(innerWidth - 140, innerHeight - 50), width: 25, height: 25, image: icons[1], onClick: function(){ console.log("help"); }, hoverText: "Help" }),
+        new Button({position: canvas.createVector(innerWidth - 140, innerHeight - 50), width: 25, height: 25, image: icons[1], onClick: function(){ showHelp = !showHelp; }, hoverText: "Help" }),
         new Button({position: canvas.createVector(innerWidth - 210, innerHeight - 50), width: 25, height: 25, image: icons[2], onClick: function(){ showQRCode = !showQRCode;  }, hoverText: "Share" })
         );
 }
@@ -68,6 +68,48 @@ function bottomButtons(i)
     {
         showQRCode = !showQRCode; 
     }
+}
+
+
+
+function displayHelp()
+{
+
+    let canvas = foreGroundCanvas;
+
+    canvas.push()
+        canvas.fill("rgba(0,0,0,0.5)")
+        canvas.noStroke()
+        canvas.rect(0, 0, innerWidth, innerHeight)
+
+
+        canvas.fill(255);
+        canvas.noStroke();
+        canvas.rect(innerWidth/8, innerHeight/8, 3*innerWidth/4, innerHeight)
+
+        canvas.fill(0);
+        canvas.noStroke();
+        canvas.textSize(16);
+        
+        canvas.text("asdf " , buttons[1].position.x, 260);
+
+        canvas.imageMode(canvas.CENTER);
+
+        if (showQRCode) 
+        {
+            canvas.image(QRCode, innerWidth - (sidePanelWidth / 2), innerHeight - 200, 200, 200);
+        }
+
+        canvas.fill(100);
+        canvas.textSize(12);
+        canvas.textFont(buttonFont);
+
+        canvas.text("Help" ,  buttons[9].position.x - 0, buttons[9].position.y + 40);
+        // canvas.text("Save" ,  buttons[9].position.x  - 2, buttons[9].position.y  + 40);
+        canvas.text("Share" , buttons[10].position.x - 5, buttons[10].position.y + 40);
+        
+
+    canvas.pop()
 }
 
 

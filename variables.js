@@ -40,6 +40,7 @@ let snapToGrid = false;
 let menuOpen = true;
 let QRCode;
 let showQRCode = false; 
+let showHelp = true; 
 let icons;
 
 
