@@ -91,22 +91,11 @@ function displayHelp()
         canvas.noStroke();
         canvas.textSize(16);
         
-        canvas.text("asdf " , buttons[1].position.x, 260);
-
-        canvas.imageMode(canvas.CENTER);
-
-        if (showQRCode) 
-        {
-            canvas.image(QRCode, innerWidth - (sidePanelWidth / 2), innerHeight - 200, 200, 200);
-        }
-
-        canvas.fill(100);
-        canvas.textSize(12);
-        canvas.textFont(buttonFont);
-
-        canvas.text("Help" ,  buttons[9].position.x - 0, buttons[9].position.y + 40);
-        // canvas.text("Save" ,  buttons[9].position.x  - 2, buttons[9].position.y  + 40);
-        canvas.text("Share" , buttons[10].position.x - 5, buttons[10].position.y + 40);
+        canvas.text("Double click anywhere to create a charge. The slider underneath the charge can be used to adjust the magnitude and sign of that charge. Charges can also be dragged around the screen by clicking and dragging on them. You can right click on a charge to delete it. You can also click on the charge and hit the \"delete\" key on your keyboard. \n \n The checkboxes on the right side of the screen can be used to toggle the different \"modes\" of the simulation that display different information about the electric field. ", innerWidth/8 + 50, 260, 3*innerWidth/4 - 100);
+        
+        canvas.text("Test Charges", innerWidth/8 + 50, 360, 3*innerWidth/4 - 100);
+        
+        canvas.text("You can place test charges on the screen when the \"Test Charge Mode\" checkbox is toggled by clicking anywhere on the screen. Test charges will them move with accordance to the electric field that the onscreen charges create." , innerWidth/8 + 50, 460, 3*innerWidth/4 - 100);
         
 
     canvas.pop()
