@@ -40,15 +40,33 @@ function createFieldLines()
 
 function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
 {
-    if (listOfPoints == undefined) 
+    let minVectorSize = 3;
+    let maxVectorSize = chargeRadius;
+    let vectorMag;
+
+    if (listOfPoints == undefined) // ponly true the first time this funciton runs
     {
-        listOfPoints = []
+        listOfPoints = [];
         numberOfLoops = 0; 
+        vectorMag = chargeRadius;
+    }
+
+    if (vectorMag == undefined) 
+    {
+        let previousPosition = listOfPoints[listOfPoints.length - 1];
+        let angleBetweenPoints =  Math.abs(startingPosition.angleBetween(previousPosition)) * (180 / Math.PI);
+
+        vectorMag = Math.round(maxVectorSize * Math.pow(0.01, angleBetweenPoints));
+
+        // console.log(angleBetweenPoints);
+
+        if (vectorMag > maxVectorSize) vectorMag = maxVectorSize;
+        if (vectorMag < minVectorSize) vectorMag = minVectorSize;
     }
 
     listOfPoints.push(startingPosition);
 
-    let forceVector = noPositiveCharges ? netForceAtPoint(startingPosition).setMag(chargeRadius).mult(-1) : netForceAtPoint(startingPosition).setMag(chargeRadius);
+    let forceVector = noPositiveCharges ? netForceAtPoint(startingPosition).setMag(vectorMag).mult(-1) : netForceAtPoint(startingPosition).setMag(vectorMag);
     let forceVectorFinalPosition = p5.Vector.add(forceVector, startingPosition);
 
     if (numberOfLoops % 7 == 0 && numberOfLoops > 6) 

@@ -81,9 +81,7 @@ function toggleHelp()
     else
     {
         document.getElementById("popup").style.visibility = "visible";
-    }
-    console.log("asdf");
-    
+    }    
 }
 
 

@@ -55,7 +55,7 @@ const foreGround = canvas => {
     fullscreen = false;
     showPopUp = false;
     
-    createPreset("dipole"); // creates what is displayed when the simulation first starts up
+    createPreset("row"); // creates what is displayed when the simulation first starts up
     createDataFromSidePanel();
 
     canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can
