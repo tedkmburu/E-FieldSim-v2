@@ -7,19 +7,48 @@
       <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
     </head>
     <body oncontextmenu="rightClick(); return false">
-
-      <!-- <ul id="contextMenu" class="contextMenu" style="top:0;left:0;display: none;"></ul> -->
-
-      <!-- <div class="bottomButtons">
-        <i onclick="togglePopUp()" class="fas fa-info"></i>
-        <i onclick="loop();looping = true;" class="fas fa-play"></i>
-        <i onclick="noLoop();looping = false;" class="fas fa-pause"></i> 
-        <i onclick="toggleFullscreen();" class="fas fa-expand" id="fullscreen"></i>
-        <i onclick="saveAsPNG();" class="fas fa-download"></i>
-        <i onclick="location.reload();" class="fas fa-redo-alt"></i>
-      </div> -->
-
+      <div class="popup" id="popup">
+        <div class="content">
+         <i class="fas fa-times closePopUp" onclick="togglePopUp()"></i><br>
+         <h1>How to use</h1>
+         <p>Double click anywhere to create a charge. The slider underneath the charge can be used to adjust the magnitude and sign of that charge. Charges can also be dragged around the screen by clicking and dragging on them. You can right click on a charge to delete it. You can also click on the charge and hit the "delete" key on your keyboard.</p>
+         <p> The checkboxes on the right side of the screen can be used to toggle the different "modes" of the simulation that display different information about the electric field.</p>
+         <p>Test Charges</p>
+         <p>You can place test charges on the screen when the "Test Charge Mode" checkbox is toggled by clicking anywhere on the screen. Test charges will them move with accordance to the electric field that the onscreen charges create.</p>
+         <h1>Using Simulation in a Classroom</h1>
+         <p></p>
+         <p>
+           Teacher:
+           <ul>
+             <li>Insert images into class slides</li>
+             <li>Create discussions around why intuition differs from reality</li>
+             <li> <a href="#">Worksheet/guided questions</a> </li>
+           </ul>
+           Student:
+           <ul>
+             <li>Create charge configurations</li>
+             <li>Model problems in simulation</li>
+           </ul>
+         </p>
+         <h1>Report a bug</h1>
+         <p>tmburu@ithaca.edu</p>
+         created by: Ted Mburu<br>
+         <br>
+         Aknowlegements<br>
+         Dr. Colleen Countryman<br>
+         Dr. John Barr<br>
+         Dr. Doug Turnbull<br>
+         Ithaca College Physics Department<br>
+         Ithaca College IT<br>
+ 
+         p5.js (<a href="https://p5js.org/" target="_blank">p5js.org</a>)<br>
+         Daniel Shiffman (<a href="https://www.youtube.com/user/shiffman/featured" target="_blank">The Coding Train</a>)<br>
+ 
+ 
+        </div>
+      </div>
     </body>
+
     <script src="p5.min.js"></script>
     
     <script src="variables.js"></script>

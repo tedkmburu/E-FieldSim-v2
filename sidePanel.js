@@ -46,7 +46,7 @@ function createSidePanel()
 
     buttons.push(
         //new Button({position: canvas.createVector(innerWidth - 100, innerHeight - 50), width: 25, height: 25, image: icons[0], onClick: function(){ saveAsPNG(); } }),
-        new Button({position: canvas.createVector(innerWidth - 140, innerHeight - 50), width: 25, height: 25, image: icons[1], onClick: function(){ showHelp = !showHelp; }, hoverText: "Help" }),
+        new Button({position: canvas.createVector(innerWidth - 140, innerHeight - 50), width: 25, height: 25, image: icons[1], onClick: function(){ showHelp = !showHelp; toggleHelp() }, hoverText: "Help" }),
         new Button({position: canvas.createVector(innerWidth - 210, innerHeight - 50), width: 25, height: 25, image: icons[2], onClick: function(){ showQRCode = !showQRCode;  }, hoverText: "Share" })
         );
 }
@@ -72,66 +72,18 @@ function bottomButtons(i)
 
 
 
-function displayHelp()
+function toggleHelp()
 {
-
-    let canvas = foreGroundCanvas;
-
-    canvas.push()
-        canvas.fill("rgba(0,0,0,0.5)")
-        canvas.noStroke()
-        canvas.rect(0, 0, innerWidth, innerHeight)
-
-
-        canvas.fill(255);
-        canvas.noStroke();
-        canvas.rect(innerWidth/8, innerHeight/8, 3*innerWidth/4, innerHeight)
-
-        canvas.fill(0);
-        canvas.noStroke();
-        canvas.textSize(16);
-
-        let title = 36;
-        let body = 16; 
-
-        let maxWidth = 3 * innerWidth / 4 - 200; 
-        let halfWidth = (3 * innerWidth / 4 - 300) / 2; 
-        let col1 = innerWidth / 8 + 100;
-        let col2 = innerWidth / 8 + 150 + halfWidth;
-
-        
-        canvas.textSize(title);
-        canvas.text("How to use", col1, 200, halfWidth);
-        
-        canvas.textSize(body);
-        canvas.text("Double click anywhere to create a charge. The slider underneath the charge can be used to adjust the magnitude and sign of that charge. Charges can also be dragged around the screen by clicking and dragging on them. You can right click on a charge to delete it. You can also click on the charge and hit the \"delete\" key on your keyboard. \n \n The checkboxes on the right side of the screen can be used to toggle the different \"modes\" of the simulation that display different information about the electric field. ", col1, 260, halfWidth);
-        
-        canvas.textSize(title);
-        canvas.text("Test Charges", col1, 420, halfWidth);
-        
-        canvas.textSize(body);
-        canvas.text("You can place test charges on the screen when the \"Test Charge Mode\" checkbox is toggled by clicking anywhere on the screen. Test charges will them move with accordance to the electric field that the onscreen charges create." , col1, 470, halfWidth);
-
-
-
-
-
-        
-
-        canvas.textSize(title);
-        canvas.text("Report a bug", col2, 200, halfWidth);
-        
-        canvas.textSize(body);
-        canvas.text("Email: tmburu@ithaca.edu", col2, 260, halfWidth);
-        
-        canvas.textSize(body);
-        canvas.text("Created by: Ted Mburu \n ", col2, 320, halfWidth);
-        
-        canvas.textSize(body);
-        canvas.text(" Aknowlegements \n Dr. Colleen Countryman \n Dr. John Barr \n Dr. Doug Turnbull \n Ithaca College Physics Department \n Ithaca College IT \n p5.js (p5js.org) \n Daniel Shiffman (The Coding Train)" , col2, 370, halfWidth);
-        
-
-    canvas.pop()
+    if (!showHelp) 
+    {
+        document.getElementById("popup").style.visibility = "hidden";
+    }
+    else
+    {
+        document.getElementById("popup").style.visibility = "visible";
+    }
+    console.log("asdf");
+    
 }
 
 

@@ -82,8 +82,6 @@ const foreGround = canvas => {
     if (showContextMenu) displayContextMenu();
     if (!canvas.focused) hideContextMenu();
 
-    if (showHelp) displayHelp();
-
     displayCursor(); // if in test charge mode, replace cursor with test charge. Otherwise, keep it normal
   }
 
