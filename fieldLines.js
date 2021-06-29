@@ -29,13 +29,23 @@ function createFieldLines()
             let startingPosition = canvas.createVector(point.x + origin.x, point.y + origin.y)
             getFieldLinePoints(startingPosition);
 
-            //point = p5.Vector.add(point, canvas.createVector(0,0));
             point.rotate((2 * Math.PI) / times);
         }
         
     });
 }
 
+
+function myAngleBetween(v1, v2)
+{
+    let dy = v1.y - v2.y;
+    let dx = v1.x - v2.x;
+    let theta = Math.atan2(dy, dx); // range (-PI, PI]
+    theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+
+    if (theta < 0) theta = 360 + theta; // range [0, 360)
+    return theta;
+}
 
 
 function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
@@ -44,21 +54,21 @@ function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
     let maxVectorSize = chargeRadius;
     let vectorMag;
 
-    if (listOfPoints == undefined) // ponly true the first time this funciton runs
+    if (listOfPoints == undefined) // only true the first time this funciton runs
     {
         listOfPoints = [];
         numberOfLoops = 0; 
         vectorMag = chargeRadius;
     }
-
-    if (vectorMag == undefined) 
+    else
     {
         let previousPosition = listOfPoints[listOfPoints.length - 1];
-        let angleBetweenPoints =  Math.abs(startingPosition.angleBetween(previousPosition)) * (180 / Math.PI);
+        // let angleBetweenPoints =  Math.abs( startingPosition.angleBetween(previousPosition) ) * (180 / Math.PI) ;
+        let angleBetweenPoints =  Math.abs( myAngleBetween(startingPosition, previousPosition) );
+        vectorMag = Math.round(maxVectorSize * Math.pow(1, angleBetweenPoints));
+        // vectorMag = 50 / angleBetweenPoints ;
 
-        vectorMag = Math.round(maxVectorSize * Math.pow(0.01, angleBetweenPoints));
-
-        // console.log(angleBetweenPoints);
+        // console.log(vectorMag);
 
         if (vectorMag > maxVectorSize) vectorMag = maxVectorSize;
         if (vectorMag < minVectorSize) vectorMag = minVectorSize;
@@ -117,8 +127,8 @@ class FieldLine
     display()
     {
         let canvas = foreGroundCanvas;
-        canvas.beginShape();
-        // canvas.beginShape(canvas.POINTS);
+        // canvas.beginShape();
+        canvas.beginShape(canvas.POINTS);
         canvas.noFill();
             canvas.stroke(255);
             canvas.vertex(this.fieldLinePoints[0].x, this.fieldLinePoints[0].y)
