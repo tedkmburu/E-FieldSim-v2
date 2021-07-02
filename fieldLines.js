@@ -82,7 +82,7 @@ function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
     if (numberOfLoops % 7 == 0 && numberOfLoops > 6) 
     {
         let arrowPosition = startingPosition;
-        let arrowAngle = forceVector.heading();
+        let arrowAngle = noPositiveCharges ? forceVector.mult(-1).heading() : forceVector.heading();
 
         fieldLineArrows.push(new FieldLineArrow(arrowPosition, arrowAngle));
     }
@@ -127,8 +127,8 @@ class FieldLine
     display()
     {
         let canvas = foreGroundCanvas;
-        // canvas.beginShape();
-        canvas.beginShape(canvas.POINTS);
+        canvas.beginShape();
+        // canvas.beginShape(canvas.POINTS);
         canvas.noFill();
             canvas.stroke(255);
             canvas.vertex(this.fieldLinePoints[0].x, this.fieldLinePoints[0].y)

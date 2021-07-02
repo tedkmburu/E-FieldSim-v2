@@ -42,7 +42,7 @@ function createPreset(preset)
     }
     else if (preset == "row")
     {
-        for (let i = 0; i < 2; i++)
+        for (let i = 0; i < 4; i++)
         {
             createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + i), 2,);
         }
