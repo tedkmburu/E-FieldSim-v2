@@ -232,8 +232,11 @@ function whenKeyPressed()
         {
           charge.slider.value(charges[i].slider.value() - 1);
         }
+        
       }
     })
+
+    
   }
   else
   {
@@ -244,6 +247,10 @@ function whenKeyPressed()
     if (canvas.keyCode == 107)
     {
       createPointCharge(mousePosition, 5);
+    }
+    if (canvas.keyCode === 27) // escape key pressed
+    {
+      closeHelp();
     }
   }
   

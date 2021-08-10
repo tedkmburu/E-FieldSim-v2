@@ -43,6 +43,15 @@ const foreGround = canvas => {
 
   canvas.setup = function()  // This function only runs once when the page first loads. 
   {
+    // let firstOpenSimulation = canvas.getItem('firstOpenSimulation')
+    // if (firstOpenSimulation == null) 
+    // {
+    //   toggleHelp()
+    //   canvas.storeItem('firstOpenSimulation', false);
+    // }
+
+    toggleHelp()
+
     canvas.createCanvas(innerWidth, innerHeight); // creates the <canvas> that everything runs on.
     foreGroundCanvas = canvas;
 
@@ -110,6 +119,14 @@ const foreGround = canvas => {
 new p5(background); // creates the background instance of p5
 new p5(foreGround); // creates the foreground instance of p5
 
+
+
+
+
+function showTutorial()
+{
+
+}
 
 
 

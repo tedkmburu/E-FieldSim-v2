@@ -84,6 +84,13 @@ function toggleHelp()
     }    
 }
 
+function closeHelp()
+{
+    showHelp = false; 
+    document.getElementById("popup").style.visibility = "hidden";
+      
+}
+
 
 
 

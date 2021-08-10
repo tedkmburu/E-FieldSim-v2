@@ -14,7 +14,7 @@ function createPreset(preset)
 
     if (preset == "single")
     {
-        createPointCharge(center, 5, );
+        createPointCharge(center, 5);
     }
     else if (preset == "dipole")
     {
