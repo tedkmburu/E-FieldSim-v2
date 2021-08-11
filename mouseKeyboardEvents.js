@@ -30,7 +30,7 @@ function moveKeys() // if the arrow keys are pressed, the selected charge moves
 function whenMouseClicked() // this is an inbuilt p5 function that runs everytime any mouse button is clicked
 {  
   buttons.forEach(button => { // this will loop through all the buttons
-    if (button.visible) 
+    if (button.visible && !showHelp) 
     {
       if (pointIsInsideRect(mousePosition, button)) // if the point where the user clicks is inside the button
       {
@@ -40,7 +40,7 @@ function whenMouseClicked() // this is an inbuilt p5 function that runs everytim
   })
 
   checkBoxes.forEach(checkBox => { // these will loop through all the checkBoxes
-    if (checkBox.visible) 
+    if (checkBox.visible && !showHelp) 
     {
       if (pointIsInsideRect(mousePosition, checkBox)) // if the point where the user clicks is inside the checkbox
       {
