@@ -6,87 +6,99 @@
       <link rel="stylesheet" href="index.css">
       <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
     </head>
-    <body oncontextmenu="rightClick(); return false">
-      <div class="popup" id="popup">
-        <div class="content">
-         <i class="fas fa-times closePopUp" onclick="togglePopUp()"></i><br>
-         <h1 style="position: relative; top: 50px;">How to use</h1>
-         <div class="tutorial">
-           <img src="icons/doubleClick.png">
-           <p>Double click anywhere to create a charge.</p>
-          </div>
-         <div class="tutorial">
-           <img src="icons/slider.png">
-           <p>The slider underneath the charge can be used to adjust the magnitude and sign of that charge.</p>
-          </div>
-         <div class="tutorial">
-            <img src="icons/drag.png">
-            <p>Charges can also be dragged around the screen by clicking and dragging on them.</p>
-          </div>
-         <div class="tutorial">
-           <img src="icons/delete.png">
-           <p>You can right click on a charge to delete it. You can also click on the charge and hit the <kbd>Delete</kbd> key on your keyboard.</p>
-          </div>
-         <div class="tutorial">
-           <img src="icons/checkboxes.png">
-           <p>The checkboxes on the right side of the screen can be used to toggle the different features of the simulation that display different information about the electric field.</p>
-          </div>
-         <!-- <p>Double click anywhere to create a charge.  Charges can also be dragged around the screen by clicking and dragging on them.</p>
-         <p> The checkboxes on the right side of the screen can be used to toggle the different "modes" of the simulation that display different information about the electric field.</p>
-         <p>Test Charges</p> -->
-         <p>You can place test charges on the screen when the "Test Charge Mode" checkbox is toggled by clicking anywhere on the screen. Test charges will them move with accordance to the electric field that the onscreen charges create.</p>
-         <h1>Using Simulation in a Classroom</h1>
-         <p></p>
-         <p>
-           Teacher:
-           <ul>
-             <li>Insert images into class slides</li>
-             <li>Create discussions around why intuition differs from reality</li>
-             <li> <a href="#">Worksheet/guided questions</a> </li>
-           </ul>
-           Student:
-           <ul>
-             <li>Create charge configurations</li>
-             <li>Model problems in simulation</li>
-           </ul>
-         </p>
-         <h1>Report a bug</h1>
-         <p>tmburu@ithaca.edu</p>
-         created by: Ted Mburu<br>
-         <br>
-         Aknowlegements<br>
-         Dr. Colleen Countryman<br>
-         Dr. John Barr<br>
-         Dr. Doug Turnbull<br>
-         Ithaca College Physics Department<br>
-         Ithaca College IT<br>
- 
-         p5.js (<a href="https://p5js.org/" target="_blank">p5js.org</a>)<br>
-         Daniel Shiffman (<a href="https://www.youtube.com/user/shiffman/featured" target="_blank">The Coding Train</a>)<br>
- 
- 
-        </div>
-      </div>
-    </body>
+    <body oncontextmenu="return false">
+      <img src="images/ithaca.jpg" alt="" class="logo">
+      <ul>
+        <li>
+          <a href="#" target="_blank">
+            <table>
+              <tr>
+                <td class="image">
+                  <img src="images/simulation.png" alt="simulation">
+                </td>
+              </tr>
+              <tr>
+                <td class="title">
+                  Simulation
+                </td>
+              </tr>
+              <tr>
+                <td class="text">
+                  This simulation is a sandbox where users can create any electric field they can imagine. The simulation will take the users confugurtation of charges and create electric field lines, field vectors, equipotential lines and voltage maps. Users acan also add test cahrges that will move around in accordance to the electric field that they created. 
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button>
+                    Go to Simulation <i class="arrow right"></i>
+                  </button>
+                </td>
+              </tr>
 
-    <script src="p5.min.js"></script>
-    
-    <script src="variables.js"></script>
-    <script src="presetConfigs.js"></script>
-    <script src="checkbox.js"></script>
-    <script src="sidePanel.js"></script>
-    <script src="mouseKeyboardEvents.js"></script>
-    <script src="button.js"></script>
-    <script src="charge.js"> </script>
-    <script src="pointCharge.js"></script>
-    <script src="testCharge.js"></script>
-    <script src="contextMenu.js"></script>
-    <script src="equipotentialLines.js"></script>
-    <script src="voltage.js"></script>
-    <script src="fieldLines.js"></script>
-    <script src="fieldVectors.js"></script>
-    <script src="main.js"></script>
-    
-   
-   <!-- <script src="https://kit.fontawesome.com/5ab7058819.js" crossorigin="anonymous"></script> -->
+            </table>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" target="_blank">
+            <table>
+              <tr>
+                <td class="image">
+                  <img src="images/game.png" alt="simulation">
+                </td>
+              </tr>
+              <tr>
+                <td class="title">
+                  Game
+                </td>
+              </tr>
+              <tr>
+                <td class="text">
+                  The game is centered around guiding a test charge through a racetrack using an electric field that the player creates by placing charges around their screen. As a person plays the game, they will see dynamic electric field lines created by the charges they place on the screen as well as the trajectory of test charges through the electric field.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button>
+                    Go to Game <i class="arrow right"></i>
+                  </button>
+                </td>
+              </tr>
+
+            </table>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" target="_blank">
+            <table>
+              <tr>
+                <td class="image">
+                  <img src="images/youtube.png" alt="simulation">
+                </td>
+              </tr>
+              <tr>
+                <td class="title">
+                  YouTube Series
+                </td>
+              </tr>
+              <tr>
+                <td class="text">
+                  This series of videos shows people how to build a simulation similar to the electric field one we created from scratch. It is all done in JavaScript using the p5.js library. This is intented to be followed by people with some level of programming experience as well as a general understanding of electric fields.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button>
+                    Go to Channel <i class="arrow right"></i>
+                  </button>
+                </td>
+              </tr>
+
+            </table>
+          </a>
+        </li>
+      </ul>
+      
+    </body>
 </html>

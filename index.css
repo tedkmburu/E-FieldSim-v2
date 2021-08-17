@@ -4,241 +4,106 @@ body, html
   margin: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden;
-  overscroll-behavior: none;
-  background-color: black;
+  overflow-x: hidden;
+  background-color: white;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
   -ms-user-select: none;
 }
-
-canvas
-{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-#defaultCanvas0 
-{
-  z-index: 0;
-  filter:  blur( 15px );
-}
-#defaultCanvas1
-{
-  z-index: 10;
-  background-color: rgba(0,0,0,0);
-}
-
-
-div.popup
-{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 9999;
-  overflow-y: scroll;
-  visibility: hidden;
-}
-div.popup div.content
-{
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(255, 255, 255, 1);
-  width: 70%;
-  padding: 5%;
-  padding-top: 0%;
-  margin: 10%;
-  margin-top: 5%;
-}
-i.closePopUp
-{
-  position: absolute;
-  z-index: 9999;
-  top: 7%;
-  right: 5%;
-}
-
-kbd {
-  background-color: #eee;
-  border-radius: 3px;
-  border: 1px solid #b4b4b4;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
-  color: #333;
-  display: inline-block;
-  font-size: .85em;
-  font-weight: 700;
-  line-height: 1;
-  padding: 2px 4px;
-  white-space: nowrap;
- }
-
-div.tutorial
-{
-  width: 15%;
-  padding: 2.5%;
-  float: left;
-}
-
-div.tutorial img
-{
-  width: 100%;
-}
-
-input
-{
-  height: 5px;
-  width: 150px;
-  border-radius: 5px;
-  background: "rgb(83,83,83)";
-  outline: none;
-  opacity: 0.9;
-  -webkit-transition: .2s;
-  transition: background .2s;
-  -webkit-appearance: none;
-  appearance: none;
-  visibility: hidden;
-}
-input:hover
-{
-  background: "rgb(255,255,255)";
-}
-input::-webkit-slider-thumb
-{
-  -webkit-appearance: none;
-  appearance: none;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: #616161;
-  cursor: pointer;
-}
-input::-moz-range-thumb
-{
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: #616161;
-  cursor: pointer;
-}
-
-
-
-i.fas:hover
-{
-  opacity: 0.5;
-}
-i.fa-bars
-{
-  position: fixed;
-  top: 10px;
-  right: 13px;
-
-}
-
-i.fas
-{
-  width: 15px;
-  height: 15px;
-  font-size: 12pt;
-}
-div.bottomButtons
-{
-  position: fixed;
-  bottom: 10px;
-  right: 15px;
-  padding: 0;
-  margin: 0;
-  z-index: 99;
-  height: 30px;
-  width: 200px;
-}
-div.bottomButtons i
-{
-  padding-right: 15px;
-}
-
-ul.contextMenu
-{
-  background-color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  padding-bottom: 10px;
-}
-ul.contextMenu li
-{
-  height: 20px;
-  margin: 0;
-  padding: 5px;
-  padding-right: 10px;
-  border-bottom: 1px solid #dfdfdf;
-}
-ul.contextMenu li:hover
-{
-  background-color: #dddddd;
-}
-ul.contextMenu li:active
-{
-  background-color: #cccccc;
-}
-
-
-
-table.menu, table.options
-
-{
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  border-collapse: collapse;
-}
-table.menu tr
-{
-  padding: 0;
-  margin: 0;
-}
-table.menu td.button
-{
-  width: 50%;
-  padding: 0;
-  margin: 0;
-}
-
-table.menu button.preset
-{
-  width: 95%;
-  padding: 5%;
-  margin: 0;
-  margin-bottom: 5px;
-}
-table.menu button.big
-{
-  width: 98%;
-  padding: 5%;
-  margin: 0;
-  margin-bottom: 5px;
-}
-table.menu td.doubleButton
-{
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-label
+ul
 {
   position: relative;
-  top: -3px;
+  top: 35%;
+  width: 100%;
+  height: 55%;
+  padding-bottom: 200px;
+  list-style: none;
+}
+li
+{
+  width: 22%;
+  height: 80%;
+  padding: 2.5%;
+  margin: 2.5%;
+
+  float: left;
+  list-style: none;
+  background-color: rgb(1, 49, 88);
+}
+
+table, a
+{
+  width: 100%;
+  text-decoration: none;
+}
+td.image
+{
+  width: 100%;
+}
+td.title, td.text
+{
+  color: white;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+td.title
+{
+  font-size: 24pt;
+}
+td.text
+{
+  width: 100%;
+}
+
+img
+{
+  width: 100%;
+}
+img.logo
+{
+  position: fixed;
+  top: 0px;
+  left: 60px;
+  width: 10%;
+}
+
+button
+{
+  padding: 10px;
+}
+button:hover
+{
+  cursor: pointer;
+}
+
+
+
+
+.arrow {
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }
