@@ -6,19 +6,15 @@ body, html
   width: 100%;
   overflow-x: hidden;
   background-color: white;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -ms-user-select: none;
+  font-family: Calibre,sans-serif;
 }
 ul
 {
   position: relative;
-  top: 35%;
+  bottom: 0%;
   width: 100%;
   height: 55%;
-  padding-bottom: 200px;
+  padding-bottom: 100px;
   list-style: none;
 }
 li
@@ -33,7 +29,7 @@ li
   background-color: rgb(1, 49, 88);
 }
 
-table, a
+table, ul a
 {
   width: 100%;
   text-decoration: none;
@@ -63,21 +59,54 @@ img
 }
 img.logo
 {
-  position: fixed;
-  top: 0px;
-  left: 60px;
+  margin: 0;
+  padding: 15px;
+  margin-left: 5%;
   width: 10%;
 }
 
 button
 {
   padding: 10px;
+  background-color: white;
+  outline: none;
+  border: none;
 }
 button:hover
 {
   cursor: pointer;
 }
 
+
+div.text
+{
+  width: 90%;
+  padding: 5%;
+  margin: 0;
+  padding-bottom: .5%;
+}
+div.title
+{
+  background-color: #1169BA;
+  width: 94%;
+  padding: 1%;
+  padding-left: 5%;
+}
+div.title h1
+{
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+  margin-bottom: 0;
+  font-size: 3.0rem;
+}
+div.title h3
+{
+  font-size: 12pt;
+  margin: 0;
+  margin-bottom: 12px;
+  padding: 0;
+  color:white;
+}
 
 
 

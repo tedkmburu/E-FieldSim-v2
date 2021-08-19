@@ -29,6 +29,11 @@ function moveKeys() // if the arrow keys are pressed, the selected charge moves
 
 function whenMouseClicked() // this is an inbuilt p5 function that runs everytime any mouse button is clicked
 {  
+  if (document.getElementById("popup").style.visibility == "visible" && mousePosition.x > innerWidth/2 && mousePosition.y < innerHeight / 2) 
+  {
+    closeHelp();
+  }
+
   buttons.forEach(button => { // this will loop through all the buttons
     if (button.visible && !showHelp) 
     {

@@ -49,6 +49,9 @@ function createSidePanel()
         new Button({position: canvas.createVector(innerWidth - 140, innerHeight - 50), width: 25, height: 25, image: icons[1], onClick: function(){ showHelp = !showHelp; toggleHelp() }, hoverText: "Help" }),
         new Button({position: canvas.createVector(innerWidth - 210, innerHeight - 50), width: 25, height: 25, image: icons[2], onClick: function(){ showQRCode = !showQRCode;  }, hoverText: "Share" })
         );
+
+    // popUpCloseButton = new Button({position: canvas.createVector(col1, 265), width: butonHalfWidth, height: buttonHeight, text: "Single", onClick: function(){ createPreset('single') } });
+    // document.getElementById("popup").style.visibility = "hidden";
 }
 
 

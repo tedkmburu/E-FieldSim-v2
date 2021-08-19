@@ -65,6 +65,18 @@ i.closePopUp
   top: 7%;
   right: 5%;
 }
+p.close
+{
+  font-size: 18pt;
+  position: fixed;
+  top: 10%;
+  right: 15%;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid black;
+  padding: 2px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
 
 kbd {
   background-color: #eee;
