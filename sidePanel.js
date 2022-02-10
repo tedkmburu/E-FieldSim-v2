@@ -5,7 +5,7 @@ function createSidePanel()
     buttons = []
     checkBoxes = []
 
-    let butonHalfWidth = 100;
+    let buttonHalfWidth = 100;
     let buttonFullWidth = 205;
     let buttonHeight = 35;
 
@@ -15,7 +15,7 @@ function createSidePanel()
     let col2 = innerWidth - 155;
 
     buttons.push(
-        new Button({position: canvas.createVector(innerWidth - 280, 10), width: buttonHeight / 2, height: buttonHeight / 2, image: icons[3], onClick: function(){ menuOpen = !menuOpen; } }));
+        new Button({position: canvas.createVector(innerWidth - 280, 10), width: buttonHeight / 2, height: buttonHeight / 2, image: icons[3], onClick: () => menuOpen = !menuOpen }));
 
     checkBoxes.push(
         new CheckBox({position: canvas.createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines",          value: true, onClick: function(){ showFieldLines = this.value; if (this.value) { createFieldLines() } } }),
@@ -27,10 +27,10 @@ function createSidePanel()
         new CheckBox({position: canvas.createVector(col1 + 20, 200), height:20, width:checkBoxWidth, text:"Snap to Grid",      value: false, onClick: function(){ snapToGrid = this.value; if (this.value) { checkBoxes[4].value = true; createGrid = true;} } }))
 
     buttons.push(
-        new Button({position: canvas.createVector(col1, 265), width: butonHalfWidth, height: buttonHeight, text: "Single", onClick: function(){ createPreset('single') } }),
-        new Button({position: canvas.createVector(col2, 265), width: butonHalfWidth, height: buttonHeight, text: "Dipole", onClick: function(){ createPreset('dipole') } }),
-        new Button({position: canvas.createVector(col1, 305), width: butonHalfWidth, height: buttonHeight, text: "Row", onClick: function(){ createPreset('row') } }),
-        new Button({position: canvas.createVector(col2, 305), width: butonHalfWidth, height: buttonHeight, text: "Dipole Row", onClick: function(){ createPreset('dipole row') } }),
+        new Button({position: canvas.createVector(col1, 265), width: buttonHalfWidth, height: buttonHeight, text: "Single", onClick: function(){ createPreset('single') } }),
+        new Button({position: canvas.createVector(col2, 265), width: buttonHalfWidth, height: buttonHeight, text: "Dipole", onClick: function(){ createPreset('dipole') } }),
+        new Button({position: canvas.createVector(col1, 305), width: buttonHalfWidth, height: buttonHeight, text: "Row", onClick: function(){ createPreset('row') } }),
+        new Button({position: canvas.createVector(col2, 305), width: buttonHalfWidth, height: buttonHeight, text: "Dipole Row", onClick: function(){ createPreset('dipole row') } }),
         new Button({position: canvas.createVector(col1, 345), width: buttonFullWidth, height: buttonHeight, text: "Random", onClick: function(){ createPreset("random"); } }),
         new Button({position: canvas.createVector(col1, 385), width: buttonFullWidth, height: buttonHeight, text: "Remove All Charges", onClick: function(){ createPreset(null); testCharges=[];} }));
 
@@ -69,8 +69,6 @@ function bottomButtons(i)
         showQRCode = !showQRCode; 
     }
 }
-
-
 
 function toggleHelp()
 {

@@ -5,7 +5,7 @@ function createSidePanel()
     buttons = []
     checkBoxes = []
 
-    //let butonHalfWidth = 100;
+    //let buttonHalfWidth = 100;
     let buttonFullWidth = 205;
     let buttonHeight = 35;
 
@@ -25,10 +25,10 @@ function createSidePanel()
         new CheckBox({position: canvas.createVector(col1, 150), height: 20, width: checkBoxWidth, text: "Show Grid", value: true, onClick: function(){ createGrid = this.value; } }))
 
     // buttons.push(
-    //     new Button({position: canvas.createVector(col1, 255), width: butonHalfWidth, height: buttonHeight, text: "Single", onClick: function(){ createPreset('single') } }),
-    //     new Button({position: canvas.createVector(col2, 255), width: butonHalfWidth, height: buttonHeight, text: "Dipole", onClick: function(){ createPreset('dipole') } }),
-    //     new Button({position: canvas.createVector(col1, 295), width: butonHalfWidth, height: buttonHeight, text: "Row", onClick: function(){ createPreset('row') } }),
-    //     new Button({position: canvas.createVector(col2, 295), width: butonHalfWidth, height: buttonHeight, text: "Dipole Row", onClick: function(){ createPreset('dipole row') } }),
+    //     new Button({position: canvas.createVector(col1, 255), width: buttonHalfWidth, height: buttonHeight, text: "Single", onClick: function(){ createPreset('single') } }),
+    //     new Button({position: canvas.createVector(col2, 255), width: buttonHalfWidth, height: buttonHeight, text: "Dipole", onClick: function(){ createPreset('dipole') } }),
+    //     new Button({position: canvas.createVector(col1, 295), width: buttonHalfWidth, height: buttonHeight, text: "Row", onClick: function(){ createPreset('row') } }),
+    //     new Button({position: canvas.createVector(col2, 295), width: buttonHalfWidth, height: buttonHeight, text: "Dipole Row", onClick: function(){ createPreset('dipole row') } }),
     //     new Button({position: canvas.createVector(col1, 335), width: buttonFullWidth, height: buttonHeight, text: "Remove All Charges", onClick: function(){ createPreset(null); testCharges=[]; equiPoints = []; } }))
 
     checkBoxes.push(
