@@ -29,8 +29,13 @@ function moveKeys() // if the arrow keys are pressed, the selected charge moves
 
 function whenMouseClicked() // this is an inbuilt p5 function that runs everytime any mouse button is clicked
 {  
+  if (document.getElementById("popup").style.visibility == "visible" && mousePosition.x > innerWidth/2 && mousePosition.y < innerHeight / 2) 
+  {
+    closeHelp();
+  }
+
   buttons.forEach(button => { // this will loop through all the buttons
-    if (button.visible) 
+    if (button.visible && !showHelp) 
     {
       if (pointIsInsideRect(mousePosition, button)) // if the point where the user clicks is inside the button
       {
@@ -40,7 +45,7 @@ function whenMouseClicked() // this is an inbuilt p5 function that runs everytim
   })
 
   checkBoxes.forEach(checkBox => { // these will loop through all the checkBoxes
-    if (checkBox.visible) 
+    if (checkBox.visible && !showHelp) 
     {
       if (pointIsInsideRect(mousePosition, checkBox)) // if the point where the user clicks is inside the checkbox
       {
@@ -232,8 +237,11 @@ function whenKeyPressed()
         {
           charge.slider.value(charges[i].slider.value() - 1);
         }
+        
       }
     })
+
+    
   }
   else
   {
@@ -244,6 +252,10 @@ function whenKeyPressed()
     if (canvas.keyCode == 107)
     {
       createPointCharge(mousePosition, 5);
+    }
+    if (canvas.keyCode === 27) // escape key pressed
+    {
+      closeHelp();
     }
   }
   
