@@ -42,6 +42,7 @@ div.popup
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.5);
+  color: black;
   z-index: 9999;
   overflow-y: scroll;
   visibility: hidden;
@@ -57,6 +58,7 @@ div.popup div.content
   padding-top: 0%;
   margin: 10%;
   margin-top: 5%;
+  color: black;
 }
 i.closePopUp
 {
@@ -64,6 +66,10 @@ i.closePopUp
   z-index: 9999;
   top: 7%;
   right: 5%;
+}
+p
+{
+  color: black;
 }
 p.close
 {
@@ -98,6 +104,7 @@ div.tutorial
   width: 15%;
   padding: 2.5%;
   float: left;
+  color: black;
 }
 
 div.tutorial img

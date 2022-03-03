@@ -31,18 +31,19 @@ let checkBoxes = [];
 let fieldVectors = [];
 let fieldLines = [];
 let fieldLineArrows = [];
-let equiLines = []; // equipotentialLines but shortened
+let equiLines = []; // "equipotentialLines" but shortened
 let voltageMap = [];
+let numberOfNegativeCharges;
+let noPositiveCharges;
 
 let popUpCloseButton;
-
 
 let sidePanelWidth = 300;
 let snapToGrid = false;
 let menuOpen = true;
 let QRCode;
 let showQRCode = false; 
-let showHelp = true; 
+let showHelp = false; 
 let icons;
 
 

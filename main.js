@@ -43,14 +43,14 @@ const foreGround = canvas => {
 
   canvas.setup = function()  // This function only runs once when the page first loads. 
   {
-    // let firstOpenSimulation = canvas.getItem('firstOpenSimulation')
-    // if (firstOpenSimulation == null) 
-    // {
-    //   toggleHelp()
-    //   canvas.storeItem('firstOpenSimulation', false);
-    // }
+    let firstOpenSimulation = canvas.getItem('firstOpenSimulation')
+    if (firstOpenSimulation == null) 
+    {
+      toggleHelp()
+      canvas.storeItem('firstOpenSimulation', false);
+    }
 
-    toggleHelp()
+    // toggleHelp()
 
     canvas.createCanvas(innerWidth, innerHeight); // creates the <canvas> that everything runs on.
     foreGroundCanvas = canvas;
@@ -62,9 +62,9 @@ const foreGround = canvas => {
     createSidePanel(); // creates buttons and checkboxes for the side panel
     createContextMenu(); // creates the buttons for the right click menu
     fullscreen = false;
-    showPopUp = false;
+    // showPopUp = false;
     
-    createPreset("single"); // creates what is displayed when the simulation first starts up
+    createPreset("dipole"); // creates what is displayed when the simulation first starts up
     createDataFromSidePanel();
 
     canvas.frameRate(60);  // the simulation will try limit itself to 60 frames per second. If a device can't maintain 60 fps, it will run at whatever it can

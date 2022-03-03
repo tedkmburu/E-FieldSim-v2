@@ -54,20 +54,32 @@ function createPreset(preset)
     {
         for (let i = 0; i < 4; i++)
         {
-            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y - 100 + i), 4);
-            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + 100 + i), -4);
+            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y - 100 + i), 3);
+            createPointCharge(canvas.createVector(center.x + (i * (chargeDiameter + 35)) - 150, center.y + 100 + i), -3);
         }
     }
     else if (preset == "random")
     {
-        for (let i = 0; i < 5; i++)
+        for (let i = 0; i < 4; i++)
         {
             let x = (Math.random() * (innerWidth - sidePanelWidth - 200)) + 100
             let y = (Math.random() * (innerHeight - 200)) + 100; 
-            let charge = Math.round(Math.random() * 10) - 5;
+            let charge = Math.round(Math.random() * 5);
             if (charge == 0) 
             {
                 charge++;    
+            }
+            createPointCharge(canvas.createVector(x, y), charge);
+        }
+
+        for (let i = 0; i < 2; i++)
+        {
+            let x = (Math.random() * (innerWidth - sidePanelWidth - 200)) + 100
+            let y = (Math.random() * (innerHeight - 200)) + 100; 
+            let charge = -1 * Math.round(Math.random() * 5);
+            if (charge == 0) 
+            {
+                charge--;    
             }
             createPointCharge(canvas.createVector(x, y), charge);
         }
