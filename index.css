@@ -1,3 +1,9 @@
+@viewport {
+  width: device-width ;
+  zoom: 1.0 ;
+}
+
+
 body, html
 {
   padding: 0;
@@ -69,6 +75,7 @@ button
 {
   padding: 10px;
   background-color: white;
+  color: black;
   outline: none;
   border: none;
 }
@@ -83,11 +90,12 @@ div.text
   width: 90%;
   padding: 5%;
   margin: 0;
-  padding-bottom: .5%;
+  padding-bottom: .5%; 
+  color: black;
 }
 div.title
 {
-  background-color: #1169BA;
+  background-color: #013158;
   width: 94%;
   padding: 1%;
   padding-left: 5%;
@@ -135,4 +143,47 @@ div.title h3
 .down {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
+}
+
+
+
+@media screen and (max-width:640px) {
+  ul
+  {
+    position: relative;
+    bottom: 0%;
+    width: 100%;
+    height: 55%;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 100px;
+
+    list-style: none;
+  }
+  li
+  {
+    width: 90%;
+    height: 90%;
+    padding: 2.5%;
+    margin: 2.5%;
+
+    float: left;
+    list-style: none;
+    background-color: rgb(1, 49, 88);
+  }
+  img.logo
+  {
+    margin: 0;
+    padding: 15px;
+    margin-left: 10%;
+    width: 70%;
+  }
+  div.title
+  {
+  }
+}
+
+@media screen and (min-width: 481px) {
+  /* comes into effect for screens larger than or equal to 481 pixels */
+  
 }

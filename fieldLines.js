@@ -50,8 +50,8 @@ function myAngleBetween(v1, v2)
 
 function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
 {
-    let minVectorSize = 3;
-    let maxVectorSize = chargeRadius;
+    // let minVectorSize = 3;
+    // let maxVectorSize = chargeRadius;
     let vectorMag;
 
     if (listOfPoints == undefined) // only true the first time this funciton runs
@@ -62,21 +62,34 @@ function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
     }
     else
     {
-        let previousPosition = listOfPoints[listOfPoints.length - 1];
+        // let previousPosition = listOfPoints[listOfPoints.length - 1];
         // let angleBetweenPoints =  Math.abs( startingPosition.angleBetween(previousPosition) ) * (180 / Math.PI) ;
-        let angleBetweenPoints =  Math.abs( myAngleBetween(startingPosition, previousPosition) );
-        vectorMag = Math.round(maxVectorSize * Math.pow(1, angleBetweenPoints));
-        // vectorMag = 50 / angleBetweenPoints ;
+        // let angleBetweenPoints =  Math.abs( myAngleBetween(startingPosition, previousPosition) );
+        // console.log(angleBetweenPoints);
+        // vectorMag = Math.round(maxVectorSize * Math.pow(2, angleBetweenPoints));
+        vectorMag = chargeRadius;
+
+        // console.log(numberOfLoops);
+        if (numberOfLoops < 10)
+        {
+            vectorMag = chargeRadius / 4;
+        }
+        // vectorMag = 1000 / angleBetweenPoints ;
 
         // console.log(vectorMag);
 
-        if (vectorMag > maxVectorSize) vectorMag = maxVectorSize;
-        if (vectorMag < minVectorSize) vectorMag = minVectorSize;
+        // if (vectorMag > maxVectorSize) vectorMag = maxVectorSize;
+        // if (vectorMag < minVectorSize) vectorMag = minVectorSize;
     }
 
     listOfPoints.push(startingPosition);
 
-    let forceVector = noPositiveCharges ? netForceAtPoint(startingPosition).setMag(vectorMag).mult(-1) : netForceAtPoint(startingPosition).setMag(vectorMag);
+    let forceVector = netForceAtPoint(startingPosition).setMag(vectorMag);
+    if (noPositiveCharges) 
+    {
+        forceVector.mult(-1);
+    }
+
     let forceVectorFinalPosition = p5.Vector.add(forceVector, startingPosition);
 
     if (numberOfLoops % 7 == 0 && numberOfLoops > 6) 
@@ -96,7 +109,7 @@ function getFieldLinePoints(startingPosition, numberOfLoops, listOfPoints)
 
     let index = distanceToCharges.indexOf(closestChargeDistance);
 
-    if (closestChargeDistance > chargeRadius / 2 && numberOfLoops < 100) 
+    if (closestChargeDistance > chargeRadius / 2 && numberOfLoops < 110) 
     {
         getFieldLinePoints(forceVectorFinalPosition, numberOfLoops + 1, listOfPoints);
     }

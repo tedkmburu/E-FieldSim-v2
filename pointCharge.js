@@ -30,14 +30,17 @@ function removeCharge(i) // deletes a charge from the charges array and removes 
 {
     charges[i].slider.remove();
     charges.splice(i,1);
-
-    createDataFromSidePanel();
 }
 
 function removeAllCharges() // clears the charges array
 {
-    for (let i = charges.length - 1; i >= 0; i--) removeCharge(i); // from end of array to beginning 
+    for (let i = charges.length - 1; i >= 0; i--) 
+    {
+        removeCharge(i); // from end of array to beginning 
+    }
     charges = [];
+
+    createDataFromSidePanel();
 }
 
 
@@ -57,7 +60,7 @@ class PointCharge extends Charge
         this.slider = canvas.createSlider(-5, 5, charge, 1);
         this.slider.style("zIndex", "999");
         this.slider.input( function(){  createDataFromSidePanel(); equiLines = []; } ); // recalculate everything that's displayed on screen
-        this.slider.changed( function(){  createDataFromSidePanel(); equiLines = []; } ); // recalculate everything that's displayed on screen
+        this.slider.changed( function(){  createDataFromSidePanel(); equiLines = [];  } ); // recalculate everything that's displayed on screen
     }
 
     display()
@@ -79,6 +82,7 @@ class PointCharge extends Charge
             });
             
             removeCharge(index);
+            createDataFromSidePanel();
         }
 
         canvas.push();

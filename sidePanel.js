@@ -46,7 +46,7 @@ function createSidePanel()
 
     buttons.push(
         //new Button({position: canvas.createVector(innerWidth - 100, innerHeight - 50), width: 25, height: 25, image: icons[0], onClick: function(){ saveAsPNG(); } }),
-        new Button({position: canvas.createVector(innerWidth - 140, innerHeight - 50), width: 25, height: 25, image: icons[1], onClick: function(){ showHelp = !showHelp; toggleHelp() }, hoverText: "Help" }),
+        new Button({position: canvas.createVector(innerWidth - 140, innerHeight - 50), width: 25, height: 25, image: icons[1], onClick: function(){ toggleHelp() }, hoverText: "Help" }),
         new Button({position: canvas.createVector(innerWidth - 210, innerHeight - 50), width: 25, height: 25, image: icons[2], onClick: function(){ showQRCode = !showQRCode;  }, hoverText: "Share" })
         );
 
@@ -82,7 +82,8 @@ function toggleHelp()
     else
     {
         document.getElementById("popup").style.visibility = "visible";
-    }    
+    }  
+    showHelp = !showHelp;  
 }
 
 function closeHelp()
@@ -173,6 +174,8 @@ function displaySidePanel()
 function createDataFromSidePanel() // after reading the checkboxes in the side panel, this is called to update everything on the screen to reflect the side panel checkboxes
 {
     noPositiveCharges = !charges.some(charge => charge.charge > 0); // if a positive charge exists, this will be false
+    // numberOfNegativeCharges = charges.filter(charge => { return charge.charge < 0}).length
+
 
     if (showVoltage) createVoltage();
     

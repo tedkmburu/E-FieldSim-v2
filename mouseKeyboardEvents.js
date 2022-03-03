@@ -6,19 +6,19 @@ function moveKeys() // if the arrow keys are pressed, the selected charge moves
     {
       if (canvas.keyIsDown(canvas.RIGHT_ARROW))
       {
-          charge.position.x += 3;
+        charge.position.x += 3;
       }
       if (canvas.keyIsDown(canvas.LEFT_ARROW))
       {
-          charge.position.x -= 3;
+        charge.position.x -= 3;
       }
       if (canvas.keyIsDown(canvas.DOWN_ARROW))
       {
-          charge.position.y += 3;
+        charge.position.y += 3;
       }
       if (canvas.keyIsDown(canvas.UP_ARROW))
       {
-          charge.position.y -= 3;
+        charge.position.y -= 3;
       }  
     }
   })
@@ -40,6 +40,7 @@ function whenMouseClicked() // this is an inbuilt p5 function that runs everytim
       if (pointIsInsideRect(mousePosition, button)) // if the point where the user clicks is inside the button
       {
         button.clicked();
+        return;
       }
     }
   })
@@ -50,6 +51,7 @@ function whenMouseClicked() // this is an inbuilt p5 function that runs everytim
       if (pointIsInsideRect(mousePosition, checkBox)) // if the point where the user clicks is inside the checkbox
       {
         checkBox.clicked();
+        return;
       }
     }
   })
@@ -57,11 +59,12 @@ function whenMouseClicked() // this is an inbuilt p5 function that runs everytim
   if (showContextMenu) 
   {
     contextMenuButtons.forEach(button => { // this will loop through all the buttons
-      if (button.visible) 
+      if (button.visible && !showHelp) 
       {
         if (pointIsInsideRect(mousePosition, button)) // if the point where the user clicks is inside the button
         {
           button.clicked();
+          return;
         }
       }
     })
@@ -228,6 +231,7 @@ function whenKeyPressed()
         if (canvas.keyCode === canvas.DELETE)
         {
           removeCharge(i);
+          createDataFromSidePanel();
         }
         if (canvas.keyCode === 107) // plus key pressed
         {
