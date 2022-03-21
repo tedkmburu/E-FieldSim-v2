@@ -15,7 +15,7 @@ function createSidePanel()
     let col2 = innerWidth - 155;
 
     buttons.push(
-        new Button({position: canvas.createVector(innerWidth - 280, 10), width: buttonHeight / 2, height: buttonHeight / 2, image: icons[3], onClick: () => menuOpen = !menuOpen }));
+        new Button({position: canvas.createVector(innerWidth - 280 - (buttonHeight / 4), 10 - (buttonHeight / 4)), width: buttonHeight, height: buttonHeight, image: icons[3], onClick: () => menuOpen = !menuOpen }));
 
     checkBoxes.push(
         new CheckBox({position: canvas.createVector(col1, 50), height: 20, width: checkBoxWidth, text: "Field Lines",          value: true, onClick: function(){ showFieldLines = this.value; if (this.value) { createFieldLines() } } }),
@@ -46,8 +46,8 @@ function createSidePanel()
 
     buttons.push(
         //new Button({position: canvas.createVector(innerWidth - 100, innerHeight - 50), width: 25, height: 25, image: icons[0], onClick: function(){ saveAsPNG(); } }),
-        new Button({position: canvas.createVector(innerWidth - 140, innerHeight - 50), width: 25, height: 25, image: icons[1], onClick: function(){ toggleHelp() }, hoverText: "Help" }),
-        new Button({position: canvas.createVector(innerWidth - 210, innerHeight - 50), width: 25, height: 25, image: icons[2], onClick: function(){ showQRCode = !showQRCode;  }, hoverText: "Share" })
+        new Button({position: canvas.createVector(innerWidth - 140 - (buttonHeight / 4), innerHeight - 50 - (buttonHeight / 4)), width: 50, height: 50, image: icons[1], onClick: function(){ toggleHelp() }, hoverText: "Help" }),
+        new Button({position: canvas.createVector(innerWidth - 210 - (buttonHeight / 4), innerHeight - 50 - (buttonHeight / 4)), width: 50, height: 50, image: icons[2], onClick: function(){ showQRCode = !showQRCode;  }, hoverText: "Share" })
         );
 
     // popUpCloseButton = new Button({position: canvas.createVector(col1, 265), width: butonHalfWidth, height: buttonHeight, text: "Single", onClick: function(){ createPreset('single') } });
@@ -160,9 +160,9 @@ function displaySidePanel()
         canvas.textSize(12);
         canvas.textFont(buttonFont);
 
-        canvas.text("Help" ,  buttons[9].position.x - 0, buttons[9].position.y + 40);
+        canvas.text("Help" ,  buttons[9].position.x + 10, buttons[9].position.y + 50);
         // canvas.text("Save" ,  buttons[9].position.x  - 2, buttons[9].position.y  + 40);
-        canvas.text("Share" , buttons[10].position.x - 5, buttons[10].position.y + 40);
+        canvas.text("Share" , buttons[10].position.x + 10, buttons[10].position.y + 50);
         
 
     canvas.pop()

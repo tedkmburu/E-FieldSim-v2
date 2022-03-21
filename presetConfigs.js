@@ -10,7 +10,7 @@ function createPreset(preset)
     let centerXRoundedPhone = floorToNearestGrid((innerWidth / 2) - chargeRadius);
     let centerYRoundedPhone = floorToNearestGrid((innerHeight / 2) - chargeRadius);
 
-    let center = (innerWidth > 800) ? canvas.createVector(centerXRounded,centerYRounded) : canvas.createVector(centerXRoundedPhone,centerYRoundedPhone);
+    let center = (innerWidth > 500) ? canvas.createVector(centerXRounded,centerYRounded) : canvas.createVector(centerXRoundedPhone,centerYRoundedPhone);
 
     if (preset == "single")
     {

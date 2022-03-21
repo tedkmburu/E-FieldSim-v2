@@ -49,7 +49,9 @@ function createTestChargeMap() // removes all test charges then fills the screen
 
     for (let y = 0; y < innerHeight; y += incriment)
     {
-        for (let x = 0; x < innerWidth - sidePanelWidth; x += incriment)
+        let stoppingPoint = (innerWidth > 500) ? innerWidth - sidePanelWidth : innerWidth;
+        
+        for (let x = 0; x < stoppingPoint; x += incriment)
         {
             testCharges.push(new TestCharge(canvas.createVector(x, y), testChargeCharge)); // creates test charges where they're supposed to go
         }

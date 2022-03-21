@@ -95,14 +95,18 @@ class Button
                     canvas.noStroke();
                     canvas.text(button.hoverText, (innerWidth - sidePanelWidth)/2, innerHeight/2);
 
-                    console.log(button.hoverText);
+                    // console.log(button.hoverText);
                 }
                 
             canvas.pop();  
         }
-        else // this is the three line "burger" at the top of the side panel
+        else // this is the three line "burger" at the top of the side panel and the help and share buttons
         {
-            canvas.image(button.image, button.position.x, button.position.y, button.width, button.height);   
+            
+            // canvas.fill("rgba(255,0,0,0.5)")
+            // canvas.rect(button.position.x, button.position.y, button.width, button.height);   
+
+            canvas.image(button.image, button.position.x + (button.width / 4), button.position.y + (button.width / 4), button.width / 2, button.height / 2);
         }
         
         
