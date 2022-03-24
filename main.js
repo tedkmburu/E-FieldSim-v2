@@ -99,6 +99,7 @@ const foreGround = canvas => {
   canvas.doubleClicked = function() { whenDoubleClicked(); } // inbuilt p5 function. runs everytime the mouse is double clicked
   canvas.keyPressed = function() { whenKeyPressed(); } // inbuilt p5 function. runs everytime any keyboard button is clicked
   canvas.mouseMoved = function() { whenMouseMoved(); } // inbuilt p5 function. runs everytime the mouse moves
+  // canvas.touchStarted(event) = function() { console.log(event); }
 
   canvas.windowResized = function()  // inbuilt p5 function. runs everytime the window is resized
   {

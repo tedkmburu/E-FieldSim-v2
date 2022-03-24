@@ -87,7 +87,6 @@ const foreGround = canvas => {
     displayCheckBoxes();
     displayButtons();
     
-
     if (showContextMenu) displayContextMenu();
     if (!canvas.focused) hideContextMenu();
 

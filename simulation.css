@@ -262,3 +262,60 @@ label
   position: relative;
   top: -3px;
 }
+
+
+@media screen and (max-width:640px) {
+  div.tutorial
+  {
+    width: 95%;
+    padding: 2.5%;
+    float: left;
+    color: black;
+  }
+  p.close
+  {
+    font-size: 18pt;
+    position: fixed;
+    top: 2%;
+    right: 12.5%;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    background-color: red;
+    color: white;
+  }
+  img.mobile
+  {
+    display: block;
+  }
+  img.desktop
+  {
+    display: none;
+  }
+}
+@media screen and (min-width: 481px) 
+{
+  div.popup div.content
+  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 1);
+    width: 70%;
+    padding: 5%;
+    padding-top: 0%;
+    margin: 10%;
+    margin-top: 5%;
+    color: black;
+  }
+  img.mobile
+  {
+    display: none;
+  }
+  img.desktop
+  {
+    display: block;
+  }
+}
+
