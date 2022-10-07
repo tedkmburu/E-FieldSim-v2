@@ -146,11 +146,11 @@ div.title h3
 
 div.smallCard
 {
-  width: 200px;
+  width: 90%;
+  padding: 2.5%;
   margin: 2.5%;
-  margin-top: 33%;
-  padding: 1%;
 
+  float: left;
   list-style: none;
   background-color: rgb(1, 49, 88);
 }
