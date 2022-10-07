@@ -144,6 +144,28 @@ div.title h3
   -webkit-transform: rotate(45deg);
 }
 
+div.smallCard
+{
+  width: 200px;
+  margin: 2.5%;
+  margin-top: 33%;
+  padding: 1%;
+
+  list-style: none;
+  background-color: rgb(1, 49, 88);
+}
+div.smallCard a
+{
+  color: white;
+  text-decoration: none;
+}
+div.smallCard a i
+{
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
 
 
 @media screen and (max-width:640px) {

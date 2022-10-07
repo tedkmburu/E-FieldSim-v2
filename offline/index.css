@@ -34,6 +34,29 @@ div.card
   background-color: rgb(1, 49, 88);
 }
 
+div.smallCard
+{
+  width: 200px;
+  margin: 2.5%;
+  margin-top: 33%;
+  padding: 1%;
+
+  list-style: none;
+  background-color: rgb(1, 49, 88);
+}
+div.smallCard a
+{
+  color: white;
+  text-decoration: none;
+}
+div.smallCard a i
+{
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
 table, div.card a
 {
   width: 100%;
