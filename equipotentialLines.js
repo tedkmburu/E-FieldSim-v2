@@ -3,13 +3,18 @@ function displayEquipotentialLines()
     equiLines.forEach(equiLine => {
         equiLine.display();
     });
+
+    // showMouseEquiLinePoints(mousePosition.copy())
 }
 
 function createEquipotentialLine(position)
 {
     if (charges.length != 0) 
     {
-        getEquiLinePoints(position);    
+        let newEquiLines = getEquiLinePoints(position);  
+        // console.log(newEquiLines);
+        // equiLines.push(newEquiLines[0]);
+        // equiLines.push(newEquiLines[1]);
     }
 }
 
@@ -77,9 +82,90 @@ function getEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops, ar
             arrayOfRightPoints.push(arrayOfLeftPoints[arrayOfLeftPoints.length - 1])
         }
         
+        let leftPoints = new EquiLine(arrayOfLeftPoints)
+        let rightPoints = new EquiLine(arrayOfRightPoints)
 
-        equiLines.push(new EquiLine(arrayOfLeftPoints));
-        equiLines.push(new EquiLine(arrayOfRightPoints));
+        // console.log(leftPoints, rightPoints);
+
+        // return {left: leftPoints, right: rightPoints}
+        equiLines.push(leftPoints);
+        equiLines.push(rightPoints);
+    } 
+}
+
+
+
+
+function showMouseEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops, arrayOfLeftPoints, arrayOfRightPoints)
+{
+    if (arrayOfLeftPoints == undefined) 
+    {
+        arrayOfLeftPoints = [originPoint, originPoint]
+        arrayOfRightPoints = [originPoint, originPoint]
+        leftPoint = originPoint;
+        rightPoint = originPoint;
+        numberOfLoops = 0;
+    }
+
+
+    for (let i = 0; i < 100; i++) 
+    {
+        let forceVector = netForceAtPoint(leftPoint);
+        forceVector.rotate(Math.PI / 2);
+        forceVector.setMag(equiLinesAccuracy);
+        leftPoint = p5.Vector.add(leftPoint, forceVector);
+    }
+    arrayOfLeftPoints.push(leftPoint);
+
+
+    for (let i = 0; i < 100; i++) 
+    {
+        let forceVector = netForceAtPoint(rightPoint);
+        forceVector.mult(-1);
+        forceVector.rotate(Math.PI / 2);
+        forceVector.setMag(equiLinesAccuracy);
+        rightPoint = p5.Vector.add(rightPoint, forceVector);
+    }
+    arrayOfRightPoints.push(rightPoint);
+
+
+
+    if (numberOfLoops > 10) 
+    {
+        arrayOfRightPoints.forEach(point => {
+            let pointToCheck = arrayOfLeftPoints[arrayOfLeftPoints.length - 5]
+            if (p5.Vector.dist(pointToCheck, point) < 20) 
+            {
+                numberOfLoops = equiLinesLimit;
+            }
+        })
+    }
+    
+    
+    
+    
+    
+    if (numberOfLoops < equiLinesLimit)
+    {
+        showMouseEquiLinePoints(originPoint, leftPoint, rightPoint, numberOfLoops + 1, arrayOfLeftPoints, arrayOfRightPoints);
+    } 
+    else
+    {
+        let distanceBetweenLines = p5.Vector.dist(arrayOfLeftPoints[arrayOfLeftPoints.length - 1], arrayOfRightPoints[arrayOfRightPoints.length - 1])
+        if (distanceBetweenLines < 10) 
+        {
+            arrayOfLeftPoints.push(arrayOfRightPoints[arrayOfRightPoints.length - 1])
+            arrayOfRightPoints.push(arrayOfLeftPoints[arrayOfLeftPoints.length - 1])
+        }
+        
+        new EquiLine(arrayOfLeftPoints).display()
+        new EquiLine(arrayOfRightPoints).display()
+
+        // console.log(leftPoints, rightPoints);
+
+        // return {left: leftPoints, right: rightPoints}
+        // equiLines.push(leftPoints);
+        // equiLines.push(rightPoints);
     } 
 }
 
