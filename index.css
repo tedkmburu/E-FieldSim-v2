@@ -1,125 +1,347 @@
-@viewport {
-  width: device-width ;
-  zoom: 1.0 ;
-}
-
-
-body, html
+html, body
 {
-  padding: 0;
   margin: 0;
-  height: 100%;
-  width: 100%;
+  padding: 0;
   overflow-x: hidden;
-  background-color: white;
-  font-family: Calibre,sans-serif;
-}
-ul
-{
-  position: relative;
-  bottom: 0%;
-  width: 100%;
-  height: 55%;
-  padding-bottom: 100px;
-  list-style: none;
-}
-div.card
-{
-  width: 22%;
-  padding: 2.5%;
-  margin: 2.5%;
-
-  float: left;
-  list-style: none;
-  background-color: rgb(1, 49, 88);
-}
-
-table, div.card a
-{
-  width: 100%;
-  text-decoration: none;
-}
-td.image
-{
-  width: 100%;
-}
-td.title, td.text
-{
-  color: white;
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
-}
-td.title
-{
-  font-size: 24pt;
-}
-td.text
-{
-  width: 100%;
-}
-
-img
-{
-  width: 100%;
+  font-size: 10px;
+  -webkit-locale: "en";
 }
 img.logo
 {
-  margin: 0;
-  padding: 15px;
-  margin-left: 5%;
-  width: 10%;
-}
-
-button
-{
-  padding: 10px;
-  background-color: white;
-  color: black;
-  outline: none;
-  border: none;
-}
-button:hover
-{
-  cursor: pointer;
-}
-
-
-div.text
-{
-  width: 90%;
-  padding: 5%;
-  margin: 0;
-  padding-bottom: .5%; 
-  color: black;
-}
-div.title
-{
-  background-color: #013158;
-  width: 94%;
-  padding: 1%;
+  height: 40px;
+  padding: 1.5rem;
   padding-left: 5%;
 }
-div.title h1
+header table
 {
-  font-family: 'Times New Roman', Times, serif;
+  width: 100%;
+  border-collapse: collapse;
+}
+header td.title
+{
+  background-color: #1169BA;
   color: white;
-  margin-bottom: 0;
-  font-size: 3.0rem;
-}
-div.title h3
-{
-  font-size: 12pt;
+  font-family: Mercury Text G2 A,Mercury Text G2 B,serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 4rem;
+  line-height: 1.4;
   margin: 0;
-  margin-bottom: 12px;
+  width: auto;
+  text-align: left;
+  font-size: 5.2rem;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+  padding-left: 5%;
+}
+header td.subtitle
+{
+  background-color: #0C5BA4;
+  padding: 1.4rem 1.6rem;
+  font-family: Calibre,sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: #f3f6f7;
+  letter-spacing: normal;
+  font-weight: 500;
+  padding-left: 5%;
+}
+header td.subtitle a
+{
+  font-family: Calibre,sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: #f3f6f7;
+  letter-spacing: normal;
+  font-weight: 500;
   padding: 0;
-  color:white;
+  margin: 0;
+  text-decoration: none;
 }
 
 
+
+div.sidenav
+{
+  margin-top: 5rem;
+  width: 20%;
+  float: left;
+}
+div.sidenav ul
+{
+  list-style: none;
+  margin: 0 0 3.2rem;
+  padding: 0;
+}
+
+div.sidenav ul li
+{
+  padding: 0.8rem;
+  color: #3A5A79;
+  background-color: white; 
+}
+div.sidenav ul li.hover:hover
+{
+  background-color: #F3F6F7; 
+  color: #1169BA;
+}
+li.current
+{
+  background-color: #F3F6F7; 
+  color: #1169BA;
+  border-left: 0.8rem solid #ffe770;
+}
+
+div.sidenav ul a
+{
+  text-decoration: none;
+  font-family: Calibre,sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  color: inherit;
+  letter-spacing: normal;
+  font-weight: 500;
+  display: block;
+  padding: 0;
+  border-left: 0.8rem solid rgba(0,0,0,0);
+
+  border-top: 2px solid #f3f6f7;
+}
+
+div.sidenav ul a.ig
+{
+  border: none;
+  margin-top: 1rem;
+  margin-left: .6rem;
+  background-color: inherit;
+}
+a.ig
+{
+  border: none;
+  margin-top: 1rem;
+  margin-left: .6rem;
+  background-color: inherit;
+  color: inherit;
+}
+li.connect
+{
+  background-color: none;
+  font-size: 1.6rem;
+  font-family: Calibre,sans-serif;
+  line-height: 1.4;
+  color: rgb(17, 105, 186);
+  letter-spacing: normal;
+  font-weight: 500;
+  text-transform: uppercase; 
+}
+img.ig
+{
+  width: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+div.content
+{
+  width: 76%;
+  float: right;
+}
+div.content h2
+{
+  padding-bottom: 1.7rem;
+  font-size: 4.6rem;
+  letter-spacing: .2px;
+
+  font-family: Mercury Text G2 A,Mercury Text G2 B,serif;
+  line-height: 1.2;
+  color: #003B71;
+  font-weight: 500;
+  width: auto;
+  position: relative;
+  padding-bottom: 2rem;
+  margin-bottom: 1.6rem
+}
+
+
+
+
+
+div.content div.full
+{
+  width: 90%;
+  float: left;
+}
+li.paper
+{
+  font-size: 2.4rem;
+  color: #5f7991;
+}
+
+div.content div.text
+{
+  width: 50%;
+  float: left;
+}
+div.content div.image
+{
+  width: 50%;
+  float: right;
+}
+div.content div.image img
+{
+  width: 100%;
+}
+div.content h2::after 
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  content: "";
+  background-color: #52eabc;
+  height: 6px;
+  width: 46px;
+}
+div.content p 
+{
+  font-size: 2.4rem;
+  color: #5f7991;
+}
+div.content a.button
+{
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: "Calibre",sans-serif;
+  letter-spacing: 1px;
+  line-height: 1em;
+  display: inline-block;
+  padding: 1.2rem 2.4rem;
+  min-width: 12rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-align: center;
+  transition: all .25s;
+  background-color: #266dea;
+  color: #3a5a79;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 1.2rem 2.4rem;
+  
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+div.card
+{
+  width: 47%;
+  margin: 1%;
+  /* float: left; */
+  box-shadow: 1px 1px 4px 0 rgba(0,0,0,.2);
+  overflow-x: hidden;
+
+  display: inline-block;
+  margin-bottom: 0.3em;
+  *display: inline;
+  *margin-right: 0.3em;
+  *zoom: 1;
+  vertical-align: top;    
+}
+
+div.card p, div.smallCard p 
+{
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
+}
+div.card table, div.smallCard table
+{
+  width: 100%;
+  border-collapse: collapse;
+}
+div.smallCard
+{
+  width: 30%;
+  margin: 1%;
+  float: left;
+  box-shadow: 1px 1px 4px 0 rgba(0,0,0,.2);
+  overflow-x: hidden;
+
+  display: inline-block;
+  margin-bottom: 0.3em;
+  *display: inline;
+  *margin-right: 0.3em;
+  *zoom: 1;
+  vertical-align: top;
+}
+
+
+
+
+td.cardImage img
+{
+  width: 102%;
+  transform: translateX(-1%);
+}
+td.cardTitle
+{
+  font-family: "Calibre",sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #003b71;
+  line-height: 1.25;
+  padding-top: 2.4rem;
+  padding-bottom: 0.6rem;
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
+}
+td.cardText
+{
+  font-family: "Calibre",sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: #162c41;
+  line-height: 1.5;
+  padding: 2.4rem;
+  padding-bottom: 0rem;
+  padding-top: 0rem;
+}
+p.cardText
+{
+  padding: 0;
+  margin: 0;
+}
+td.cardButton
+{
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
+  padding-bottom: 2.4rem;
+}
 
 .arrow {
-  border: solid black;
-  border-width: 0 2px 2px 0;
+  border: solid white;
+  border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
 }
@@ -142,53 +364,4 @@ div.title h3
 .down {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
-}
-
-div.smallCard
-{
-  width: 90%;
-  padding: 2.5%;
-  margin: 2.5%;
-
-  float: left;
-  list-style: none;
-  background-color: rgb(1, 49, 88);
-}
-div.smallCard a
-{
-  color: white;
-  text-decoration: none;
-}
-div.smallCard a i
-{
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 3px;
-}
-
-
-@media screen and (max-width:640px) {
-  div.card
-  {
-    width: 90%;
-    padding: 2.5%;
-    margin: 2.5%;
-
-    float: left;
-    list-style: none;
-    background-color: rgb(1, 49, 88);
-  }
-  img.logo
-  {
-    margin: 0;
-    padding: 15px;
-    margin-left: 10%;
-    width: 70%;
-  }
-}
-
-@media screen and (min-width: 481px) {
-  /* comes into effect for screens larger than or equal to 481 pixels */
-  
 }
