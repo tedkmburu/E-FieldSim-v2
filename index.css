@@ -148,7 +148,7 @@ div.sidenav
 {
   margin-top: 5rem;
   width: 20%;
-  display: inline-block;
+  float: left;
   background-color: white;
 }
 div.sidenav ul
@@ -239,9 +239,9 @@ img.ig
 div.content
 {
   width: 76%;
-  display: inline-block;
+  float: right;
   background-color: white;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 div.content h2
 {
