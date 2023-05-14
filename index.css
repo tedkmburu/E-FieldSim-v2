@@ -61,11 +61,95 @@ header td.subtitle a
 
 
 
+
+
+
+
+
+
+
+footer
+{
+  width: 100%;
+  background-color: #003b71;
+}
+footer table
+{
+  width: 100%;
+  border-collapse: collapse;
+}
+footer td.menu
+{
+  padding-left: 1.6rem;
+  padding-bottom: 6.4rem;
+  color: white;
+  font-family: Calibre,sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: center;
+}
+footer td.menu ul 
+{
+  list-style: none;
+}
+footer td.menu ul li 
+{
+  color: white;
+  text-decoration: none;
+  float: left;
+  
+  padding: 0.4rem;
+  padding-right: 3rem;
+}
+footer td.light
+{
+  color: white;
+  padding: 1.6rem;
+
+  font-family: Calibre,sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+footer td.light img
+{
+  max-width: 254px;
+  padding: 1.6rem;
+  padding-top: 6.4rem;
+}
+footer td.dark
+{
+  margin-top: 6.4rem;
+  background-color: #162c41;
+  padding-top: 1rem;
+  padding-right: 1.6rem;
+  padding-bottom: 1rem;
+  padding-left: 1.6rem;
+  color: white;
+  font-family: Calibre,sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: center;
+}
+footer 
+
+
+
+
+
+
+
+
+
+
+
+
+
 div.sidenav
 {
   margin-top: 5rem;
   width: 20%;
-  float: left;
+  display: inline-block;
+  background-color: white;
 }
 div.sidenav ul
 {
@@ -155,7 +239,9 @@ img.ig
 div.content
 {
   width: 76%;
-  float: right;
+  display: inline-block;
+  background-color: white;
+  border: 1px solid black;
 }
 div.content h2
 {
